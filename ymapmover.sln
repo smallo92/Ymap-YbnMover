@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ymapmover", "ymapmover\ymapmover.csproj", "{3A7506C9-4E0B-4B5A-B98C-781428CF88EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A7506C9-4E0B-4B5A-B98C-781428CF88EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A7506C9-4E0B-4B5A-B98C-781428CF88EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A7506C9-4E0B-4B5A-B98C-781428CF88EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A7506C9-4E0B-4B5A-B98C-781428CF88EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB2F1333-9C55-470C-840F-0442ED04F41D}
+	EndGlobalSection
+EndGlobal
