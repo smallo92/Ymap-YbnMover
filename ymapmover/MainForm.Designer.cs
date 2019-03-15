@@ -47,12 +47,15 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.FilesAddedLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.zMove = new System.Windows.Forms.TextBox();
             this.yMove = new System.Windows.Forms.TextBox();
             this.xMove = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
+            this.StripStatusFiller = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -185,19 +188,21 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
+            this.FilesAddedLabel,
+            this.StripStatusFiller,
+            this.TimeLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 321);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(800, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // FilesAddedLabel
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(95, 17);
-            this.toolStripStatusLabel1.Text = "No File(s) Added";
+            this.FilesAddedLabel.Name = "FilesAddedLabel";
+            this.FilesAddedLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.FilesAddedLabel.Size = new System.Drawing.Size(95, 17);
+            this.FilesAddedLabel.Text = "No File(s) Added";
             // 
             // zMove
             // 
@@ -251,11 +256,34 @@
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
+            // StripStatusFiller
+            // 
+            this.StripStatusFiller.Name = "StripStatusFiller";
+            this.StripStatusFiller.Size = new System.Drawing.Size(690, 17);
+            this.StripStatusFiller.Spring = true;
+            // 
+            // TimeLabel
+            // 
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Enabled = false;
+            this.cancelButton.Location = new System.Drawing.Point(91, 294);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(73, 23);
+            this.cancelButton.TabIndex = 10;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 343);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.xMove);
@@ -300,12 +328,15 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel FilesAddedLabel;
         private System.Windows.Forms.TextBox zMove;
         private System.Windows.Forms.TextBox yMove;
         private System.Windows.Forms.TextBox xMove;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.ToolStripStatusLabel StripStatusFiller;
+        private System.Windows.Forms.ToolStripStatusLabel TimeLabel;
+        private System.Windows.Forms.Button cancelButton;
     }
 }
 

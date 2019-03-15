@@ -10,6 +10,7 @@ namespace ymapmover
 {
     public partial class MainForm : Form
     {
+        public bool CancelLoop = false;
         public MainForm()
         {
             InitializeComponent();
@@ -25,23 +26,52 @@ namespace ymapmover
 
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
-                string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
-                string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
-                foreach (String file in ymapFiles) { CurrentList.Items.Add(file); }
-                foreach (String file in ybnFiles) { CurrentList.Items.Add(file); }
+                new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
+                    string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
+                    foreach (String file in ymapFiles)
+                    {
+                        CurrentList.Items.Add(file);
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    }
+                    foreach (String file in ybnFiles)
+                    {
+                        CurrentList.Items.Add(file);
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    }
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
+                    CountItems();
+                }).Start();
             }
-            CountItems();
         }
 
         private void addItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
-                foreach (String file in openFileDialog1.FileNames) { CurrentList.Items.Add(file); }
+                new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    foreach (String file in openFileDialog1.FileNames)
+                    {
+                        CurrentList.Items.Add(file);
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    }
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
+                    CountItems();
+                }).Start();
             }
-            CountItems();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -61,6 +91,7 @@ namespace ymapmover
         {
             CurrentList.Items.Clear();
             CountItems();
+            TimeLabel.Text = "Time Elapsed: 0ms";
         }
 
         private void clearSelectedItemsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -71,6 +102,7 @@ namespace ymapmover
                 CurrentList.Items.RemoveAt(idx);
             }
             CountItems();
+            TimeLabel.Text = "Time Elapsed: 0ms";
         }
 
         private void clearAllYBNsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,13 +125,22 @@ namespace ymapmover
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            TimeLabel.Text = "Time Elapsed: 0ms";
+            cancelButton.Enabled = true;
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 for (var j = 0; j < CurrentList.Items.Count; j++)
                 {
+                    if (CancelLoop)
+                    {
+                        FilesAddedLabel.Text = "Cancelled";
+                        CancelLoop = false;
+                        return;
+                    }
                     string filename = CurrentList.Items[j].ToString();
-                    toolStripStatusLabel1.Text = "Processing " + Path.GetFileName(filename);
+                    FilesAddedLabel.Text = "Processing " + Path.GetFileName(filename);
                     
                     Vector3 moveVec = new Vector3(float.Parse(xMove.Text), float.Parse(yMove.Text), float.Parse(zMove.Text));
 
@@ -127,7 +168,8 @@ namespace ymapmover
 
                         byte[] newData = ybn.Save();
                         File.WriteAllBytes(filename, newData);
-
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     } else
                     {
                         YmapFile ymap = new YmapFile();
@@ -160,9 +202,14 @@ namespace ymapmover
 
                         byte[] newData = ymap.Save();
                         File.WriteAllBytes(filename, newData);
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                 }
-                toolStripStatusLabel1.Text = "Complete";
+                FilesAddedLabel.Text = "Complete";
+                var elapsedMs = watch.ElapsedMilliseconds;
+                TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
+                cancelButton.Enabled = false;
             }).Start();
         }
 
@@ -193,7 +240,7 @@ namespace ymapmover
         private void CountItems()
         {
             int listCount = CurrentList.Items.Count;
-            toolStripStatusLabel1.Text = listCount + " Item(s) Added";
+            FilesAddedLabel.Text = listCount + " Item(s) Added";
             if (listCount == 0)
             {
                 startButton.Enabled = false;
@@ -202,6 +249,20 @@ namespace ymapmover
             {
                 startButton.Enabled = true;
             }
+        }
+
+        private string ConvertMillisecondsToSeconds(double milliseconds)
+        {
+            if (TimeSpan.FromMilliseconds(milliseconds).TotalSeconds > 60)
+            {
+                return TimeSpan.FromMilliseconds(milliseconds).TotalMinutes.ToString("0.00") + "m";
+            }
+            return TimeSpan.FromMilliseconds(milliseconds).TotalSeconds.ToString("0.00") + "s";
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            CancelLoop = true;
         }
     }
 }
