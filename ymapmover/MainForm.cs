@@ -3,7 +3,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using CodeWalker.Core;
 using CodeWalker.GameFiles;
 using SharpDX;
 

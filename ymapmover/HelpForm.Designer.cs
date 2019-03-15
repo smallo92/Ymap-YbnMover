@@ -71,7 +71,7 @@
             this.nameTextBox.ReadOnly = true;
             this.nameTextBox.Size = new System.Drawing.Size(298, 31);
             this.nameTextBox.TabIndex = 0;
-            this.nameTextBox.Text = "Ymap Tools";
+            this.nameTextBox.Text = "Ymap & Ybn Mover";
             this.nameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // HelpForm
