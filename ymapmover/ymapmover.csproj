@@ -7,7 +7,7 @@
     <ProjectGuid>{3A7506C9-4E0B-4B5A-B98C-781428CF88EB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ymapmover</RootNamespace>
-    <AssemblyName>ymapmover</AssemblyName>
+    <AssemblyName>YMAP-YBN-Mover</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -67,6 +67,9 @@
   <PropertyGroup>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CodeWalker.Core">
       <HintPath>..\..\CodeWalker-master\bin\Debug\CodeWalker.Core.dll</HintPath>
@@ -118,6 +121,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
