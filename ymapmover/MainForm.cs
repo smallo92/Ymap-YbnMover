@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -11,8 +12,10 @@ namespace ymapmover
     public partial class MainForm : Form
     {
         public bool CancelLoop = false;
+        public CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         public MainForm()
         {
+            ci.NumberFormat.CurrencyDecimalSeparator = ".";
             InitializeComponent();
         }
 
@@ -142,7 +145,7 @@ namespace ymapmover
                     string filename = CurrentList.Items[j].ToString();
                     FilesAddedLabel.Text = "Processing " + Path.GetFileName(filename);
                     
-                    Vector3 moveVec = new Vector3(float.Parse(xMove.Text), float.Parse(yMove.Text), float.Parse(zMove.Text));
+                    Vector3 moveVec = new Vector3(float.Parse(xMove.Text, NumberStyles.Any, ci), float.Parse(yMove.Text, NumberStyles.Any, ci), float.Parse(zMove.Text, NumberStyles.Any, ci));
 
                     if (filename.Contains(".ybn"))
                     {
@@ -231,7 +234,7 @@ namespace ymapmover
         private void FloatOnly(TextBox textBox)
         {
             float isFloat;
-            if (!float.TryParse(textBox.Text, out isFloat))
+            if (!float.TryParse(textBox.Text, NumberStyles.Any, ci, out isFloat))
             {
                 textBox.Text = Regex.Replace(textBox.Text, "[^0-9.+-]", "");
             }
