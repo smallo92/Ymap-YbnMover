@@ -196,9 +196,9 @@ namespace ymapmover
                         }
 
                         ymap._CMapData.streamingExtentsMax = ymap.CMapData.streamingExtentsMax + moveVec;
-                        ymap._CMapData.streamingExtentsMin = ymap.CMapData.streamingExtentsMin.X + moveVec;
-                        ymap._CMapData.entitiesExtentsMax = ymap.CMapData.entitiesExtentsMax.X + moveVec;
-                        ymap._CMapData.entitiesExtentsMin = ymap.CMapData.entitiesExtentsMin.X + moveVec;
+                        ymap._CMapData.streamingExtentsMin = ymap.CMapData.streamingExtentsMin + moveVec;
+                        ymap._CMapData.entitiesExtentsMax = ymap.CMapData.entitiesExtentsMax + moveVec;
+                        ymap._CMapData.entitiesExtentsMin = ymap.CMapData.entitiesExtentsMin + moveVec;
 
                         byte[] newData = ymap.Save();
                         File.WriteAllBytes(filename, newData);
