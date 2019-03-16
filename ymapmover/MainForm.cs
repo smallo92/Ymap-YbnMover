@@ -161,7 +161,7 @@ namespace ymapmover
                             ybn.Bounds.Center = ybn.Bounds.Center + moveVec;
 
                             BoundComposite boundcomp = ybn.Bounds as BoundComposite;
-                            var compchilds = boundcomp.Children?.data_items;
+                            var compchilds = boundcomp?.Children?.data_items;
                             if (compchilds != null)
                             {
                                 for (int i = 0; i < compchilds.Length; i++)
