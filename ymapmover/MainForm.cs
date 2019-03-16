@@ -171,7 +171,10 @@ namespace ymapmover
                                     compchilds[i].BoundingBoxMin = compchilds[i].BoundingBoxMin + moveVec;
                                     compchilds[i].Center = compchilds[i].Center + moveVec;
                                     BoundBVH bgeom = compchilds[i] as BoundBVH;
-                                    bgeom.CenterGeom = bgeom.CenterGeom + moveVec;
+                                    if (bgeom != null)
+                                    {
+                                        bgeom.CenterGeom = bgeom.CenterGeom + moveVec;
+                                    }
                                 }
                             }
                         }
