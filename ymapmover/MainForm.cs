@@ -155,6 +155,11 @@ namespace ymapmover
 
                         if (ybn.Bounds != null)
                         {
+                            ybn.Bounds.BoundingBoxCenter = ybn.Bounds.BoundingBoxCenter + moveVec;
+                            ybn.Bounds.BoundingBoxMax = ybn.Bounds.BoundingBoxMax + moveVec;
+                            ybn.Bounds.BoundingBoxMin = ybn.Bounds.BoundingBoxMin + moveVec;
+                            ybn.Bounds.Center = ybn.Bounds.Center + moveVec;
+
                             BoundComposite boundcomp = ybn.Bounds as BoundComposite;
                             var compchilds = boundcomp.Children?.data_items;
                             if (compchilds != null)
@@ -165,6 +170,8 @@ namespace ymapmover
                                     compchilds[i].BoundingBoxMax = compchilds[i].BoundingBoxMax + moveVec;
                                     compchilds[i].BoundingBoxMin = compchilds[i].BoundingBoxMin + moveVec;
                                     compchilds[i].Center = compchilds[i].Center + moveVec;
+                                    BoundBVH bgeom = compchilds[i] as BoundBVH;
+                                    bgeom.CenterGeom = bgeom.CenterGeom + moveVec;
                                 }
                             }
                         }
