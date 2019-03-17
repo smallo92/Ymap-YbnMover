@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -27,7 +28,51 @@ namespace ymapmover
             Application.ExitThread();
         }
 
-        private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void yBNsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
+            {
+                new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
+                    foreach (String file in ybnFiles)
+                    {
+                        CurrentList.Items.Add(file);
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    }
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
+                    CountItems();
+                }).Start();
+            }
+        }
+
+        private void yMAPsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
+            {
+                new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
+                    foreach (String file in ymapFiles)
+                    {
+                        CurrentList.Items.Add(file);
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    }
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
+                    CountItems();
+                }).Start();
+            }
+        }
+
+        private void yFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
@@ -80,7 +125,7 @@ namespace ymapmover
         private void MainForm_Load(object sender, EventArgs e)
         {
             Form.CheckForIllegalCrossThreadCalls = false;
-            openFileDialog1.Filter = "All Supported Types|*.ymap;*.ybn" + "|ymap|*.ymap|ybn|*.ybn";
+            openFileDialog1.Filter = "All Types|*.ymap;*.ybn;*.rpf" + "|.y* files|*.ymap;*.ybn" + "|ymap|*.ymap|ybn|*.ybn|rpf|*.rpf";
             CountItems();
         }
 
@@ -144,9 +189,8 @@ namespace ymapmover
                     }
                     string filename = CurrentList.Items[j].ToString();
                     FilesAddedLabel.Text = "Processing " + Path.GetFileName(filename);
-                    
                     Vector3 moveVec = new Vector3(float.Parse(xMove.Text, NumberStyles.Any, ci), float.Parse(yMove.Text, NumberStyles.Any, ci), float.Parse(zMove.Text, NumberStyles.Any, ci));
-
+                    
                     if (filename.Contains(".ybn"))
                     {
                         YbnFile ybn = new YbnFile();

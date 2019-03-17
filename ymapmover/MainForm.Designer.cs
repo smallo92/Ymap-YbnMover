@@ -32,6 +32,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yMAPsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yBNsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,10 +88,34 @@
             // 
             // addFolderToolStripMenuItem
             // 
+            this.addFolderToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.yFilesToolStripMenuItem,
+            this.yMAPsToolStripMenuItem,
+            this.yBNsToolStripMenuItem});
             this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
             this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addFolderToolStripMenuItem.Text = "Add Folder";
-            this.addFolderToolStripMenuItem.Click += new System.EventHandler(this.addFolderToolStripMenuItem_Click);
+            // 
+            // yFilesToolStripMenuItem
+            // 
+            this.yFilesToolStripMenuItem.Name = "yFilesToolStripMenuItem";
+            this.yFilesToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.yFilesToolStripMenuItem.Text = "All Files (.ymap and .ybn)";
+            this.yFilesToolStripMenuItem.Click += new System.EventHandler(this.yFilesToolStripMenuItem_Click);
+            // 
+            // yMAPsToolStripMenuItem
+            // 
+            this.yMAPsToolStripMenuItem.Name = "yMAPsToolStripMenuItem";
+            this.yMAPsToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.yMAPsToolStripMenuItem.Text = ".ymap";
+            this.yMAPsToolStripMenuItem.Click += new System.EventHandler(this.yMAPsToolStripMenuItem_Click);
+            // 
+            // yBNsToolStripMenuItem
+            // 
+            this.yBNsToolStripMenuItem.Name = "yBNsToolStripMenuItem";
+            this.yBNsToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.yBNsToolStripMenuItem.Text = ".ybn";
+            this.yBNsToolStripMenuItem.Click += new System.EventHandler(this.yBNsToolStripMenuItem_Click);
             // 
             // addItemsToolStripMenuItem
             // 
@@ -181,7 +208,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "*";
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "YMAP Files|*.ymap|YBN Files|*.ybn";
             this.openFileDialog1.Multiselect = true;
             // 
@@ -337,6 +363,9 @@
         private System.Windows.Forms.ToolStripStatusLabel StripStatusFiller;
         private System.Windows.Forms.ToolStripStatusLabel TimeLabel;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.ToolStripMenuItem yMAPsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem yBNsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem yFilesToolStripMenuItem;
     }
 }
 
