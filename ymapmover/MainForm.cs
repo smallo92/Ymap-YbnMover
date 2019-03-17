@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -12,6 +12,7 @@ namespace ymapmover
 {
     public partial class MainForm : Form
     {
+        public string VersionNumber = "v2.0.2.5";
         public bool CancelLoop = false;
         public CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         public MainForm()
@@ -124,8 +125,26 @@ namespace ymapmover
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            WebClient client = new WebClient();
+            Stream stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
+            StreamReader reader = new StreamReader(stream);
+            int VersionCheck = int.Parse(reader.ReadToEnd().Trim());
+            //if (VersionCheck > VersionDate)
+            //{
+            //    string message = "YMAP & YBN mover is outdated\n\nWould you like to download the update now?";
+            //    if (MessageBox.Show(message, "Update Check", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+            //    {
+            //        System.Diagnostics.Process.Start("http://fivem.xpl.wtf/ymapybnmover/update.zip");
+            //        MainForm MainF = new MainForm();
+            //        MainF.Close();
+            //        Application.Exit();
+            //        Application.ExitThread();
+            //    }
+            //    outdatedLabel.Text = "This version is outdated";
+            //}
+
             Form.CheckForIllegalCrossThreadCalls = false;
-            openFileDialog1.Filter = "All Types|*.ymap;*.ybn;*.rpf" + "|.y* files|*.ymap;*.ybn" + "|ymap|*.ymap|ybn|*.ybn|rpf|*.rpf";
+            openFileDialog1.Filter = "All Types|*.ymap;*.ybn" + "|YMAP Files|*.ymap|YBN Files|*.ybn";
             CountItems();
         }
 

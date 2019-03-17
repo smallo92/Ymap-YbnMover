@@ -59,6 +59,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.outdatedLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -107,14 +108,14 @@
             // 
             this.yMAPsToolStripMenuItem.Name = "yMAPsToolStripMenuItem";
             this.yMAPsToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.yMAPsToolStripMenuItem.Text = ".ymap";
+            this.yMAPsToolStripMenuItem.Text = "YMAP Files";
             this.yMAPsToolStripMenuItem.Click += new System.EventHandler(this.yMAPsToolStripMenuItem_Click);
             // 
             // yBNsToolStripMenuItem
             // 
             this.yBNsToolStripMenuItem.Name = "yBNsToolStripMenuItem";
             this.yBNsToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.yBNsToolStripMenuItem.Text = ".ybn";
+            this.yBNsToolStripMenuItem.Text = "YBN Files";
             this.yBNsToolStripMenuItem.Click += new System.EventHandler(this.yBNsToolStripMenuItem_Click);
             // 
             // addItemsToolStripMenuItem
@@ -304,11 +305,23 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // outdatedLabel
+            // 
+            this.outdatedLabel.AutoSize = true;
+            this.outdatedLabel.BackColor = System.Drawing.Color.Transparent;
+            this.outdatedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.outdatedLabel.ForeColor = System.Drawing.Color.DarkRed;
+            this.outdatedLabel.Location = new System.Drawing.Point(170, 296);
+            this.outdatedLabel.Name = "outdatedLabel";
+            this.outdatedLabel.Size = new System.Drawing.Size(0, 20);
+            this.outdatedLabel.TabIndex = 9;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 343);
+            this.Controls.Add(this.outdatedLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.label3);
@@ -366,6 +379,7 @@
         private System.Windows.Forms.ToolStripMenuItem yMAPsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yBNsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yFilesToolStripMenuItem;
+        private System.Windows.Forms.Label outdatedLabel;
     }
 }
 
