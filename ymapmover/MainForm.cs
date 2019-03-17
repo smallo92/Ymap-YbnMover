@@ -155,8 +155,22 @@ namespace ymapmover
 
                         if (ybn.Bounds != null)
                         {
+                            ybn.Bounds.BoundingBoxCenter = ybn.Bounds.BoundingBoxCenter + moveVec;
+                            ybn.Bounds.BoundingBoxMax = ybn.Bounds.BoundingBoxMax + moveVec;
+                            ybn.Bounds.BoundingBoxMin = ybn.Bounds.BoundingBoxMin + moveVec;
+                            ybn.Bounds.Center = ybn.Bounds.Center + moveVec;
+
                             BoundComposite boundcomp = ybn.Bounds as BoundComposite;
                             var compchilds = boundcomp?.Children?.data_items;
+                            if (boundcomp.BVH != null)
+                            {
+                                Vector3 boundcompBBC = ConvertToVec3(boundcomp.BVH.BoundingBoxCenter);
+                                Vector3 boundcompBBMax = ConvertToVec3(boundcomp.BVH.BoundingBoxMax);
+                                Vector3 boundcompBBMin = ConvertToVec3(boundcomp.BVH.BoundingBoxMin);
+                                boundcomp.BVH.BoundingBoxCenter = new Vector4(boundcompBBC + moveVec, boundcomp.BVH.BoundingBoxCenter.W);
+                                boundcomp.BVH.BoundingBoxMax = new Vector4(boundcompBBMax + moveVec, boundcomp.BVH.BoundingBoxMax.W);
+                                boundcomp.BVH.BoundingBoxMin = new Vector4(boundcompBBMin + moveVec, boundcomp.BVH.BoundingBoxMin.W);
+                            }
                             if (compchilds != null)
                             {
                                 for (int i = 0; i < compchilds.Length; i++)
@@ -168,6 +182,15 @@ namespace ymapmover
                                     BoundBVH bgeom = compchilds[i] as BoundBVH;
                                     if (bgeom != null)
                                     {
+                                        if (bgeom.BVH != null)
+                                        {
+                                            Vector3 bgeomBBC = ConvertToVec3(bgeom.BVH.BoundingBoxCenter);
+                                            Vector3 bgeomBBMax = ConvertToVec3(bgeom.BVH.BoundingBoxMax);
+                                            Vector3 bgeomBBMin = ConvertToVec3(bgeom.BVH.BoundingBoxMin);
+                                            bgeom.BVH.BoundingBoxCenter = new Vector4(bgeomBBC + moveVec, bgeom.BVH.BoundingBoxCenter.W);
+                                            bgeom.BVH.BoundingBoxMax = new Vector4(bgeomBBMax + moveVec, bgeom.BVH.BoundingBoxMax.W);
+                                            bgeom.BVH.BoundingBoxMin = new Vector4(bgeomBBMin + moveVec, bgeom.BVH.BoundingBoxMin.W);
+                                        }
                                         bgeom.CenterGeom = bgeom.CenterGeom + moveVec;
                                     }
                                 }
@@ -243,6 +266,11 @@ namespace ymapmover
             {
                 textBox.Text = Regex.Replace(textBox.Text, "[^0-9.+-]", "");
             }
+        }
+
+        private Vector3 ConvertToVec3(Vector4 vec4)
+        {
+            return new Vector3(vec4.X, vec4.Y, vec4.Z);
         }
 
         private void CountItems()

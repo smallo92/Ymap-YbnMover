@@ -48,13 +48,13 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.FilesAddedLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StripStatusFiller = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.zMove = new System.Windows.Forms.TextBox();
             this.yMove = new System.Windows.Forms.TextBox();
             this.xMove = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
-            this.StripStatusFiller = new System.Windows.Forms.ToolStripStatusLabel();
-            this.TimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -204,12 +204,23 @@
             this.FilesAddedLabel.Size = new System.Drawing.Size(95, 17);
             this.FilesAddedLabel.Text = "No File(s) Added";
             // 
+            // StripStatusFiller
+            // 
+            this.StripStatusFiller.Name = "StripStatusFiller";
+            this.StripStatusFiller.Size = new System.Drawing.Size(690, 17);
+            this.StripStatusFiller.Spring = true;
+            // 
+            // TimeLabel
+            // 
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(0, 17);
+            // 
             // zMove
             // 
             this.zMove.Location = new System.Drawing.Point(715, 296);
             this.zMove.Name = "zMove";
             this.zMove.Size = new System.Drawing.Size(73, 20);
-            this.zMove.TabIndex = 3;
+            this.zMove.TabIndex = 6;
             this.zMove.Text = "0.0";
             this.zMove.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.zMove.TextChanged += new System.EventHandler(this.zMove_TextChanged);
@@ -219,7 +230,7 @@
             this.yMove.Location = new System.Drawing.Point(636, 296);
             this.yMove.Name = "yMove";
             this.yMove.Size = new System.Drawing.Size(73, 20);
-            this.yMove.TabIndex = 4;
+            this.yMove.TabIndex = 5;
             this.yMove.Text = "0.0";
             this.yMove.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.yMove.TextChanged += new System.EventHandler(this.yMove_TextChanged);
@@ -229,7 +240,7 @@
             this.xMove.Location = new System.Drawing.Point(557, 296);
             this.xMove.Name = "xMove";
             this.xMove.Size = new System.Drawing.Size(73, 20);
-            this.xMove.TabIndex = 5;
+            this.xMove.TabIndex = 4;
             this.xMove.Text = "0.0";
             this.xMove.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.xMove.TextChanged += new System.EventHandler(this.xMove_TextChanged);
@@ -251,21 +262,10 @@
             this.startButton.Location = new System.Drawing.Point(12, 294);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(73, 23);
-            this.startButton.TabIndex = 9;
+            this.startButton.TabIndex = 2;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
-            // 
-            // StripStatusFiller
-            // 
-            this.StripStatusFiller.Name = "StripStatusFiller";
-            this.StripStatusFiller.Size = new System.Drawing.Size(690, 17);
-            this.StripStatusFiller.Spring = true;
-            // 
-            // TimeLabel
-            // 
-            this.TimeLabel.Name = "TimeLabel";
-            this.TimeLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // cancelButton
             // 
@@ -273,7 +273,7 @@
             this.cancelButton.Location = new System.Drawing.Point(91, 294);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(73, 23);
-            this.cancelButton.TabIndex = 10;
+            this.cancelButton.TabIndex = 3;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
