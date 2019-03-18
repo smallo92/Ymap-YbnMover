@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -12,7 +13,6 @@ namespace ymapmover
 {
     public partial class MainForm : Form
     {
-        public string VersionNumber = "v2.0.2.5";
         public bool CancelLoop = false;
         public CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         public MainForm()
@@ -31,7 +31,7 @@ namespace ymapmover
 
         private void yBNsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            var watch = Stopwatch.StartNew();
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 new Thread(() =>
@@ -53,7 +53,7 @@ namespace ymapmover
 
         private void yMAPsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            var watch = Stopwatch.StartNew();
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 new Thread(() =>
@@ -75,7 +75,7 @@ namespace ymapmover
 
         private void yFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            var watch = Stopwatch.StartNew();
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 new Thread(() =>
@@ -104,7 +104,7 @@ namespace ymapmover
 
         private void addItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            var watch = Stopwatch.StartNew();
             if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 new Thread(() =>
@@ -125,23 +125,26 @@ namespace ymapmover
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string VersionNum = fvi.FileVersion;
             WebClient client = new WebClient();
             Stream stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
             StreamReader reader = new StreamReader(stream);
-            int VersionCheck = int.Parse(reader.ReadToEnd().Trim());
-            //if (VersionCheck > VersionDate)
-            //{
-            //    string message = "YMAP & YBN mover is outdated\n\nWould you like to download the update now?";
-            //    if (MessageBox.Show(message, "Update Check", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
-            //    {
-            //        System.Diagnostics.Process.Start("http://fivem.xpl.wtf/ymapybnmover/update.zip");
-            //        MainForm MainF = new MainForm();
-            //        MainF.Close();
-            //        Application.Exit();
-            //        Application.ExitThread();
-            //    }
-            //    outdatedLabel.Text = "This version is outdated";
-            //}
+            string VersionCheck = reader.ReadToEnd().Trim();
+            if (VersionCheck != VersionNum)
+            {
+                string message = "YMAP & YBN mover is outdated\n\nWould you like to download the update now?";
+                if (MessageBox.Show(message, "Update Check", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                {
+                    Process.Start("http://fivem.xpl.wtf/ymapybnmover/update.zip");
+                    MainForm MainF = new MainForm();
+                    MainF.Close();
+                    Application.Exit();
+                    Application.ExitThread();
+                }
+                outdatedLabel.Text = "This version is outdated";
+            }
 
             Form.CheckForIllegalCrossThreadCalls = false;
             openFileDialog1.Filter = "All Types|*.ymap;*.ybn" + "|YMAP Files|*.ymap|YBN Files|*.ybn";
@@ -192,7 +195,7 @@ namespace ymapmover
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            var watch = Stopwatch.StartNew();
             TimeLabel.Text = "Time Elapsed: 0ms";
             cancelButton.Enabled = true;
             new Thread(() =>

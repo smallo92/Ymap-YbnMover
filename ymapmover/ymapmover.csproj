@@ -158,11 +158,24 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(TargetDir)CodeWalker.Core.dll', '$(TargetDir)SharpDX.dll', '$(TargetDir)SharpDX.Mathematics.dll', '$(TargetDir)YMAP-YBN-Mover.exe', '$(TargetDir)YMAP-YBN-Mover.exe.config' -DestinationPath '$(TargetDir)uploads\update.zip' -Force)
-if $(ConfigurationName) == Release (call "$(TargetDir)UploadFiles.bat")</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
+  </PropertyGroup>
+  <Target Name="PostBuildMacros">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="Targets" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <VersionNumber Include="@(Targets->'%(Version)')" />
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <PostBuildEventDependsOn>
+    $(PostBuildEventDependsOn);
+    PostBuildMacros;
+  </PostBuildEventDependsOn>
+    <PostBuildEvent>if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(TargetDir)CodeWalker.Core.dll', '$(TargetDir)SharpDX.dll', '$(TargetDir)SharpDX.Mathematics.dll', '$(TargetDir)YMAP-YBN-Mover.exe', '$(TargetDir)YMAP-YBN-Mover.exe.config' -DestinationPath '$(TargetDir)uploads\update.zip' -Force)
+if $(ConfigurationName) == Release (echo @(VersionNumber) &gt; "E:\Documents\Visual Studio 2017\Projects\ymapmover\ymapmover\bin\Release\uploads\version.txt")
+if $(ConfigurationName) == Release (call "$(TargetDir)UploadFiles.bat")</PostBuildEvent>
   </PropertyGroup>
 </Project>
