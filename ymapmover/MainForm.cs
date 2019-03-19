@@ -134,7 +134,7 @@ namespace ymapmover
             string VersionCheck = reader.ReadToEnd().Trim();
             if (VersionCheck != VersionNum)
             {
-                string message = "YMAP & YBN mover is outdated\n\nWould you like to download the update now?";
+                string message = "YMAP & YBN mover is outdated\n\nYou are running v" + VersionNum + "\nThe latest version is v" + VersionCheck + "\n\nWould you like to download the update now?";
                 if (MessageBox.Show(message, "Update Check", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                 {
                     Process.Start("http://fivem.xpl.wtf/ymapybnmover/update.zip");
