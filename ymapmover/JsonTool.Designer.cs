@@ -199,6 +199,7 @@
             this.MaximizeBox = false;
             this.Name = "JsonTool";
             this.Text = "JSON to YMAP & YTYP";
+            this.Load += new System.EventHandler(this.JsonTool_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

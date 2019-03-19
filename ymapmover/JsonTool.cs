@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace ymapmover
 {
     public partial class JsonTool : Form
     {
+        public CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         public JsonTool()
         {
+            ci.NumberFormat.CurrencyDecimalSeparator = ".";
             InitializeComponent();
         }
 
@@ -21,6 +17,11 @@ namespace ymapmover
         {
             HelpForm helpForm = new HelpForm();
             helpForm.ShowDialog();
+        }
+
+        private void JsonTool_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
