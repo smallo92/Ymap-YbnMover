@@ -127,7 +127,7 @@ namespace ymapmover
         {
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string VersionNum = fvi.FileVersion;
+            string VersionNum = fvi.FileVersion.ToString();
             WebClient client = new WebClient();
             Stream stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
             StreamReader reader = new StreamReader(stream);
