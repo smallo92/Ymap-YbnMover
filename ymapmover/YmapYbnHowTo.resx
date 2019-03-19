@@ -117,6 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>You will need to have ymaps and/or ybns associated with the map. These can be located inside your dlc in your game install.
+
+You can use either Codewalker RPF Explorer or OpenIV to locate the files which you need. I recommend Codewalker RPF Explorer.
+
+Navigate to your "mods/update/x64/dlcpacks/" and locate the DLC Map you are attempting to move. Now try and locate the ymaps and ybns in that DLC pack. I can't give you explicit instructions on where these are located as they are usually located in different locations in every DLC pack. But generally you can find them in "dlc.rpf/x64/levels/gta5/" and then from them in their respective subfolders.
+
+You will want to extract the ymaps and ybns to an easy to access location. Once you have done so in YMAP &amp; YBN Mover press File and add the items. You can either add the entire folder and it will locate all the correct file types in it, or you can use Add Item(s) to add them individually.
+</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
