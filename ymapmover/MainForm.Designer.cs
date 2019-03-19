@@ -62,6 +62,8 @@
             this.outdatedLabel = new System.Windows.Forms.Label();
             this.legacyToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jSONToYMAPAndYTYPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.howToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -188,6 +190,8 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.howToToolStripMenuItem,
+            this.toolStripSeparator3,
             this.helpToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
@@ -334,6 +338,18 @@
             this.jSONToYMAPAndYTYPToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.jSONToYMAPAndYTYPToolStripMenuItem.Text = "JSON to YMAP and YTYP";
             // 
+            // howToToolStripMenuItem
+            // 
+            this.howToToolStripMenuItem.Enabled = false;
+            this.howToToolStripMenuItem.Name = "howToToolStripMenuItem";
+            this.howToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.howToToolStripMenuItem.Text = "How to use";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -400,6 +416,8 @@
         private System.Windows.Forms.Label outdatedLabel;
         private System.Windows.Forms.ToolStripMenuItem legacyToolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem jSONToYMAPAndYTYPToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem howToToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 
