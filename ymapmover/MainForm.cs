@@ -64,6 +64,8 @@ namespace ymapmover
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
+
+
                         TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     var elapsedMs = watch.ElapsedMilliseconds;
