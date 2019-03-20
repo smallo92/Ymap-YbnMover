@@ -300,6 +300,8 @@ namespace ymapmover
                         byte[] oldData = File.ReadAllBytes(filename);
                         ymap.Load(oldData);
 
+                        ymap.Name = Path.GetFileNameWithoutExtension(filename);
+
                         if (ymap.GrassInstanceBatches != null)
                         {
                             foreach (YmapGrassInstanceBatch yEnts in ymap.GrassInstanceBatches)
@@ -309,6 +311,7 @@ namespace ymapmover
                                 yEnts.AABBMax = yEnts.AABBMax + moveVec;
                             }
                         }
+
                         if (ymap.CarGenerators != null)
                         {
                             foreach (YmapCarGen yEnts in ymap.CarGenerators) { yEnts.SetPosition(yEnts.Position + moveVec); }
