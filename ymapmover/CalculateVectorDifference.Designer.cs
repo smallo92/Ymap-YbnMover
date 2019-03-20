@@ -137,6 +137,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CalculateVectorDifference";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Calculate Vector Difference";
             this.ResumeLayout(false);
             this.PerformLayout();

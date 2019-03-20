@@ -149,9 +149,16 @@ namespace ymapmover
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             string VersionNum = fvi.FileVersion.ToString();
             WebClient client = new WebClient();
-            Stream stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
-            StreamReader reader = new StreamReader(stream);
-            string VersionCheck = reader.ReadToEnd().Trim();
+            Stream stream = null;
+            StreamReader reader = null;
+            string VersionCheck = VersionNum;
+            try
+            {
+                stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
+                reader = new StreamReader(stream);
+                VersionCheck = reader.ReadToEnd().Trim();
+            }
+            catch (Exception ex) {}
             if (VersionCheck != VersionNum)
             {
                 string message = "YMAP & YBN mover is outdated\n\nYou are running v" + VersionNum + "\nThe latest version is v" + VersionCheck + "\n\nWould you like to download the update now?";

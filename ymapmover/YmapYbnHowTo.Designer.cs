@@ -69,6 +69,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "YmapYbnHowTo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "How to use YMAP & YBN Mover";
             this.Load += new System.EventHandler(this.YmapYbnHowTo_Load);
             this.groupBox1.ResumeLayout(false);
