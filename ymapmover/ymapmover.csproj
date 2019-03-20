@@ -96,6 +96,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalculateVectorDifference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalculateVectorDifference.Designer.cs">
+      <DependentUpon>CalculateVectorDifference.cs</DependentUpon>
+    </Compile>
     <Compile Include="HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     <Compile Include="YmapYbnHowTo.Designer.cs">
       <DependentUpon>YmapYbnHowTo.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CalculateVectorDifference.resx">
+      <DependentUpon>CalculateVectorDifference.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -45,7 +45,11 @@
             this.clearAllYBNsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllYMAPsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.howToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.legacyToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jSONToYMAPAndYTYPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CurrentList = new System.Windows.Forms.ListBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -60,10 +64,8 @@
             this.startButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.outdatedLabel = new System.Windows.Forms.Label();
-            this.legacyToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.jSONToYMAPAndYTYPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.howToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.calculateVectorDifferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -149,7 +151,9 @@
             this.clearSelectedItemsToolStripMenuItem,
             this.toolStripSeparator2,
             this.clearAllYBNsToolStripMenuItem,
-            this.clearAllYMAPsToolStripMenuItem});
+            this.clearAllYMAPsToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.calculateVectorDifferencesToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -157,33 +161,33 @@
             // clearAllItemsToolStripMenuItem
             // 
             this.clearAllItemsToolStripMenuItem.Name = "clearAllItemsToolStripMenuItem";
-            this.clearAllItemsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearAllItemsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.clearAllItemsToolStripMenuItem.Text = "Clear All Items";
             this.clearAllItemsToolStripMenuItem.Click += new System.EventHandler(this.clearAllItemsToolStripMenuItem_Click);
             // 
             // clearSelectedItemsToolStripMenuItem
             // 
             this.clearSelectedItemsToolStripMenuItem.Name = "clearSelectedItemsToolStripMenuItem";
-            this.clearSelectedItemsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearSelectedItemsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.clearSelectedItemsToolStripMenuItem.Text = "Clear Selected Item(s)";
             this.clearSelectedItemsToolStripMenuItem.Click += new System.EventHandler(this.clearSelectedItemsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(218, 6);
             // 
             // clearAllYBNsToolStripMenuItem
             // 
             this.clearAllYBNsToolStripMenuItem.Name = "clearAllYBNsToolStripMenuItem";
-            this.clearAllYBNsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearAllYBNsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.clearAllYBNsToolStripMenuItem.Text = "Clear All YBNs";
             this.clearAllYBNsToolStripMenuItem.Click += new System.EventHandler(this.clearAllYBNsToolStripMenuItem_Click);
             // 
             // clearAllYMAPsToolStripMenuItem
             // 
             this.clearAllYMAPsToolStripMenuItem.Name = "clearAllYMAPsToolStripMenuItem";
-            this.clearAllYMAPsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearAllYMAPsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.clearAllYMAPsToolStripMenuItem.Text = "Clear All YMAPs";
             this.clearAllYMAPsToolStripMenuItem.Click += new System.EventHandler(this.clearAllYMAPsToolStripMenuItem_Click);
             // 
@@ -197,12 +201,39 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
+            // howToToolStripMenuItem
+            // 
+            this.howToToolStripMenuItem.Name = "howToToolStripMenuItem";
+            this.howToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.howToToolStripMenuItem.Text = "How to use";
+            this.howToToolStripMenuItem.Click += new System.EventHandler(this.howToToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // legacyToolsToolStripMenuItem
+            // 
+            this.legacyToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.jSONToYMAPAndYTYPToolStripMenuItem});
+            this.legacyToolsToolStripMenuItem.Name = "legacyToolsToolStripMenuItem";
+            this.legacyToolsToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.legacyToolsToolStripMenuItem.Text = "Legacy Tools";
+            this.legacyToolsToolStripMenuItem.Visible = false;
+            // 
+            // jSONToYMAPAndYTYPToolStripMenuItem
+            // 
+            this.jSONToYMAPAndYTYPToolStripMenuItem.Name = "jSONToYMAPAndYTYPToolStripMenuItem";
+            this.jSONToYMAPAndYTYPToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.jSONToYMAPAndYTYPToolStripMenuItem.Text = "JSON to YMAP and YTYP";
             // 
             // CurrentList
             // 
@@ -323,32 +354,17 @@
             this.outdatedLabel.Size = new System.Drawing.Size(0, 20);
             this.outdatedLabel.TabIndex = 9;
             // 
-            // legacyToolsToolStripMenuItem
+            // toolStripSeparator4
             // 
-            this.legacyToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.jSONToYMAPAndYTYPToolStripMenuItem});
-            this.legacyToolsToolStripMenuItem.Name = "legacyToolsToolStripMenuItem";
-            this.legacyToolsToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
-            this.legacyToolsToolStripMenuItem.Text = "Legacy Tools";
-            this.legacyToolsToolStripMenuItem.Visible = false;
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(218, 6);
             // 
-            // jSONToYMAPAndYTYPToolStripMenuItem
+            // calculateVectorDifferencesToolStripMenuItem
             // 
-            this.jSONToYMAPAndYTYPToolStripMenuItem.Name = "jSONToYMAPAndYTYPToolStripMenuItem";
-            this.jSONToYMAPAndYTYPToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.jSONToYMAPAndYTYPToolStripMenuItem.Text = "JSON to YMAP and YTYP";
-            // 
-            // howToToolStripMenuItem
-            // 
-            this.howToToolStripMenuItem.Enabled = false;
-            this.howToToolStripMenuItem.Name = "howToToolStripMenuItem";
-            this.howToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.howToToolStripMenuItem.Text = "How to use";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.calculateVectorDifferencesToolStripMenuItem.Name = "calculateVectorDifferencesToolStripMenuItem";
+            this.calculateVectorDifferencesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.calculateVectorDifferencesToolStripMenuItem.Text = "Calculate Vector Differences";
+            this.calculateVectorDifferencesToolStripMenuItem.Click += new System.EventHandler(this.calculateVectorDifferencesToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -418,6 +434,8 @@
         private System.Windows.Forms.ToolStripMenuItem jSONToYMAPAndYTYPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem howToToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem calculateVectorDifferencesToolStripMenuItem;
     }
 }
 

@@ -6,7 +6,6 @@ namespace ymapmover
 {
     public partial class HelpForm : Form
     {
-        MainForm mainForm = new MainForm();
         public HelpForm()
         {
             InitializeComponent();

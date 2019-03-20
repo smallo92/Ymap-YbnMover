@@ -16,5 +16,10 @@ namespace ymapmover
         {
             InitializeComponent();
         }
+
+        private void YmapYbnHowTo_Load(object sender, EventArgs e)
+        {
+            richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+        }
     }
 }

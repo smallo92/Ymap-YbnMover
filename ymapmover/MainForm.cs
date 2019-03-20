@@ -29,6 +29,24 @@ namespace ymapmover
             Application.ExitThread();
         }
 
+        public string xMoveBox
+        {
+            get { return xMove.Text; }
+            set { xMove.Text = value; }
+        }
+
+        public string yMoveBox
+        {
+            get { return yMove.Text; }
+            set { yMove.Text = value; }
+        }
+
+        public string zMoveBox
+        {
+            get { return zMove.Text; }
+            set { zMove.Text = value; }
+        }
+
         private void yBNsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var watch = Stopwatch.StartNew();
@@ -367,6 +385,18 @@ namespace ymapmover
         private void cancelButton_Click(object sender, EventArgs e)
         {
             CancelLoop = true;
+        }
+
+        private void calculateVectorDifferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CalculateVectorDifference calculateVectorForm = new CalculateVectorDifference(this);
+            calculateVectorForm.ShowDialog();
+        }
+
+        private void howToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            YmapYbnHowTo ymapYbnHowToForm = new YmapYbnHowTo();
+            ymapYbnHowToForm.ShowDialog();
         }
     }
 }
