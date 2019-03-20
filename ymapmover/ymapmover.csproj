@@ -74,8 +74,9 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodeWalker.Core">
-      <HintPath>E:\Documents\Visual Studio 2017\Projects\CodeWalker-master\bin\Debug\CodeWalker.Core.dll</HintPath>
+    <Reference Include="CodeWalker.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Documents\Visual Studio 2017\Projects\CodeWalker-master\bin\Release\CodeWalker.Core.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
