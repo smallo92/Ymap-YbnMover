@@ -1,13 +1,5 @@
-﻿using CodeWalker;
-using SharpDX;
+﻿using SharpDX;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ymapmover
@@ -27,11 +19,11 @@ namespace ymapmover
         {
             if (vector1.Text != "" || vector2.Text != "")
             {
-                string[] OGLocSplit = vector1.Text.Split(',');
-                Vector3 OGVec = new Vector3(float.Parse(OGLocSplit[0]), float.Parse(OGLocSplit[1]), float.Parse(OGLocSplit[2]));
+                string[] OldLocSplit = vector1.Text.Split(',');
+                Vector3 OldVec = new Vector3(float.Parse(OldLocSplit[0]), float.Parse(OldLocSplit[1]), float.Parse(OldLocSplit[2]));
                 string[] NewLocSplit = vector2.Text.Split(',');
                 Vector3 NewVec = new Vector3(float.Parse(NewLocSplit[0]), float.Parse(NewLocSplit[1]), float.Parse(NewLocSplit[2]));
-                OffsetVec = OGVec - NewVec;
+                OffsetVec = NewVec - OldVec;
                 newOffset.Text = OffsetVec.X.ToString() + ", " + OffsetVec.Y.ToString() + ", " + OffsetVec.Z.ToString();
             }
         }
