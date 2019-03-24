@@ -19,11 +19,12 @@ namespace ymapmover
         {
             if (vector1.Text != "" || vector2.Text != "")
             {
-                string[] OldLocSplit = vector1.Text.Split(',');
-                Vector3 OldVec = new Vector3(float.Parse(OldLocSplit[0]), float.Parse(OldLocSplit[1]), float.Parse(OldLocSplit[2]));
-                string[] NewLocSplit = vector2.Text.Split(',');
-                Vector3 NewVec = new Vector3(float.Parse(NewLocSplit[0]), float.Parse(NewLocSplit[1]), float.Parse(NewLocSplit[2]));
-                OffsetVec = NewVec - OldVec;
+                string[] oldLocSplit = vector1.Text.Split(',');
+                string[] newLocSplit = vector2.Text.Split(',');
+                Vector3 oldVec = new Vector3(float.Parse(oldLocSplit[0]), float.Parse(oldLocSplit[1]), float.Parse(oldLocSplit[2]));
+                Vector3 newVec = new Vector3(float.Parse(newLocSplit[0]), float.Parse(newLocSplit[1]), float.Parse(newLocSplit[2]));
+
+                OffsetVec = new Vector3(VecDiff(newVec.X, oldVec.X), VecDiff(newVec.Y, oldVec.Y), VecDiff(newVec.Z, oldVec.Z));
                 newOffset.Text = OffsetVec.X.ToString() + ", " + OffsetVec.Y.ToString() + ", " + OffsetVec.Z.ToString();
             }
         }
@@ -34,6 +35,18 @@ namespace ymapmover
             mainForm.yMoveBox = OffsetVec.Y.ToString();
             mainForm.zMoveBox = OffsetVec.Z.ToString();
             Close();
+        }
+
+        private float VecDiff(float x1, float x2)
+        {
+            if (x1 < 0.0f && x2 < 0.0f)
+            {
+                return ((x1 * -1) + x2) * -1;
+            }
+            else
+            {
+                return x1 - x2;
+            }
         }
     }
 }
