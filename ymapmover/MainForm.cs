@@ -56,7 +56,7 @@ namespace ymapmover
                 {
                     Thread.CurrentThread.IsBackground = true;
                     string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
-                    foreach (String file in ybnFiles)
+                    foreach (string file in ybnFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
@@ -78,7 +78,7 @@ namespace ymapmover
                 {
                     Thread.CurrentThread.IsBackground = true;
                     string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
-                    foreach (String file in ymapFiles)
+                    foreach (string file in ymapFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
@@ -103,13 +103,13 @@ namespace ymapmover
                     Thread.CurrentThread.IsBackground = true;
                     string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
                     string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
-                    foreach (String file in ymapFiles)
+                    foreach (string file in ymapFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
-                    foreach (String file in ybnFiles)
+                    foreach (string file in ybnFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;

@@ -44,6 +44,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.clearAllYBNsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllYMAPsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.calculateVectorDifferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.howToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -64,8 +66,7 @@
             this.startButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.outdatedLabel = new System.Windows.Forms.Label();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.calculateVectorDifferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -101,7 +102,7 @@
             this.yMAPsToolStripMenuItem,
             this.yBNsToolStripMenuItem});
             this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
-            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addFolderToolStripMenuItem.Text = "Add Folder";
             // 
             // yFilesToolStripMenuItem
@@ -128,19 +129,19 @@
             // addItemsToolStripMenuItem
             // 
             this.addItemsToolStripMenuItem.Name = "addItemsToolStripMenuItem";
-            this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addItemsToolStripMenuItem.Text = "Add Item(s)";
             this.addItemsToolStripMenuItem.Click += new System.EventHandler(this.addItemsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(133, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -191,6 +192,18 @@
             this.clearAllYMAPsToolStripMenuItem.Text = "Clear All YMAPs";
             this.clearAllYMAPsToolStripMenuItem.Click += new System.EventHandler(this.clearAllYMAPsToolStripMenuItem_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(218, 6);
+            // 
+            // calculateVectorDifferencesToolStripMenuItem
+            // 
+            this.calculateVectorDifferencesToolStripMenuItem.Name = "calculateVectorDifferencesToolStripMenuItem";
+            this.calculateVectorDifferencesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.calculateVectorDifferencesToolStripMenuItem.Text = "Calculate Vector Differences";
+            this.calculateVectorDifferencesToolStripMenuItem.Click += new System.EventHandler(this.calculateVectorDifferencesToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -204,19 +217,19 @@
             // howToToolStripMenuItem
             // 
             this.howToToolStripMenuItem.Name = "howToToolStripMenuItem";
-            this.howToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.howToToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.howToToolStripMenuItem.Text = "How to use";
             this.howToToolStripMenuItem.Click += new System.EventHandler(this.howToToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(131, 6);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
@@ -354,17 +367,14 @@
             this.outdatedLabel.Size = new System.Drawing.Size(0, 20);
             this.outdatedLabel.TabIndex = 9;
             // 
-            // toolStripSeparator4
+            // openFileDialog2
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(218, 6);
-            // 
-            // calculateVectorDifferencesToolStripMenuItem
-            // 
-            this.calculateVectorDifferencesToolStripMenuItem.Name = "calculateVectorDifferencesToolStripMenuItem";
-            this.calculateVectorDifferencesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.calculateVectorDifferencesToolStripMenuItem.Text = "Calculate Vector Differences";
-            this.calculateVectorDifferencesToolStripMenuItem.Click += new System.EventHandler(this.calculateVectorDifferencesToolStripMenuItem_Click);
+            this.openFileDialog2.AddExtension = false;
+            this.openFileDialog2.CheckFileExists = false;
+            this.openFileDialog2.DereferenceLinks = false;
+            this.openFileDialog2.FileName = "openFolderDialog1";
+            this.openFileDialog2.Filter = "\"Folders|\\n\"";
+            this.openFileDialog2.Multiselect = true;
             // 
             // MainForm
             // 
@@ -436,6 +446,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem calculateVectorDifferencesToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
     }
 }
 

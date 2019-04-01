@@ -24,8 +24,8 @@ namespace ymapmover
             {
                 string[] oldLocSplit = vector1.Text.Split(',');
                 string[] newLocSplit = vector2.Text.Split(',');
-                Vector3 oldVec = new Vector3(float.Parse(oldLocSplit[0]), float.Parse(oldLocSplit[1]), float.Parse(oldLocSplit[2]));
-                Vector3 newVec = new Vector3(float.Parse(newLocSplit[0]), float.Parse(newLocSplit[1]), float.Parse(newLocSplit[2]));
+                Vector3 oldVec = new Vector3(float.Parse(oldLocSplit[0], NumberStyles.Any, ci), float.Parse(oldLocSplit[1], NumberStyles.Any, ci), float.Parse(oldLocSplit[2], NumberStyles.Any, ci));
+                Vector3 newVec = new Vector3(float.Parse(newLocSplit[0], NumberStyles.Any, ci), float.Parse(newLocSplit[1], NumberStyles.Any, ci), float.Parse(newLocSplit[2], NumberStyles.Any, ci));
 
                 OffsetVec = newVec - oldVec;
                 newOffset.Text = OffsetVec.X.ToString() + ", " + OffsetVec.Y.ToString() + ", " + OffsetVec.Z.ToString();
