@@ -1,5 +1,6 @@
 ﻿using SharpDX;
 using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace ymapmover
@@ -8,9 +9,11 @@ namespace ymapmover
     {
         private MainForm mainForm;
         private Vector3 OffsetVec = new Vector3();
+        public CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
 
         public CalculateVectorDifference(MainForm ParentForm)
         {
+            ci.NumberFormat.CurrencyDecimalSeparator = ".";
             InitializeComponent();
             mainForm = ParentForm;
         }
