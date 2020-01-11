@@ -66,7 +66,8 @@
             this.startButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.outdatedLabel = new System.Windows.Forms.Label();
-            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.backupFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -154,7 +155,9 @@
             this.clearAllYBNsToolStripMenuItem,
             this.clearAllYMAPsToolStripMenuItem,
             this.toolStripSeparator4,
-            this.calculateVectorDifferencesToolStripMenuItem});
+            this.calculateVectorDifferencesToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.backupFilesToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -217,19 +220,19 @@
             // howToToolStripMenuItem
             // 
             this.howToToolStripMenuItem.Name = "howToToolStripMenuItem";
-            this.howToToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.howToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.howToToolStripMenuItem.Text = "How to use";
             this.howToToolStripMenuItem.Click += new System.EventHandler(this.howToToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(131, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
@@ -238,14 +241,14 @@
             this.legacyToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.jSONToYMAPAndYTYPToolStripMenuItem});
             this.legacyToolsToolStripMenuItem.Name = "legacyToolsToolStripMenuItem";
-            this.legacyToolsToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.legacyToolsToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.legacyToolsToolStripMenuItem.Text = "Legacy Tools";
             this.legacyToolsToolStripMenuItem.Visible = false;
             // 
             // jSONToYMAPAndYTYPToolStripMenuItem
             // 
             this.jSONToYMAPAndYTYPToolStripMenuItem.Name = "jSONToYMAPAndYTYPToolStripMenuItem";
-            this.jSONToYMAPAndYTYPToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.jSONToYMAPAndYTYPToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.jSONToYMAPAndYTYPToolStripMenuItem.Text = "JSON to YMAP and YTYP";
             // 
             // CurrentList
@@ -367,24 +370,27 @@
             this.outdatedLabel.Size = new System.Drawing.Size(0, 20);
             this.outdatedLabel.TabIndex = 9;
             // 
-            // openFileDialog2
+            // toolStripSeparator5
             // 
-            this.openFileDialog2.AddExtension = false;
-            this.openFileDialog2.CheckFileExists = false;
-            this.openFileDialog2.DereferenceLinks = false;
-            this.openFileDialog2.FileName = "openFolderDialog1";
-            this.openFileDialog2.Filter = "\"Folders|\\n\"";
-            this.openFileDialog2.Multiselect = true;
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(218, 6);
+            // 
+            // backupFilesToolStripMenuItem
+            // 
+            this.backupFilesToolStripMenuItem.CheckOnClick = true;
+            this.backupFilesToolStripMenuItem.Name = "backupFilesToolStripMenuItem";
+            this.backupFilesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.backupFilesToolStripMenuItem.Text = "Backup Files?";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 343);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.outdatedLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.startButton);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.xMove);
             this.Controls.Add(this.yMove);
             this.Controls.Add(this.zMove);
@@ -446,7 +452,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem calculateVectorDifferencesToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem backupFilesToolStripMenuItem;
     }
 }
 

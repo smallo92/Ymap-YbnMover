@@ -1,6 +1,6 @@
 ﻿using SharpDX;
 using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ymapmover
@@ -8,12 +8,12 @@ namespace ymapmover
     public partial class CalculateVectorDifference : Form
     {
         private MainForm mainForm;
-        private Vector3 OffsetVec = new Vector3();
-        public CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+        private Vector3 offsetVec = new Vector3();
+        List<float> oldLocList = new List<float>();
+        List<float> newLocList = new List<float>();
 
         public CalculateVectorDifference(MainForm ParentForm)
         {
-            ci.NumberFormat.CurrencyDecimalSeparator = ".";
             InitializeComponent();
             mainForm = ParentForm;
         }
@@ -23,21 +23,32 @@ namespace ymapmover
             if (vector1.Text != "" || vector2.Text != "")
             {
                 string[] oldLocSplit = vector1.Text.Split(',');
-                string[] newLocSplit = vector2.Text.Split(',');
-                Vector3 oldVec = new Vector3(float.Parse(oldLocSplit[0], NumberStyles.Any, ci), float.Parse(oldLocSplit[1], NumberStyles.Any, ci), float.Parse(oldLocSplit[2], NumberStyles.Any, ci));
-                Vector3 newVec = new Vector3(float.Parse(newLocSplit[0], NumberStyles.Any, ci), float.Parse(newLocSplit[1], NumberStyles.Any, ci), float.Parse(newLocSplit[2], NumberStyles.Any, ci));
+                string[] NewLocSplit = vector2.Text.Split(',');
+                Vector3 oldVec = new Vector3(float.Parse(oldLocSplit[0]), float.Parse(oldLocSplit[1]), float.Parse(oldLocSplit[2]));
+                Vector3 newVec = new Vector3(float.Parse(NewLocSplit[0]), float.Parse(NewLocSplit[1]), float.Parse(NewLocSplit[2]));
 
-                OffsetVec = newVec - oldVec;
-                newOffset.Text = OffsetVec.X.ToString() + ", " + OffsetVec.Y.ToString() + ", " + OffsetVec.Z.ToString();
+                offsetVec = new Vector3(VecDiff(float.Parse(NewLocSplit[0]), float.Parse(oldLocSplit[0])), VecDiff(float.Parse(NewLocSplit[1]), float.Parse(oldLocSplit[1])), VecDiff(float.Parse(NewLocSplit[2]), float.Parse(oldLocSplit[2])));
+                newOffset.Text = offsetVec.X.ToString() + ", " + offsetVec.Y.ToString() + ", " + offsetVec.Z.ToString();
             }
         }
 
         private void InputButton_Click(object sender, EventArgs e)
         {
-            mainForm.xMoveBox = OffsetVec.X.ToString();
-            mainForm.yMoveBox = OffsetVec.Y.ToString();
-            mainForm.zMoveBox = OffsetVec.Z.ToString();
+            mainForm.xMoveBox = offsetVec.X.ToString();
+            mainForm.yMoveBox = offsetVec.Y.ToString();
+            mainForm.zMoveBox = offsetVec.Z.ToString();
             Close();
+        }
+
+        private float VecDiff(float val1, float val2)
+        {
+            if (val1 < 0.0f && val2 < 0.0f)
+            {
+                return (val1 * -1) - (val2 * -1);
+            } else
+            {
+                return val1 - val2;
+            }
         }
     }
 }

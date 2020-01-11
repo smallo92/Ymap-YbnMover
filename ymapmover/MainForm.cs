@@ -56,7 +56,7 @@ namespace ymapmover
                 {
                     Thread.CurrentThread.IsBackground = true;
                     string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
-                    foreach (string file in ybnFiles)
+                    foreach (String file in ybnFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
@@ -78,7 +78,7 @@ namespace ymapmover
                 {
                     Thread.CurrentThread.IsBackground = true;
                     string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
-                    foreach (string file in ymapFiles)
+                    foreach (String file in ymapFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
@@ -103,13 +103,13 @@ namespace ymapmover
                     Thread.CurrentThread.IsBackground = true;
                     string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
                     string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
-                    foreach (string file in ymapFiles)
+                    foreach (String file in ymapFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
-                    foreach (string file in ybnFiles)
+                    foreach (String file in ybnFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
@@ -154,17 +154,17 @@ namespace ymapmover
             string VersionCheck = VersionNum;
             try
             {
-                stream = client.OpenRead("https://fivem.xpl.wtf/ymapybnmover/version.txt");
+                stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
                 reader = new StreamReader(stream);
                 VersionCheck = reader.ReadToEnd().Trim();
             }
-            catch (Exception ex) {}
+            catch (Exception) { }
             if (VersionCheck != VersionNum)
             {
                 string message = "YMAP & YBN mover is outdated\n\nYou are running v" + VersionNum + "\nThe latest version is v" + VersionCheck + "\n\nWould you like to download the update now?";
                 if (MessageBox.Show(message, "Update Check", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                 {
-                    Process.Start("https://fivem.xpl.wtf/ymapybnmover/update.zip");
+                    Process.Start("http://fivem.xpl.wtf/ymapybnmover/update.zip");
                     MainForm MainF = new MainForm();
                     MainF.Close();
                     Application.Exit();
@@ -246,6 +246,13 @@ namespace ymapmover
                         byte[] oldData = File.ReadAllBytes(filename);
                         RpfFile.LoadResourceFile<YbnFile>(ybn, oldData, 43);
 
+                        if (backupFilesToolStripMenuItem.Checked)
+                        {
+                            string backupFilename = CurrentList.Items[j].ToString() + ".old";
+                            byte[] newDataBackup = ybn.Save();
+                            File.WriteAllBytes(backupFilename, newDataBackup);
+                        }
+
                         if (ybn.Bounds != null)
                         {
                             ybn.Bounds.BoundingBoxCenter = ybn.Bounds.BoundingBoxCenter + moveVec;
@@ -300,7 +307,12 @@ namespace ymapmover
                         byte[] oldData = File.ReadAllBytes(filename);
                         ymap.Load(oldData);
 
-                        ymap.Name = Path.GetFileNameWithoutExtension(filename);
+                        if (backupFilesToolStripMenuItem.Checked)
+                        {
+                            string backupFilename = CurrentList.Items[j].ToString() + ".old";
+                            byte[] newDataBackup = ymap.Save();
+                            File.WriteAllBytes(backupFilename, newDataBackup);
+                        }
 
                         if (ymap.GrassInstanceBatches != null)
                         {
@@ -311,7 +323,6 @@ namespace ymapmover
                                 yEnts.AABBMax = yEnts.AABBMax + moveVec;
                             }
                         }
-
                         if (ymap.CarGenerators != null)
                         {
                             foreach (YmapCarGen yEnts in ymap.CarGenerators) { yEnts.SetPosition(yEnts.Position + moveVec); }
