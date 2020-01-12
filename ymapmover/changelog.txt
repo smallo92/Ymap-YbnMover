@@ -1,0 +1,3 @@
+﻿- Added a 'Backup Files' option to the Edit Menu. This will save an original copy of the file with '.old' appended to it
+- Updated Codewalker.Core so when saving ybns it automatically recalculates poly edge counts. (This was a general gims exporter issue from older versions)
+- Added a changelog to this dialogue 😉

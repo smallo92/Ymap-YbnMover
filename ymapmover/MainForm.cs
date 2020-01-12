@@ -152,6 +152,7 @@ namespace ymapmover
             Stream stream = null;
             StreamReader reader = null;
             string VersionCheck = VersionNum;
+            string ChangeLogText = "";
             try
             {
                 stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
@@ -161,7 +162,18 @@ namespace ymapmover
             catch (Exception) { }
             if (VersionCheck != VersionNum)
             {
+                try
+                {
+                    stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/changelog.txt");
+                    reader = new StreamReader(stream);
+                    ChangeLogText = reader.ReadToEnd().Trim();
+                }
+                catch (Exception) { }
                 string message = "YMAP & YBN mover is outdated\n\nYou are running v" + VersionNum + "\nThe latest version is v" + VersionCheck + "\n\nWould you like to download the update now?";
+                if (ChangeLogText != "")
+                {
+                    message = message + "\n\nChangelog:\n" + ChangeLogText;
+                }
                 if (MessageBox.Show(message, "Update Check", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                 {
                     Process.Start("http://fivem.xpl.wtf/ymapybnmover/update.zip");

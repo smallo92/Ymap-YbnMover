@@ -181,6 +181,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="changelog.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -203,6 +206,7 @@
   </PostBuildEventDependsOn>
     <PostBuildEvent>if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(TargetDir)CodeWalker.Core.dll', '$(TargetDir)SharpDX.dll', '$(TargetDir)SharpDX.Mathematics.dll', '$(TargetDir)YMAP-YBN-Mover.exe', '$(TargetDir)YMAP-YBN-Mover.exe.config' -DestinationPath '$(TargetDir)uploads\update.zip' -Force)
 if $(ConfigurationName) == Release (echo @(VersionNumber) &gt; "$(TargetDir)uploads\version.txt")
+if $(ConfigurationName) == Release (copy /Y "$(TargetDir)changelog.txt" "$(TargetDir)uploads\changelog.txt")
 if $(ConfigurationName) == Release (call "$(TargetDir)UploadFiles.bat")</PostBuildEvent>
   </PropertyGroup>
 </Project>
