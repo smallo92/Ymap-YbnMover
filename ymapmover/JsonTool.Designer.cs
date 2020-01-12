@@ -31,18 +31,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JsonTool));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearAllItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearSelectedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.FillerStatusBar = new System.Windows.Forms.ToolStripStatusLabel();
             this.timerStatusBar = new System.Windows.Forms.ToolStripStatusLabel();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearAllItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearSelectedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CurrentList = new System.Windows.Forms.ListBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
@@ -72,22 +72,43 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // exitToolStripMenuItem
+            // addItemsToolStripMenuItem
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.addItemsToolStripMenuItem.Name = "addItemsToolStripMenuItem";
+            this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addItemsToolStripMenuItem.Text = "Add Item(s)";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
-            // addItemsToolStripMenuItem
+            // exitToolStripMenuItem
             // 
-            this.addItemsToolStripMenuItem.Name = "addItemsToolStripMenuItem";
-            this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.addItemsToolStripMenuItem.Text = "Add Item(s)";
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearAllItemsToolStripMenuItem,
+            this.clearSelectedItemsToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // clearAllItemsToolStripMenuItem
+            // 
+            this.clearAllItemsToolStripMenuItem.Name = "clearAllItemsToolStripMenuItem";
+            this.clearAllItemsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearAllItemsToolStripMenuItem.Text = "Clear All Items";
+            // 
+            // clearSelectedItemsToolStripMenuItem
+            // 
+            this.clearSelectedItemsToolStripMenuItem.Name = "clearSelectedItemsToolStripMenuItem";
+            this.clearSelectedItemsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearSelectedItemsToolStripMenuItem.Text = "Clear Selected Item(s)";
             // 
             // helpToolStripMenuItem
             // 
@@ -133,27 +154,6 @@
             this.timerStatusBar.Name = "timerStatusBar";
             this.timerStatusBar.Size = new System.Drawing.Size(0, 17);
             // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearAllItemsToolStripMenuItem,
-            this.clearSelectedItemsToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
-            // 
-            // clearAllItemsToolStripMenuItem
-            // 
-            this.clearAllItemsToolStripMenuItem.Name = "clearAllItemsToolStripMenuItem";
-            this.clearAllItemsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.clearAllItemsToolStripMenuItem.Text = "Clear All Items";
-            // 
-            // clearSelectedItemsToolStripMenuItem
-            // 
-            this.clearSelectedItemsToolStripMenuItem.Name = "clearSelectedItemsToolStripMenuItem";
-            this.clearSelectedItemsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.clearSelectedItemsToolStripMenuItem.Text = "Clear Selected Item(s)";
-            // 
             // CurrentList
             // 
             this.CurrentList.FormattingEnabled = true;
@@ -182,6 +182,7 @@
             this.startButton.TabIndex = 4;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // JsonTool
             // 

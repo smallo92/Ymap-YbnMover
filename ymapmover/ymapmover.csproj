@@ -74,9 +74,8 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodeWalker.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\GTAVModding\CodeWalker31\CodeWalker.Core.dll</HintPath>
+    <Reference Include="CodeWalker.Core">
+      <HintPath>..\..\CodeWalker-master\CodeWalker.Core\bin\Release\CodeWalker.Core.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
@@ -203,7 +202,7 @@
     PostBuildMacros;
   </PostBuildEventDependsOn>
     <PostBuildEvent>if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(TargetDir)CodeWalker.Core.dll', '$(TargetDir)SharpDX.dll', '$(TargetDir)SharpDX.Mathematics.dll', '$(TargetDir)YMAP-YBN-Mover.exe', '$(TargetDir)YMAP-YBN-Mover.exe.config' -DestinationPath '$(TargetDir)uploads\update.zip' -Force)
-if $(ConfigurationName) == Release (echo @(VersionNumber) &gt; "E:\Documents\Visual Studio 2017\Projects\ymapmover\ymapmover\bin\Release\uploads\version.txt")
+if $(ConfigurationName) == Release (echo @(VersionNumber) &gt; "$(TargetDir)uploads\version.txt")
 if $(ConfigurationName) == Release (call "$(TargetDir)UploadFiles.bat")</PostBuildEvent>
   </PropertyGroup>
 </Project>

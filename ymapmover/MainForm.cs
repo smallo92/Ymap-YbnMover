@@ -255,10 +255,10 @@ namespace ymapmover
 
                         if (ybn.Bounds != null)
                         {
-                            ybn.Bounds.BoundingBoxCenter = ybn.Bounds.BoundingBoxCenter + moveVec;
-                            ybn.Bounds.BoundingBoxMax = ybn.Bounds.BoundingBoxMax + moveVec;
-                            ybn.Bounds.BoundingBoxMin = ybn.Bounds.BoundingBoxMin + moveVec;
-                            ybn.Bounds.Center = ybn.Bounds.Center + moveVec;
+                            ybn.Bounds.BoxCenter = ybn.Bounds.BoxCenter + moveVec;
+                            ybn.Bounds.BoxMax = ybn.Bounds.BoxMax + moveVec;
+                            ybn.Bounds.BoxMin = ybn.Bounds.BoxMin + moveVec;
+                            ybn.Bounds.SphereCenter = ybn.Bounds.SphereCenter + moveVec;
 
                             BoundComposite boundcomp = ybn.Bounds as BoundComposite;
                             var compchilds = boundcomp?.Children?.data_items;
@@ -275,10 +275,10 @@ namespace ymapmover
                             {
                                 for (int i = 0; i < compchilds.Length; i++)
                                 {
-                                    compchilds[i].BoundingBoxCenter = compchilds[i].BoundingBoxCenter + moveVec;
-                                    compchilds[i].BoundingBoxMax = compchilds[i].BoundingBoxMax + moveVec;
-                                    compchilds[i].BoundingBoxMin = compchilds[i].BoundingBoxMin + moveVec;
-                                    compchilds[i].Center = compchilds[i].Center + moveVec;
+                                    compchilds[i].BoxCenter = compchilds[i].BoxCenter + moveVec;
+                                    compchilds[i].BoxMax = compchilds[i].BoxMax + moveVec;
+                                    compchilds[i].BoxMin = compchilds[i].BoxMin + moveVec;
+                                    compchilds[i].SphereCenter = compchilds[i].SphereCenter + moveVec;
                                     BoundBVH bgeom = compchilds[i] as BoundBVH;
                                     if (bgeom != null)
                                     {
@@ -337,7 +337,7 @@ namespace ymapmover
                         ymap._CMapData.streamingExtentsMin = ymap.CMapData.streamingExtentsMin + moveVec;
                         ymap._CMapData.entitiesExtentsMax = ymap.CMapData.entitiesExtentsMax + moveVec;
                         ymap._CMapData.entitiesExtentsMin = ymap.CMapData.entitiesExtentsMin + moveVec;
-
+                        
                         byte[] newData = ymap.Save();
                         File.WriteAllBytes(filename, newData);
                         var elapsedMss = watch.ElapsedMilliseconds;
@@ -418,6 +418,11 @@ namespace ymapmover
         {
             YmapYbnHowTo ymapYbnHowToForm = new YmapYbnHowTo();
             ymapYbnHowToForm.ShowDialog();
+        }
+
+        private void jSONToYMAPAndYTYPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
