@@ -8,6 +8,7 @@ namespace ymapmover
 {
     static class Program
     {
+        public static bool OpenDetailFormOnClose { get; set; }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +17,15 @@ namespace ymapmover
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            OpenDetailFormOnClose = false;
+
+            Application.Run(new Startup());
+
+            if (OpenDetailFormOnClose)
+            {
+                Application.Run(new MainForm());
+            }
         }
     }
 }

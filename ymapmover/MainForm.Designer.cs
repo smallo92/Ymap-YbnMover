@@ -52,6 +52,8 @@
             this.howToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.polyEdgeFixerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.legacyToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jSONToYMAPAndYTYPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CurrentList = new System.Windows.Forms.ListBox();
@@ -68,6 +70,7 @@
             this.startButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.outdatedLabel = new System.Windows.Forms.Label();
+            this.rPFFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -78,6 +81,7 @@
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.aboutToolStripMenuItem,
+            this.toolsToolStripMenuItem,
             this.legacyToolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -101,9 +105,10 @@
             this.addFolderToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.yFilesToolStripMenuItem,
             this.yMAPsToolStripMenuItem,
-            this.yBNsToolStripMenuItem});
+            this.yBNsToolStripMenuItem,
+            this.rPFFilesToolStripMenuItem});
             this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
-            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addFolderToolStripMenuItem.Text = "Add Folder";
             // 
             // yFilesToolStripMenuItem
@@ -130,19 +135,19 @@
             // addItemsToolStripMenuItem
             // 
             this.addItemsToolStripMenuItem.Name = "addItemsToolStripMenuItem";
-            this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addItemsToolStripMenuItem.Text = "Add Item(s)";
             this.addItemsToolStripMenuItem.Click += new System.EventHandler(this.addItemsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(133, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -232,21 +237,36 @@
             // howToToolStripMenuItem
             // 
             this.howToToolStripMenuItem.Name = "howToToolStripMenuItem";
-            this.howToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.howToToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.howToToolStripMenuItem.Text = "How to use";
             this.howToToolStripMenuItem.Click += new System.EventHandler(this.howToToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(131, 6);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.polyEdgeFixerToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // polyEdgeFixerToolStripMenuItem
+            // 
+            this.polyEdgeFixerToolStripMenuItem.Name = "polyEdgeFixerToolStripMenuItem";
+            this.polyEdgeFixerToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.polyEdgeFixerToolStripMenuItem.Text = "Poly Edge Fixer";
+            this.polyEdgeFixerToolStripMenuItem.Click += new System.EventHandler(this.polyEdgeFixerToolStripMenuItem_Click);
             // 
             // legacyToolsToolStripMenuItem
             // 
@@ -278,6 +298,7 @@
             this.openFileDialog1.DefaultExt = "*";
             this.openFileDialog1.Filter = "YMAP Files|*.ymap|YBN Files|*.ybn";
             this.openFileDialog1.Multiselect = true;
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // statusStrip1
             // 
@@ -383,6 +404,14 @@
             this.outdatedLabel.Size = new System.Drawing.Size(0, 20);
             this.outdatedLabel.TabIndex = 9;
             // 
+            // rPFFilesToolStripMenuItem
+            // 
+            this.rPFFilesToolStripMenuItem.Name = "rPFFilesToolStripMenuItem";
+            this.rPFFilesToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.rPFFilesToolStripMenuItem.Text = "RPF Files";
+            this.rPFFilesToolStripMenuItem.Visible = false;
+            this.rPFFilesToolStripMenuItem.Click += new System.EventHandler(this.rPFFilesToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -403,6 +432,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "YMAP & YBN Mover";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -455,6 +485,9 @@
         private System.Windows.Forms.ToolStripMenuItem calculateVectorDifferencesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem backupFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem polyEdgeFixerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rPFFilesToolStripMenuItem;
     }
 }
 

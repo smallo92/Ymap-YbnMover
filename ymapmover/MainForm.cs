@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -23,8 +22,7 @@ namespace ymapmover
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MainForm MainF = new MainForm();
-            MainF.Close();
+            this.Close();
             Application.Exit();
             Application.ExitThread();
         }
@@ -82,8 +80,6 @@ namespace ymapmover
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
-
-
                         TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     var elapsedMs = watch.ElapsedMilliseconds;
@@ -103,6 +99,7 @@ namespace ymapmover
                     Thread.CurrentThread.IsBackground = true;
                     string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
                     string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
+                    //string[] rpfFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.rpf", SearchOption.AllDirectories);
                     foreach (String file in ymapFiles)
                     {
                         CurrentList.Items.Add(file);
@@ -115,12 +112,95 @@ namespace ymapmover
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
+                    //foreach (String file in rpfFiles)
+                    //{
+                    //    TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
+                    //    RpfFile rpf = new RpfFile(file, Path.GetDirectoryName(file));
+                    //    rpf.ScanStructure(UpdateStatus, UpdateErrorLog);
+                    //    SearchRPF(rpf, file);
+                    //    var elapsedMss = watch.ElapsedMilliseconds;
+                    //    TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    //}
                     var elapsedMs = watch.ElapsedMilliseconds;
                     TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
                     CountItems();
                 }).Start();
             }
         }
+
+        //public void UpdateStatus(string text)
+        //{
+        //    try
+        //    {
+        //        if (InvokeRequired)
+        //        {
+        //            BeginInvoke(new Action(() => { UpdateStatus(text); }));
+        //        }
+        //    }
+        //    catch { }
+        //}
+        //public void UpdateErrorLog(string text)
+        //{
+        //    try
+        //    {
+        //        if (InvokeRequired)
+        //        {
+        //            BeginInvoke(new Action(() => { UpdateErrorLog(text); }));
+        //        }
+        //    }
+        //    catch { }
+        //}
+
+        //private bool IsFileLocked(FileInfo file)
+        //{
+        //    FileStream stream = null;
+        //    try
+        //    {
+        //        stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        //    }
+        //    catch (IOException)
+        //    {
+        //        return true;
+        //    }
+        //    finally
+        //    {
+        //        if (stream != null)
+        //            stream.Close();
+        //    }
+        //    return false;
+        //}
+
+        //private bool WaitForFile(string filename)
+        //{
+        //    var WrittenRpf = new FileInfo(filename);
+        //    while (IsFileLocked(WrittenRpf)) { }
+        //    return true;
+        //}
+
+        //public void SearchRPF(RpfFile rpf, string file)
+        //{
+        //    foreach (RpfEntry RPFFile in rpf.AllEntries)
+        //    {
+        //        if (RPFFile.Name.EndsWith(".ybn") || RPFFile.Name.EndsWith(".ymap"))
+        //        {
+        //            CurrentList.Items.Add(file + "\\" + rpf.Name + "\\" + RPFFile.Name);
+        //        } else if (RPFFile.Name.EndsWith(".rpf"))
+        //        {
+        //            byte[] data;
+        //            RpfBinaryFileEntry RecursiveRpf = (RpfBinaryFileEntry) RPFFile;
+        //            data = rpf.ExtractFile(RecursiveRpf);
+        //            string newFile = Path.GetDirectoryName(file) + "\\" + RPFFile.Name;
+        //            File.WriteAllBytes(newFile, data);
+
+        //            if (WaitForFile(newFile))
+        //            {
+        //                RpfFile ExportedRpf = new RpfFile(newFile, Path.GetDirectoryName(file));
+        //                ExportedRpf.ScanStructure(UpdateStatus, UpdateErrorLog);
+        //                SearchRPF(ExportedRpf, file);
+        //            }
+        //        }
+        //    }
+        //}
 
         private void addItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -132,6 +212,16 @@ namespace ymapmover
                     Thread.CurrentThread.IsBackground = true;
                     foreach (String file in openFileDialog1.FileNames)
                     {
+                        //if (file.EndsWith(".rpf"))
+                        //{
+                        //    TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
+                        //    RpfFile rpf = new RpfFile(file, Path.GetDirectoryName(file));
+                        //    rpf.ScanStructure(UpdateStatus, UpdateErrorLog);
+                        //    SearchRPF(rpf, file);
+                        //} else
+                        //{
+                        //    CurrentList.Items.Add(file);
+                        //}
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
@@ -145,48 +235,9 @@ namespace ymapmover
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string VersionNum = fvi.FileVersion.ToString();
-            WebClient client = new WebClient();
-            Stream stream = null;
-            StreamReader reader = null;
-            string VersionCheck = VersionNum;
-            string ChangeLogText = "";
-            try
-            {
-                stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
-                reader = new StreamReader(stream);
-                VersionCheck = reader.ReadToEnd().Trim();
-            }
-            catch (Exception) { }
-            if (VersionCheck != VersionNum)
-            {
-                try
-                {
-                    stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/changelog.txt");
-                    reader = new StreamReader(stream);
-                    ChangeLogText = reader.ReadToEnd().Trim();
-                }
-                catch (Exception) { }
-                string message = "YMAP & YBN mover is outdated\n\nYou are running v" + VersionNum + "\nThe latest version is v" + VersionCheck + "\n\nWould you like to download the update now?";
-                if (ChangeLogText != "")
-                {
-                    message = message + "\n\nChangelog:\n" + ChangeLogText;
-                }
-                if (MessageBox.Show(message, "Update Check", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
-                {
-                    Process.Start("http://fivem.xpl.wtf/ymapybnmover/update.zip");
-                    MainForm MainF = new MainForm();
-                    MainF.Close();
-                    Application.Exit();
-                    Application.ExitThread();
-                }
-                outdatedLabel.Text = "This version is outdated";
-            }
-
             Form.CheckForIllegalCrossThreadCalls = false;
-            openFileDialog1.Filter = "All Types|*.ymap;*.ybn" + "|YMAP Files|*.ymap|YBN Files|*.ybn";
+            //openFileDialog1.Filter = "All Types|*.ymap;*.ybn;*.rpf;" + "|YMAP Files|*.ymap|YBN Files|*.ybn|RPF Files|*.rpf";
+            openFileDialog1.Filter = "All Types|*.ymap;*.ybn;" + "|YMAP Files|*.ymap|YBN Files|*.ybn";
             CountItems();
         }
 
@@ -232,6 +283,74 @@ namespace ymapmover
             CountItems();
         }
 
+        //private string removeRPFsFromPath(string path)
+        //{
+        //    DirectoryInfo parentDir = new DirectoryInfo(path);
+        //    while (parentDir.ToString().Contains(".rpf"))
+        //    {
+        //        try
+        //        {
+        //            if (parentDir.ToString().Contains(".rpf"))
+        //            {
+        //                parentDir = Directory.GetParent(parentDir.ToString());
+        //            }
+        //            else
+        //            {
+        //                break;
+        //            }
+        //        }
+        //        catch { }
+        //    }
+        //    return parentDir.ToString();
+        //}
+
+        //private void ExtractRPFFiles(string filename, string type)
+        //{
+            
+        //    string[] words = filename.Split('\\');
+        //    string RPF = "";
+        //    foreach (string word in words)
+        //    {
+        //        if (word.Contains(".rpf"))
+        //        {
+        //            RPF = word;
+        //        }
+        //    }
+        //    RpfFile CurrentRpf = new RpfFile(RPF, Path.GetDirectoryName(filename));
+        //    CurrentRpf.ScanStructure(UpdateStatus, UpdateErrorLog);
+        //    foreach (RpfEntry RPFFile in CurrentRpf.AllEntries)
+        //    {
+        //        if (RPFFile.Name == Path.GetFileName(filename))
+        //        {
+        //            RpfResourceFileEntry InternalFile = (RpfResourceFileEntry)RPFFile;
+        //            byte[] data = CurrentRpf.ExtractFile(InternalFile);
+        //            string path = Path.GetDirectoryName(filename);
+        //            string parentDir = removeRPFsFromPath(path);
+        //            string currentFile = parentDir + "\\" + RPFFile.Name;
+
+        //            data = ResourceBuilder.Compress(data);
+        //            RpfResourceFileEntry rrfe = InternalFile as RpfResourceFileEntry;
+        //            if (rrfe != null)
+        //            {
+        //                data = ResourceBuilder.AddResourceHeader(rrfe, data);
+        //            }
+        //            byte[] saveData = null;
+        //            if (type == "ybn")
+        //            {
+        //                YbnFile newYbn = new YbnFile();
+        //                RpfFile.LoadResourceFile<YbnFile>(newYbn, data, 43);
+        //                saveData = newYbn.Save();
+        //            } else
+        //            {
+        //                YmapFile newYmap = new YmapFile();
+        //                newYmap.Load(data);
+        //                saveData = newYmap.Save();
+        //            }
+        //            File.WriteAllBytes(currentFile, saveData);
+        //        }
+        //    }
+        //}
+
         private void startButton_Click(object sender, EventArgs e)
         {
             var watch = Stopwatch.StartNew();
@@ -251,18 +370,31 @@ namespace ymapmover
                     string filename = CurrentList.Items[j].ToString();
                     FilesAddedLabel.Text = "Processing " + Path.GetFileName(filename);
                     Vector3 moveVec = new Vector3(float.Parse(xMove.Text, NumberStyles.Any, ci), float.Parse(yMove.Text, NumberStyles.Any, ci), float.Parse(zMove.Text, NumberStyles.Any, ci));
-                    
-                    if (filename.Contains(".ybn"))
+
+                    if (filename.EndsWith(".ybn"))
                     {
+                        //if (filename.Contains(".rpf"))
+                        //{
+                        //    ExtractRPFFiles(filename, "ybn");
+                        //}
+                        string newFile = filename;
+                        //if (newFile.Contains(".rpf"))
+                        //{
+                        //    string parentDir = removeRPFsFromPath(newFile);
+                        //    newFile = parentDir + "\\" + Path.GetFileName(filename);
+                        //}
                         YbnFile ybn = new YbnFile();
-                        byte[] oldData = File.ReadAllBytes(filename);
+                        byte[] oldData = File.ReadAllBytes(newFile);
                         RpfFile.LoadResourceFile<YbnFile>(ybn, oldData, 43);
 
                         if (backupFilesToolStripMenuItem.Checked)
                         {
-                            string backupFilename = CurrentList.Items[j].ToString() + ".old";
-                            byte[] newDataBackup = ybn.Save();
-                            File.WriteAllBytes(backupFilename, newDataBackup);
+                            //if (filename.Contains(".rpf")) { } else
+                            //{
+                                string backupFilename = CurrentList.Items[j].ToString() + ".old";
+                                byte[] newDataBackup = ybn.Save();
+                                File.WriteAllBytes(backupFilename, newDataBackup);
+                            //}
                         }
 
                         if (ybn.Bounds != null)
@@ -310,20 +442,34 @@ namespace ymapmover
                         }
 
                         byte[] newData = ybn.Save();
-                        File.WriteAllBytes(filename, newData);
+                        File.WriteAllBytes(newFile, newData);
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
-                    } else
+                    }
+                    else if (filename.EndsWith(".ymap"))
                     {
+                        //if (filename.Contains(".rpf"))
+                        //{
+                        //    ExtractRPFFiles(filename, "ymap");
+                        //}
+                        string newFile = filename;
+                        //if (newFile.Contains(".rpf"))
+                        //{
+                        //    string parentDir = removeRPFsFromPath(newFile);
+                        //    newFile = parentDir + "\\" + Path.GetFileName(filename);
+                        //}
                         YmapFile ymap = new YmapFile();
-                        byte[] oldData = File.ReadAllBytes(filename);
+                        byte[] oldData = File.ReadAllBytes(newFile);
                         ymap.Load(oldData);
 
                         if (backupFilesToolStripMenuItem.Checked)
                         {
-                            string backupFilename = CurrentList.Items[j].ToString() + ".old";
-                            byte[] newDataBackup = ymap.Save();
-                            File.WriteAllBytes(backupFilename, newDataBackup);
+                            //if (filename.Contains(".rpf")) { } else
+                            //{
+                                string backupFilename = CurrentList.Items[j].ToString() + ".old";
+                                byte[] newDataBackup = ymap.Save();
+                                File.WriteAllBytes(backupFilename, newDataBackup);
+                            //}
                         }
 
                         if (ymap.GrassInstanceBatches != null)
@@ -349,9 +495,9 @@ namespace ymapmover
                         ymap._CMapData.streamingExtentsMin = ymap.CMapData.streamingExtentsMin + moveVec;
                         ymap._CMapData.entitiesExtentsMax = ymap.CMapData.entitiesExtentsMax + moveVec;
                         ymap._CMapData.entitiesExtentsMin = ymap.CMapData.entitiesExtentsMin + moveVec;
-                        
+
                         byte[] newData = ymap.Save();
-                        File.WriteAllBytes(filename, newData);
+                        File.WriteAllBytes(newFile, newData);
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
@@ -435,6 +581,39 @@ namespace ymapmover
         private void jSONToYMAPAndYTYPToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void polyEdgeFixerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EdgeFixer EdgeFixer = new EdgeFixer();
+            EdgeFixer.ShowDialog();
+        }
+
+        private void rPFFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //var watch = Stopwatch.StartNew();
+            //if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
+            //{
+            //    new Thread(() =>
+            //    {
+            //        Thread.CurrentThread.IsBackground = true;
+            //        string[] rpfFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.rpf", SearchOption.AllDirectories);
+            //        foreach (String file in rpfFiles)
+            //        {
+            //            CurrentList.Items.Add(file);
+            //            var elapsedMss = watch.ElapsedMilliseconds;
+            //            TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+            //        }
+            //        var elapsedMs = watch.ElapsedMilliseconds;
+            //        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
+            //        CountItems();
+            //    }).Start();
+            //}
         }
     }
 }
