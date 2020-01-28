@@ -78,7 +78,8 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodeWalker.Core">
+    <Reference Include="CodeWalker.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\CodeWalker-master\CodeWalker.Core\bin\Release\CodeWalker.Core.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
@@ -88,6 +89,7 @@
       <HintPath>..\packages\SharpDX.Mathematics.4.2.0\lib\net45\SharpDX.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -144,6 +146,7 @@
     <Compile Include="YmapYbnHowTo.Designer.cs">
       <DependentUpon>YmapYbnHowTo.cs</DependentUpon>
     </Compile>
+    <Compile Include="YmapYbnMover.cs" />
     <EmbeddedResource Include="CalculateVectorDifference.resx">
       <DependentUpon>CalculateVectorDifference.cs</DependentUpon>
     </EmbeddedResource>

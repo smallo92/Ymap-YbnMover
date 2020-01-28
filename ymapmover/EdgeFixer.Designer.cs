@@ -39,8 +39,10 @@
             this.clearAllItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearSelectedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.clearAllYDRsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllYBNsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearAllYDRsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearAllYDDsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearAllYFTsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CurrentList = new System.Windows.Forms.ListBox();
@@ -52,6 +54,7 @@
             this.TimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.clearAllRPFsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -111,8 +114,11 @@
             this.clearAllItemsToolStripMenuItem,
             this.clearSelectedItemsToolStripMenuItem,
             this.toolStripSeparator2,
+            this.clearAllRPFsToolStripMenuItem,
+            this.clearAllYBNsToolStripMenuItem,
             this.clearAllYDRsToolStripMenuItem,
-            this.clearAllYBNsToolStripMenuItem});
+            this.clearAllYDDsToolStripMenuItem,
+            this.clearAllYFTsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -136,6 +142,13 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(185, 6);
             // 
+            // clearAllYBNsToolStripMenuItem
+            // 
+            this.clearAllYBNsToolStripMenuItem.Name = "clearAllYBNsToolStripMenuItem";
+            this.clearAllYBNsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearAllYBNsToolStripMenuItem.Text = "Clear All YBNs";
+            this.clearAllYBNsToolStripMenuItem.Click += new System.EventHandler(this.clearAllYBNsToolStripMenuItem_Click);
+            // 
             // clearAllYDRsToolStripMenuItem
             // 
             this.clearAllYDRsToolStripMenuItem.Name = "clearAllYDRsToolStripMenuItem";
@@ -143,12 +156,19 @@
             this.clearAllYDRsToolStripMenuItem.Text = "Clear All YDRs";
             this.clearAllYDRsToolStripMenuItem.Click += new System.EventHandler(this.clearAllYDRsToolStripMenuItem_Click);
             // 
-            // clearAllYBNsToolStripMenuItem
+            // clearAllYDDsToolStripMenuItem
             // 
-            this.clearAllYBNsToolStripMenuItem.Name = "clearAllYBNsToolStripMenuItem";
-            this.clearAllYBNsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.clearAllYBNsToolStripMenuItem.Text = "Clear All YBNs";
-            this.clearAllYBNsToolStripMenuItem.Click += new System.EventHandler(this.clearAllYBNsToolStripMenuItem_Click);
+            this.clearAllYDDsToolStripMenuItem.Name = "clearAllYDDsToolStripMenuItem";
+            this.clearAllYDDsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearAllYDDsToolStripMenuItem.Text = "Clear All YDDs";
+            this.clearAllYDDsToolStripMenuItem.Click += new System.EventHandler(this.clearAllYDDsToolStripMenuItem_Click_1);
+            // 
+            // clearAllYFTsToolStripMenuItem
+            // 
+            this.clearAllYFTsToolStripMenuItem.Name = "clearAllYFTsToolStripMenuItem";
+            this.clearAllYFTsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearAllYFTsToolStripMenuItem.Text = "Clear All YFTs";
+            this.clearAllYFTsToolStripMenuItem.Click += new System.EventHandler(this.clearAllYFTsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -229,8 +249,15 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "*";
-            this.openFileDialog1.Filter = "YBN Files|*.ybn|YDR Files|*.ydr";
+            this.openFileDialog1.Filter = "RPF Files|*.rpf|YBN Files|*.ybn|YDR Files|*.ydr|YDD Files|*.ydd|YFT Files|*.yft";
             this.openFileDialog1.Multiselect = true;
+            // 
+            // clearAllRPFsToolStripMenuItem
+            // 
+            this.clearAllRPFsToolStripMenuItem.Name = "clearAllRPFsToolStripMenuItem";
+            this.clearAllRPFsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearAllRPFsToolStripMenuItem.Text = "Clear All RPFs";
+            this.clearAllRPFsToolStripMenuItem.Click += new System.EventHandler(this.clearAllRPFsToolStripMenuItem_Click);
             // 
             // EdgeFixer
             // 
@@ -282,5 +309,8 @@
         private System.Windows.Forms.ToolStripMenuItem clearAllYBNsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearAllYFTsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearAllYDDsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearAllRPFsToolStripMenuItem;
     }
 }

@@ -1,3 +1,3 @@
-﻿- Added a tools option which currently has the Pole Edge Fixer, primarily used for issues that GIMS and OpenIV cause. Running your YDRs and YBNs through this will clear out the poly edge error in FiveM\line
-- Heaps of early progress on RPF support (Coming Soon)\line
-- Added a new Update Check form so I could add some styling
+﻿- Moved repeated functions into it's own class (YmapYbnMover)\line
+- Added support for adding RPFs, it will get all files of the correct types out of them and save them back into the RPF (Please, please, please backup your files for this. It is very experimental and could corrupt your RPFs.)\line
+- YDD support Poly Edge Fixer

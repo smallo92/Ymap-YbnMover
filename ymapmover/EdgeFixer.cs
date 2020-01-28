@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using CodeWalker.GameFiles;
+using YmapYbnMover;
 
 namespace ymapmover
 {
@@ -17,14 +20,14 @@ namespace ymapmover
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void EdgeFixer_Load(object sender, EventArgs e)
         {
-            Form.CheckForIllegalCrossThreadCalls = false;
-            openFileDialog1.Filter = "All Types|*.ybn;*.ydr;" + "|YBN Files|*.ybn|YDR Files|*.ydr";
-            CountItems();
+            CheckForIllegalCrossThreadCalls = false;
+            openFileDialog1.Filter = "All Types|*.rpf;*.ybn;*.ydr;*.ydd;*.yft;" + "|RPF Files|*.rpf|YBN Files|*.ybn|YDD Files|*.ydd|YDR Files|*.ydr|YFT Files|*.yft";
+            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
         }
 
         private void addItemsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -35,37 +38,26 @@ namespace ymapmover
                 new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
-                    foreach (String file in openFileDialog1.FileNames)
+                    foreach (string file in openFileDialog1.FileNames)
                     {
-                        CurrentList.Items.Add(file);
+                        if (file.EndsWith(".rpf"))
+                        {
+                            TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
+                            RpfFile rpf = new RpfFile(file, Path.GetDirectoryName(file));
+                            rpf.ScanStructure(null, null);
+                            var fileTypes = new List<string>() { ".ybn", ".ydr", ".yft", ".ydd" };
+                            RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
+                        } else
+                        {
+                            CurrentList.Items.Add(file);
+                        }
                         var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     var elapsedMs = watch.ElapsedMilliseconds;
-                    TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                    CountItems();
+                    TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
+                    StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
                 }).Start();
-            }
-        }
-        private string ConvertMillisecondsToSeconds(double milliseconds)
-        {
-            if (TimeSpan.FromMilliseconds(milliseconds).TotalSeconds > 60)
-            {
-                return TimeSpan.FromMilliseconds(milliseconds).TotalMinutes.ToString("0.00") + "m";
-            }
-            return TimeSpan.FromMilliseconds(milliseconds).TotalSeconds.ToString("0.00") + "s";
-        }
-        private void CountItems()
-        {
-            int listCount = CurrentList.Items.Count;
-            FilesAddedLabel.Text = listCount + " Item(s) Added";
-            if (listCount == 0)
-            {
-                startButton.Enabled = false;
-            }
-            else
-            {
-                startButton.Enabled = true;
             }
         }
 
@@ -86,30 +78,132 @@ namespace ymapmover
                         return;
                     }
                     string filename = CurrentList.Items[j].ToString();
-                    FilesAddedLabel.Text = "Processing " + Path.GetFileName(filename);
-                    
+                    FilesAddedLabel.Text = "Processing " + Path.GetFileName(filename) + " (" + (j + 1) + " of " + CurrentList.Items.Count + ")";
+
                     if (filename.EndsWith(".ybn"))
                     {
-                        YbnFile ybn = new YbnFile();
-                        byte[] oldData = File.ReadAllBytes(filename);
-                        RpfFile.LoadResourceFile<YbnFile>(ybn, oldData, 43);
+                        YbnFile ybn = new YbnFile(); 
+                        RpfDirectoryEntry RPFFilesDirectory;
+                        byte[] oldData;
+                        if (filename.Contains(".rpf"))
+                        {
+                            string fileDirectory = StringFunctions.TopMostRPF(filename);
+                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                            TopRPF.ScanStructure(null, null);
+                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                        }
+                        else
+                        {
+                            RPFFilesDirectory = null;
+                            oldData = File.ReadAllBytes(filename);
+                        }
+                        ybn.Load(oldData);
                         byte[] newData = ybn.Save();
-                        File.WriteAllBytes(filename, newData);
+                        if (filename.Contains(".rpf"))
+                        {
+                            RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                        }
+                        else
+                        {
+                            File.WriteAllBytes(filename, newData);
+                        }
                         var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     else if (filename.EndsWith(".ydr"))
                     {
                         YdrFile ydr = new YdrFile();
-                        byte[] oldData = File.ReadAllBytes(filename);
-                        RpfFile.LoadResourceFile<YdrFile>(ydr, oldData, 165);
+                        RpfDirectoryEntry RPFFilesDirectory;
+                        byte[] oldData;
+                        if (filename.Contains(".rpf"))
+                        {
+                            string fileDirectory = StringFunctions.TopMostRPF(filename);
+                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                            TopRPF.ScanStructure(null, null);
+                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                        }
+                        else
+                        {
+                            RPFFilesDirectory = null;
+                            oldData = File.ReadAllBytes(filename);
+                        }
+                        RpfFile.LoadResourceFile(ydr, oldData, 165);
                         byte[] newData = ydr.Save();
-                        File.WriteAllBytes(filename, newData);
+                        if (filename.Contains(".rpf"))
+                        {
+                            RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                        }
+                        else
+                        {
+                            File.WriteAllBytes(filename, newData);
+                        }
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    }
+                    else if (filename.EndsWith(".ydd"))
+                    {
+                        YddFile ydd = new YddFile();
+                        RpfDirectoryEntry RPFFilesDirectory;
+                        byte[] oldData;
+                        if (filename.Contains(".rpf"))
+                        {
+                            string fileDirectory = StringFunctions.TopMostRPF(filename);
+                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                            TopRPF.ScanStructure(null, null);
+                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                        }
+                        else
+                        {
+                            RPFFilesDirectory = null;
+                            oldData = File.ReadAllBytes(filename);
+                        }
+                        RpfFile.LoadResourceFile(ydd, oldData, 165);
+                        byte[] newData = ydd.Save();
+                        if (filename.Contains(".rpf"))
+                        {
+                            RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                        }
+                        else
+                        {
+                            File.WriteAllBytes(filename, newData);
+                        }
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    }
+                    else if (filename.EndsWith(".yft"))
+                    {
+                        YftFile yft = new YftFile();
+                        RpfDirectoryEntry RPFFilesDirectory;
+                        byte[] oldData;
+                        if (filename.Contains(".rpf"))
+                        {
+                            string fileDirectory = StringFunctions.TopMostRPF(filename);
+                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                            TopRPF.ScanStructure(null, null);
+                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                        }
+                        else
+                        {
+                            RPFFilesDirectory = null;
+                            oldData = File.ReadAllBytes(filename);
+                        }
+                        RpfFile.LoadResourceFile(yft, oldData, 162);
+                        byte[] newData = yft.Save();
+                        if (filename.Contains(".rpf"))
+                        {
+                            RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                        }
+                        else
+                        {
+                            File.WriteAllBytes(filename, newData);
+                        }
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                 }
                 FilesAddedLabel.Text = "Complete";
                 var elapsedMs = watch.ElapsedMilliseconds;
-                TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
+                TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
                 cancelButton.Enabled = false;
             }).Start();
         }
@@ -122,7 +216,7 @@ namespace ymapmover
         private void clearAllItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CurrentList.Items.Clear();
-            CountItems();
+            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
             TimeLabel.Text = "Time Elapsed: 0ms";
         }
 
@@ -133,7 +227,7 @@ namespace ymapmover
                 int idx = CurrentList.SelectedIndices[x];
                 CurrentList.Items.RemoveAt(idx);
             }
-            CountItems();
+            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
             TimeLabel.Text = "Time Elapsed: 0ms";
         }
 
@@ -143,7 +237,7 @@ namespace ymapmover
             {
                 if (CurrentList.Items[i].ToString().Contains(".ydr")) { CurrentList.Items.RemoveAt(i); }
             }
-            CountItems();
+            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
         }
 
         private void clearAllYBNsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -152,7 +246,34 @@ namespace ymapmover
             {
                 if (CurrentList.Items[i].ToString().Contains(".ybn")) { CurrentList.Items.RemoveAt(i); }
             }
-            CountItems();
+            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+        }
+
+        private void clearAllYFTsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
+            {
+                if (CurrentList.Items[i].ToString().Contains(".yft")) { CurrentList.Items.RemoveAt(i); }
+            }
+            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+        }
+
+        private void clearAllYDDsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
+            {
+                if (CurrentList.Items[i].ToString().Contains(".ydd")) { CurrentList.Items.RemoveAt(i); }
+            }
+            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+        }
+
+        private void clearAllRPFsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
+            {
+                if (CurrentList.Items[i].ToString().Contains(".rpf")) { CurrentList.Items.RemoveAt(i); }
+            }
+            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
         }
 
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,23 +284,41 @@ namespace ymapmover
                 new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
+                    string[] rpfFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.rpf", SearchOption.AllDirectories);
                     string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
                     string[] ydrFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ydr", SearchOption.AllDirectories);
-                    foreach (String file in ybnFiles)
+                    string[] yftFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.yft", SearchOption.AllDirectories);
+                    foreach (string file in ybnFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
-                    foreach (String file in ydrFiles)
+                    foreach (string file in ydrFiles)
                     {
                         CurrentList.Items.Add(file);
                         var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    }
+                    foreach (string file in yftFiles)
+                    {
+                        CurrentList.Items.Add(file);
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                    }
+                    foreach (string file in rpfFiles)
+                    {
+                        TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
+                        RpfFile rpf = new RpfFile(file, Path.GetDirectoryName(file));
+                        rpf.ScanStructure(null, null);
+                        var fileTypes = new List<string>() { ".ybn", ".ydr", ".yft", ".ydd" };
+                        RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
+                        var elapsedMss = watch.ElapsedMilliseconds;
+                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     var elapsedMs = watch.ElapsedMilliseconds;
-                    TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                    CountItems();
+                    TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
+                    StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
                 }).Start();
             }
         }
