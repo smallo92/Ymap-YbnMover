@@ -139,8 +139,12 @@ namespace YmapYbnMover
         {
             RpfFileEntry InternalFile = (RpfFileEntry)RPFFile;
             byte[] data = InternalFile.Parent.File.ExtractFile(InternalFile);
-            data = ResourceBuilder.Compress(data);
-            data = ResourceBuilder.AddResourceHeader((RpfResourceFileEntry)InternalFile, data);
+            RpfResourceFileEntry rrfe = InternalFile as RpfResourceFileEntry;
+            if (rrfe != null)
+            {
+                data = ResourceBuilder.Compress(data);
+                data = ResourceBuilder.AddResourceHeader(rrfe, data);
+            }
             return data;
         }
     }

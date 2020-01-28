@@ -1,1 +1,2 @@
-﻿- Added a full changelog in the 'Help' tab
+﻿- Added error checking on files, corrupted files will be automatically skipped\line
+- Corrupted RPFs will be not be added to the window at all

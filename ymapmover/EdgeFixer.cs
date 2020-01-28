@@ -44,9 +44,16 @@ namespace ymapmover
                         {
                             TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
                             RpfFile rpf = new RpfFile(file, Path.GetDirectoryName(file));
-                            rpf.ScanStructure(null, null);
-                            var fileTypes = new List<string>() { ".ybn", ".ydr", ".yft", ".ydd" };
-                            RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
+                            try
+                            {
+                                rpf.ScanStructure(null, null);
+                                var fileTypes = new List<string>() { ".ybn", ".ydr", ".yft", ".ydd" };
+                                RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("Error can't read " + file + ".\nThis file has been skipped.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         } else
                         {
                             CurrentList.Items.Add(file);
@@ -66,6 +73,7 @@ namespace ymapmover
             var watch = Stopwatch.StartNew();
             TimeLabel.Text = "Time Elapsed: 0ms";
             cancelButton.Enabled = true;
+            var errorFiles = new List<string>() { };
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -97,18 +105,25 @@ namespace ymapmover
                             RPFFilesDirectory = null;
                             oldData = File.ReadAllBytes(filename);
                         }
-                        ybn.Load(oldData);
-                        byte[] newData = ybn.Save();
-                        if (filename.Contains(".rpf"))
+                        try
                         {
-                            RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                            ybn.Load(oldData);
+                            byte[] newData = ybn.Save();
+                            if (filename.Contains(".rpf"))
+                            {
+                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                            }
+                            else
+                            {
+                                File.WriteAllBytes(filename, newData);
+                            }
+                            var elapsedMss = watch.ElapsedMilliseconds;
+                            TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                         }
-                        else
+                        catch (Exception)
                         {
-                            File.WriteAllBytes(filename, newData);
+                            errorFiles.Add(filename);
                         }
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     else if (filename.EndsWith(".ydr"))
                     {
@@ -127,18 +142,25 @@ namespace ymapmover
                             RPFFilesDirectory = null;
                             oldData = File.ReadAllBytes(filename);
                         }
-                        RpfFile.LoadResourceFile(ydr, oldData, 165);
-                        byte[] newData = ydr.Save();
-                        if (filename.Contains(".rpf"))
+                        try
                         {
-                            RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                            RpfFile.LoadResourceFile(ydr, oldData, 165);
+                            byte[] newData = ydr.Save();
+                            if (filename.Contains(".rpf"))
+                            {
+                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                            }
+                            else
+                            {
+                                File.WriteAllBytes(filename, newData);
+                            }
+                            var elapsedMss = watch.ElapsedMilliseconds;
+                            TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                         }
-                        else
+                        catch (Exception)
                         {
-                            File.WriteAllBytes(filename, newData);
+                            errorFiles.Add(filename);
                         }
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     else if (filename.EndsWith(".ydd"))
                     {
@@ -157,18 +179,25 @@ namespace ymapmover
                             RPFFilesDirectory = null;
                             oldData = File.ReadAllBytes(filename);
                         }
-                        RpfFile.LoadResourceFile(ydd, oldData, 165);
-                        byte[] newData = ydd.Save();
-                        if (filename.Contains(".rpf"))
+                        try
                         {
-                            RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                            RpfFile.LoadResourceFile(ydd, oldData, 165);
+                            byte[] newData = ydd.Save();
+                            if (filename.Contains(".rpf"))
+                            {
+                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                            }
+                            else
+                            {
+                                File.WriteAllBytes(filename, newData);
+                            }
+                            var elapsedMss = watch.ElapsedMilliseconds;
+                            TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                         }
-                        else
+                        catch (Exception)
                         {
-                            File.WriteAllBytes(filename, newData);
+                            errorFiles.Add(filename);
                         }
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     else if (filename.EndsWith(".yft"))
                     {
@@ -187,19 +216,35 @@ namespace ymapmover
                             RPFFilesDirectory = null;
                             oldData = File.ReadAllBytes(filename);
                         }
-                        RpfFile.LoadResourceFile(yft, oldData, 162);
-                        byte[] newData = yft.Save();
-                        if (filename.Contains(".rpf"))
+                        try
                         {
-                            RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                            RpfFile.LoadResourceFile(yft, oldData, 162);
+                            byte[] newData = yft.Save();
+                            if (filename.Contains(".rpf"))
+                            {
+                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                            }
+                            else
+                            {
+                                File.WriteAllBytes(filename, newData);
+                            }
+                            var elapsedMss = watch.ElapsedMilliseconds;
+                            TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                         }
-                        else
+                        catch (Exception)
                         {
-                            File.WriteAllBytes(filename, newData);
+                            errorFiles.Add(filename);
                         }
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
+                }
+                if (errorFiles != null)
+                {
+                    string message = "The following file(s) were corrupted and were not edited.\n\n";
+                    foreach (string item in errorFiles)
+                    {
+                        message = message + item + "\n";
+                    }
+                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 FilesAddedLabel.Text = "Complete";
                 var elapsedMs = watch.ElapsedMilliseconds;
@@ -310,11 +355,19 @@ namespace ymapmover
                     {
                         TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
                         RpfFile rpf = new RpfFile(file, Path.GetDirectoryName(file));
-                        rpf.ScanStructure(null, null);
-                        var fileTypes = new List<string>() { ".ybn", ".ydr", ".yft", ".ydd" };
-                        RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                        try
+                        {
+                            rpf.ScanStructure(null, null);
+                            var fileTypes = new List<string>() { ".ybn", ".ydr", ".yft", ".ydd" };
+                            RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
+                            var elapsedMss = watch.ElapsedMilliseconds;
+                            TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("Error can't read " + file + ".\nThis file has been skipped.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
                     }
                     var elapsedMs = watch.ElapsedMilliseconds;
                     TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
