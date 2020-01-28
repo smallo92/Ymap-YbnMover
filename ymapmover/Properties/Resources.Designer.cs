@@ -19,7 +19,7 @@ namespace ymapmover.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,20 @@ namespace ymapmover.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang3081{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset2 Symbol;}}
+        ///{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+        ///\pard\sl240\slmult1\ul\b\f0\fs24\lang9 v2.2.0.0\ulnone\b0\fs22\par
+        ///
+        ///\pard{\pntext\f1\&apos;B7\tab}{\*\pn\pnlvlblt\pnf1\pnindent0{\pntxtb\&apos;B7}}\fi-360\li720\sl240\slmult1 Moved repeated functions into it&apos;s own class (YmapYbnMover)\par
+        ///{\pntext\f1\&apos;B7\tab}Added support for adding RPFs, it will get all files of the correct types out of them an [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string fullchangelog {
+            get {
+                return ResourceManager.GetString("fullchangelog", resourceCulture);
             }
         }
     }

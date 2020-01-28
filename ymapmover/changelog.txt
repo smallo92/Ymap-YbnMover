@@ -1,3 +1,1 @@
-﻿- Moved repeated functions into it's own class (YmapYbnMover)\line
-- Added support for adding RPFs, it will get all files of the correct types out of them and save them back into the RPF (Please, please, please backup your files for this. It is very experimental and could corrupt your RPFs.)\line
-- YDD support Poly Edge Fixer
+﻿- Added a full changelog in the 'Help' tab

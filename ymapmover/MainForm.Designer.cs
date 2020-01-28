@@ -43,6 +43,7 @@
             this.clearAllItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearSelectedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.clearAllRPFsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllYBNsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllYMAPsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -71,7 +72,7 @@
             this.startButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.outdatedLabel = new System.Windows.Forms.Label();
-            this.clearAllRPFsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changelogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -109,53 +110,53 @@
             this.yBNsToolStripMenuItem,
             this.rPFFilesToolStripMenuItem});
             this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
-            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.addFolderToolStripMenuItem.Text = "Add Folder";
             // 
             // yFilesToolStripMenuItem
             // 
             this.yFilesToolStripMenuItem.Name = "yFilesToolStripMenuItem";
-            this.yFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.yFilesToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.yFilesToolStripMenuItem.Text = "All File Types";
             this.yFilesToolStripMenuItem.Click += new System.EventHandler(this.yFilesToolStripMenuItem_Click);
             // 
             // yMAPsToolStripMenuItem
             // 
             this.yMAPsToolStripMenuItem.Name = "yMAPsToolStripMenuItem";
-            this.yMAPsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.yMAPsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.yMAPsToolStripMenuItem.Text = "YMAP Files";
             this.yMAPsToolStripMenuItem.Click += new System.EventHandler(this.yMAPsToolStripMenuItem_Click);
             // 
             // yBNsToolStripMenuItem
             // 
             this.yBNsToolStripMenuItem.Name = "yBNsToolStripMenuItem";
-            this.yBNsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.yBNsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.yBNsToolStripMenuItem.Text = "YBN Files";
             this.yBNsToolStripMenuItem.Click += new System.EventHandler(this.yBNsToolStripMenuItem_Click);
             // 
             // rPFFilesToolStripMenuItem
             // 
             this.rPFFilesToolStripMenuItem.Name = "rPFFilesToolStripMenuItem";
-            this.rPFFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rPFFilesToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.rPFFilesToolStripMenuItem.Text = "RPF Files";
             this.rPFFilesToolStripMenuItem.Click += new System.EventHandler(this.rPFFilesToolStripMenuItem_Click);
             // 
             // addItemsToolStripMenuItem
             // 
             this.addItemsToolStripMenuItem.Name = "addItemsToolStripMenuItem";
-            this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addItemsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.addItemsToolStripMenuItem.Text = "Add Item(s)";
             this.addItemsToolStripMenuItem.Click += new System.EventHandler(this.addItemsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(133, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -194,6 +195,13 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(218, 6);
+            // 
+            // clearAllRPFsToolStripMenuItem
+            // 
+            this.clearAllRPFsToolStripMenuItem.Name = "clearAllRPFsToolStripMenuItem";
+            this.clearAllRPFsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.clearAllRPFsToolStripMenuItem.Text = "Clear All RPFs";
+            this.clearAllRPFsToolStripMenuItem.Click += new System.EventHandler(this.clearAllRPFsToolStripMenuItem_Click);
             // 
             // clearAllYBNsToolStripMenuItem
             // 
@@ -238,6 +246,7 @@
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.howToToolStripMenuItem,
             this.toolStripSeparator3,
+            this.changelogToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
@@ -246,19 +255,19 @@
             // howToToolStripMenuItem
             // 
             this.howToToolStripMenuItem.Name = "howToToolStripMenuItem";
-            this.howToToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.howToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.howToToolStripMenuItem.Text = "How to use";
             this.howToToolStripMenuItem.Click += new System.EventHandler(this.howToToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(131, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
             // 
@@ -412,12 +421,12 @@
             this.outdatedLabel.Size = new System.Drawing.Size(0, 20);
             this.outdatedLabel.TabIndex = 9;
             // 
-            // clearAllRPFsToolStripMenuItem
+            // changelogToolStripMenuItem
             // 
-            this.clearAllRPFsToolStripMenuItem.Name = "clearAllRPFsToolStripMenuItem";
-            this.clearAllRPFsToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.clearAllRPFsToolStripMenuItem.Text = "Clear All RPFs";
-            this.clearAllRPFsToolStripMenuItem.Click += new System.EventHandler(this.clearAllRPFsToolStripMenuItem_Click);
+            this.changelogToolStripMenuItem.Name = "changelogToolStripMenuItem";
+            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changelogToolStripMenuItem.Text = "Changelog";
+            this.changelogToolStripMenuItem.Click += new System.EventHandler(this.changelogToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -496,6 +505,7 @@
         private System.Windows.Forms.ToolStripMenuItem rPFFilesToolStripMenuItem;
         private System.Windows.Forms.ListBox CurrentList;
         private System.Windows.Forms.ToolStripMenuItem clearAllRPFsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changelogToolStripMenuItem;
     }
 }
 

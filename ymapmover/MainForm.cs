@@ -458,6 +458,11 @@ namespace ymapmover
             ymapYbnHowToForm.ShowDialog();
         }
 
+        private void changelogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changelog changeLog = new changelog();
+            changeLog.ShowDialog();
+        }
         private void jSONToYMAPAndYTYPToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -499,5 +504,6 @@ namespace ymapmover
                 }).Start();
             }
         }
+
     }
 }

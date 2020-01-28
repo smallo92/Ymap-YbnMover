@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,14 +23,14 @@ namespace ymapmover
 
         private void Startup_Load(object sender, EventArgs e)
         {
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             string VersionNum = fvi.FileVersion.ToString();
             WebClient client = new WebClient();
-            Stream stream = null;
-            StreamReader reader = null;
             string VersionCheck = VersionNum;
             string ChangeLogText = "";
+            Stream stream;
+            StreamReader reader;
             try
             {
                 stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
