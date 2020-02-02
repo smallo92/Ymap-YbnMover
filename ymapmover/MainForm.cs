@@ -428,7 +428,7 @@ namespace ymapmover
                         }
                     }
                 }
-                if (errorFiles != null)
+                if (errorFiles.Count != 0)
                 {
                     string message = "The following file(s) were corrupted and were not edited.\n\n";
                     foreach (string item in errorFiles)

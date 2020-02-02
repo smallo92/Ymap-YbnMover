@@ -39,6 +39,7 @@
             this.clearAllItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearSelectedItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.clearAllRPFsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllYBNsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllYDRsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllYDDsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,7 @@
             this.TimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.clearAllRPFsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -141,6 +142,13 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(185, 6);
+            // 
+            // clearAllRPFsToolStripMenuItem
+            // 
+            this.clearAllRPFsToolStripMenuItem.Name = "clearAllRPFsToolStripMenuItem";
+            this.clearAllRPFsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.clearAllRPFsToolStripMenuItem.Text = "Clear All RPFs";
+            this.clearAllRPFsToolStripMenuItem.Click += new System.EventHandler(this.clearAllRPFsToolStripMenuItem_Click);
             // 
             // clearAllYBNsToolStripMenuItem
             // 
@@ -252,23 +260,27 @@
             this.openFileDialog1.Filter = "RPF Files|*.rpf|YBN Files|*.ybn|YDR Files|*.ydr|YDD Files|*.ydd|YFT Files|*.yft";
             this.openFileDialog1.Multiselect = true;
             // 
-            // clearAllRPFsToolStripMenuItem
+            // testLabel
             // 
-            this.clearAllRPFsToolStripMenuItem.Name = "clearAllRPFsToolStripMenuItem";
-            this.clearAllRPFsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.clearAllRPFsToolStripMenuItem.Text = "Clear All RPFs";
-            this.clearAllRPFsToolStripMenuItem.Click += new System.EventHandler(this.clearAllRPFsToolStripMenuItem_Click);
+            this.testLabel.AutoSize = true;
+            this.testLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testLabel.Location = new System.Drawing.Point(528, 27);
+            this.testLabel.Name = "testLabel";
+            this.testLabel.Size = new System.Drawing.Size(0, 20);
+            this.testLabel.TabIndex = 7;
             // 
             // EdgeFixer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 343);
+            this.Controls.Add(this.testLabel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.CurrentList);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
@@ -312,5 +324,6 @@
         private System.Windows.Forms.ToolStripMenuItem clearAllYFTsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearAllYDDsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearAllRPFsToolStripMenuItem;
+        private System.Windows.Forms.Label testLabel;
     }
 }

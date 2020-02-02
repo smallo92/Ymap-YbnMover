@@ -145,6 +145,20 @@ namespace ymapmover
                         try
                         {
                             RpfFile.LoadResourceFile(ydr, oldData, 165);
+                            foreach (DrawableModel item in ydr.Drawable.AllModels)
+                            {
+                                foreach (DrawableGeometry geometry in item.Geometries.data_items)
+                                {
+                                    if (geometry == null) continue;
+                                    if (geometry.VertexBuffer != null)
+                                    {
+                                        if (geometry.VertexBuffer.Data1 == null)
+                                        {
+                                            geometry.VertexBuffer.Data1 = geometry.VertexBuffer.Data2;
+                                        }
+                                    }
+                                }
+                            }
                             byte[] newData = ydr.Save();
                             if (filename.Contains(".rpf"))
                             {
@@ -182,6 +196,23 @@ namespace ymapmover
                         try
                         {
                             RpfFile.LoadResourceFile(ydd, oldData, 165);
+                            foreach (Drawable item in ydd.Drawables)
+                            {
+                                foreach (DrawableModel model in item.AllModels)
+                                {
+                                    foreach (DrawableGeometry geometry in model.Geometries.data_items)
+                                    {
+                                        if (geometry == null) continue;
+                                        if (geometry.VertexBuffer != null)
+                                        {
+                                            if (geometry.VertexBuffer.Data1 == null)
+                                            {
+                                                geometry.VertexBuffer.Data1 = geometry.VertexBuffer.Data2;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                             byte[] newData = ydd.Save();
                             if (filename.Contains(".rpf"))
                             {
@@ -219,6 +250,20 @@ namespace ymapmover
                         try
                         {
                             RpfFile.LoadResourceFile(yft, oldData, 162);
+                            foreach (DrawableModel item in yft.Fragment.Drawable.AllModels)
+                            {
+                                foreach (DrawableGeometry geometry in item.Geometries.data_items)
+                                {
+                                    if (geometry == null) continue;
+                                    if (geometry.VertexBuffer != null)
+                                    {
+                                        if (geometry.VertexBuffer.Data1 == null)
+                                        {
+                                            geometry.VertexBuffer.Data1 = geometry.VertexBuffer.Data2;
+                                        }
+                                    }
+                                }
+                            }
                             byte[] newData = yft.Save();
                             if (filename.Contains(".rpf"))
                             {
@@ -237,7 +282,7 @@ namespace ymapmover
                         }
                     }
                 }
-                if (errorFiles != null)
+                if (errorFiles.Count != 0)
                 {
                     string message = "The following file(s) were corrupted and were not edited.\n\n";
                     foreach (string item in errorFiles)
