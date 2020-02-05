@@ -1,4 +1,5 @@
 ﻿- Fixed culture to use the correct format\line
 - Removed unused items in CalculateVectorDifference form\line
 - Removed unused usings\line
-- Added the ability to drag and drop files into the listbox on both forms
+- Added the ability to drag and drop files into the listbox on both forms\line
+- Moved some more repeated functions into the YmapYbnMover class

@@ -69,9 +69,7 @@ namespace ymapmover
                         }
                     }
                 }
-                var elapsedMss = watch.ElapsedMilliseconds;
-                TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
-                StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+                StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
             }).Start();
         }
 
@@ -109,9 +107,7 @@ namespace ymapmover
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                    StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
                 }).Start();
             }
         }
@@ -471,9 +467,7 @@ namespace ymapmover
                         }
 
                     }
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                    StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
                 }).Start();
             }
         }

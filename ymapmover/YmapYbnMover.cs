@@ -9,6 +9,12 @@ namespace YmapYbnMover
 {
     public class StringFunctions
     {
+        public static void SetCountAndTime(long elapsedMss, ToolStripStatusLabel TimeLabel, ListBox CurrentList, ToolStripStatusLabel FilesAddedLabel, Button startButton)
+        {
+            TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
+            CountItems(CurrentList, FilesAddedLabel, startButton);
+        }
+
         public static bool DoesItemExist(ListBox CurrentList, string file)
         {
             for (var j = 0; j < CurrentList.Items.Count; j++)
