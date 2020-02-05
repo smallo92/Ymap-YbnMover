@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using CodeWalker.GameFiles;
@@ -28,6 +27,52 @@ namespace ymapmover
             CheckForIllegalCrossThreadCalls = false;
             openFileDialog1.Filter = "All Types|*.rpf;*.ybn;*.ydr;*.ydd;*.yft;" + "|RPF Files|*.rpf|YBN Files|*.ybn|YDD Files|*.ydd|YDR Files|*.ydr|YFT Files|*.yft";
             StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            CurrentList.AllowDrop = true;
+            CurrentList.DragDrop += CurrentList_DragDrop;
+            CurrentList.DragEnter += CurrentList_DragEnter;
+        }
+
+        private void CurrentList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        private void CurrentList_DragDrop(object sender, DragEventArgs e)
+        {
+            var watch = Stopwatch.StartNew();
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string file in files)
+                {
+                    if (file.EndsWith("ybn") || file.EndsWith("ydr") || file.EndsWith("yft") || file.EndsWith("ydd"))
+                    {
+                        if (!StringFunctions.DoesItemExist(CurrentList, file))
+                        {
+                            CurrentList.Items.Add(file);
+                        }
+                    }
+                    else if (file.EndsWith("rpf"))
+                    {
+                        TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
+                        RpfFile rpf = new RpfFile(file, Path.GetDirectoryName(file));
+                        try
+                        {
+                            rpf.ScanStructure(null, null);
+                            var fileTypes = new List<string>() { ".ybn", ".ymap" };
+                            RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("Error can't read " + file + ".\nThis file has been skipped.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                var elapsedMss = watch.ElapsedMilliseconds;
+                TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            }).Start();
         }
 
         private void addItemsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,7 +101,10 @@ namespace ymapmover
                             }
                         } else
                         {
-                            CurrentList.Items.Add(file);
+                            if (!StringFunctions.DoesItemExist(CurrentList, file))
+                            {
+                                CurrentList.Items.Add(file);
+                            }
                         }
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
@@ -380,19 +428,28 @@ namespace ymapmover
                     string[] yftFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.yft", SearchOption.AllDirectories);
                     foreach (string file in ybnFiles)
                     {
-                        CurrentList.Items.Add(file);
+                        if (!StringFunctions.DoesItemExist(CurrentList, file))
+                        {
+                            CurrentList.Items.Add(file);
+                        }
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     foreach (string file in ydrFiles)
                     {
-                        CurrentList.Items.Add(file);
+                        if (!StringFunctions.DoesItemExist(CurrentList, file))
+                        {
+                            CurrentList.Items.Add(file);
+                        }
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     foreach (string file in yftFiles)
                     {
-                        CurrentList.Items.Add(file);
+                        if (!StringFunctions.DoesItemExist(CurrentList, file))
+                        {
+                            CurrentList.Items.Add(file);
+                        }
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }

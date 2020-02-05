@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace ymapmover
 {
     public partial class JsonTool : Form
     {
-        public CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         public JsonTool()
         {
-            ci.NumberFormat.CurrencyDecimalSeparator = ".";
             InitializeComponent();
         }
 

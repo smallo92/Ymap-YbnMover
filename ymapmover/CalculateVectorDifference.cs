@@ -1,6 +1,5 @@
 ﻿using SharpDX;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ymapmover
@@ -9,8 +8,6 @@ namespace ymapmover
     {
         private MainForm mainForm;
         private Vector3 offsetVec = new Vector3();
-        List<float> oldLocList = new List<float>();
-        List<float> newLocList = new List<float>();
 
         public CalculateVectorDifference(MainForm ParentForm)
         {
@@ -24,8 +21,6 @@ namespace ymapmover
             {
                 string[] oldLocSplit = vector1.Text.Split(',');
                 string[] NewLocSplit = vector2.Text.Split(',');
-                Vector3 oldVec = new Vector3(float.Parse(oldLocSplit[0]), float.Parse(oldLocSplit[1]), float.Parse(oldLocSplit[2]));
-                Vector3 newVec = new Vector3(float.Parse(NewLocSplit[0]), float.Parse(NewLocSplit[1]), float.Parse(NewLocSplit[2]));
 
                 offsetVec = new Vector3(VecDiff(float.Parse(NewLocSplit[0]), float.Parse(oldLocSplit[0])), VecDiff(float.Parse(NewLocSplit[1]), float.Parse(oldLocSplit[1])), VecDiff(float.Parse(NewLocSplit[2]), float.Parse(oldLocSplit[2])));
                 newOffset.Text = offsetVec.X.ToString() + ", " + offsetVec.Y.ToString() + ", " + offsetVec.Z.ToString();
@@ -49,6 +44,11 @@ namespace ymapmover
             {
                 return val1 - val2;
             }
+        }
+
+        private void CalculateVectorDifference_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

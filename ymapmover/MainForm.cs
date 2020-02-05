@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -15,10 +14,8 @@ namespace ymapmover
     public partial class MainForm : Form
     {
         public bool CancelLoop = false;
-        public CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         public MainForm()
         {
-            ci.NumberFormat.CurrencyDecimalSeparator = ".";
             InitializeComponent();
         }
 
@@ -58,7 +55,10 @@ namespace ymapmover
                     string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
                     foreach (string file in ybnFiles)
                     {
-                        CurrentList.Items.Add(file);
+                        if (!StringFunctions.DoesItemExist(CurrentList, file))
+                        {
+                            CurrentList.Items.Add(file);
+                        }
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
@@ -80,7 +80,10 @@ namespace ymapmover
                     string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
                     foreach (string file in ymapFiles)
                     {
-                        CurrentList.Items.Add(file);
+                        if (!StringFunctions.DoesItemExist(CurrentList, file))
+                        {
+                            CurrentList.Items.Add(file);
+                        }
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
@@ -104,13 +107,19 @@ namespace ymapmover
                     string[] rpfFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.rpf", SearchOption.AllDirectories);
                     foreach (string file in ymapFiles)
                     {
-                        CurrentList.Items.Add(file);
+                        if (!StringFunctions.DoesItemExist(CurrentList, file))
+                        {
+                            CurrentList.Items.Add(file);
+                        }
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
                     foreach (string file in ybnFiles)
                     {
-                        CurrentList.Items.Add(file);
+                        if (!StringFunctions.DoesItemExist(CurrentList, file))
+                        {
+                            CurrentList.Items.Add(file);
+                        }
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
@@ -165,7 +174,10 @@ namespace ymapmover
                         }
                         else
                         {
-                            CurrentList.Items.Add(file);
+                            if (!StringFunctions.DoesItemExist(CurrentList, file))
+                            {
+                                CurrentList.Items.Add(file);
+                            }
                         }
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
@@ -182,6 +194,52 @@ namespace ymapmover
             CheckForIllegalCrossThreadCalls = false;
             openFileDialog1.Filter = "All Types|*.rpf;*.ybn;*.ymap;" + "|RPF Files|*.rpf|YBN Files|*.ybn|YMAP Files|*.ymap";
             StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            CurrentList.AllowDrop = true;
+            CurrentList.DragDrop += CurrentList_DragDrop;
+            CurrentList.DragEnter += CurrentList_DragEnter;
+        }
+
+        private void CurrentList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        private void CurrentList_DragDrop(object sender, DragEventArgs e)
+        {
+            var watch = Stopwatch.StartNew();
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string file in files)
+                {
+                    if (file.EndsWith("ybn") || file.EndsWith("ymap"))
+                    {
+                        if (!StringFunctions.DoesItemExist(CurrentList, file))
+                        {
+                            CurrentList.Items.Add(file);
+                        }
+                    }
+                    else if (file.EndsWith("rpf"))
+                    {
+                        TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
+                        RpfFile rpf = new RpfFile(file, Path.GetDirectoryName(file));
+                        try
+                        {
+                            rpf.ScanStructure(null, null);
+                            var fileTypes = new List<string>() { ".ybn", ".ymap" };
+                            RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("Error can't read " + file + ".\nThis file has been skipped.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                var elapsedMss = watch.ElapsedMilliseconds;
+                TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
+                StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            }).Start();
         }
 
         private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -254,7 +312,7 @@ namespace ymapmover
                     }
                     string filename = CurrentList.Items[j].ToString();
                     FilesAddedLabel.Text = "Processing " + Path.GetFileName(filename) + " (" + (j + 1) + " of " + CurrentList.Items.Count + ")";
-                    Vector3 moveVec = new Vector3(float.Parse(xMove.Text, NumberStyles.Any, ci), float.Parse(yMove.Text, NumberStyles.Any, ci), float.Parse(zMove.Text, NumberStyles.Any, ci));
+                    Vector3 moveVec = new Vector3(float.Parse(xMove.Text), float.Parse(yMove.Text), float.Parse(zMove.Text));
 
                     if (filename.EndsWith(".ybn"))
                     {
@@ -461,7 +519,7 @@ namespace ymapmover
 
         private void FloatOnly(TextBox textBox)
         {
-            if (!float.TryParse(textBox.Text, NumberStyles.Any, ci, out _))
+            if (!float.TryParse(textBox.Text, out _))
             {
                 textBox.Text = Regex.Replace(textBox.Text, "[^0-9.+-]", "");
             }

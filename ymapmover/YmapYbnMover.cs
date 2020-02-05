@@ -9,6 +9,18 @@ namespace YmapYbnMover
 {
     public class StringFunctions
     {
+        public static bool DoesItemExist(ListBox CurrentList, string file)
+        {
+            for (var j = 0; j < CurrentList.Items.Count; j++)
+            {
+                if (CurrentList.Items[j].ToString() == file)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static string TopMostRPF(string filename)
         {
             string[] words = filename.Split('\\');
@@ -125,7 +137,10 @@ namespace YmapYbnMover
                 {
                     if (RPFFile.Name.EndsWith(item))
                     {
-                        CurrentList.Items.Add(Path.Combine(file, RPFFile.Name));
+                        if (!StringFunctions.DoesItemExist(CurrentList, Path.Combine(file, RPFFile.Name)))
+                        {
+                            CurrentList.Items.Add(Path.Combine(file, RPFFile.Name));
+                        }
                     }
                 }
             }

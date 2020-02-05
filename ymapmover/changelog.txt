@@ -1,2 +1,4 @@
-﻿- Fixed error showing even when all files are successful
-- Fixed a bug in poly edge fixer
+﻿- Fixed culture to use the correct format\line
+- Removed unused items in CalculateVectorDifference form\line
+- Removed unused usings\line
+- Added the ability to drag and drop files into the listbox on both forms

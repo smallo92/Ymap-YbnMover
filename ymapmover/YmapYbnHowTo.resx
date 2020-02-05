@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="richTextBox1.Text" xml:space="preserve">
-    <value>You will need to have ymaps and/or ybns associated with the map. These can be located inside your dlc in your game install.
+    <value>You will need to have ymaps and/or ybns associated with the map. These can be located inside your dlc in your game install. (You can use the RPF directly)
 
 You can use either Codewalker RPF Explorer or OpenIV to locate the files which you need. I recommend Codewalker RPF Explorer.
 
@@ -130,8 +130,7 @@ Now calculate your offset. So best way to do it would be to load the current map
 
 Now you will need to work out the differences between the 2 locations. Press Edit in the YMAP &amp; YBN Mover and select 'Calculate Vector Differences' then input the 1st and 2nd values you collected into it. Press caculate and it'll work it out for you. You can then press 'Input Offset' and it'll put the values on the main form for you.
 
-Now you can press start and the program will run through letting you know the duration it has been running and what file it is processing. Once processing is complete, you will need to put the ymaps and ybns back into the DLC packs where you found them, and if you did everything correct it should be working next time you boot the game.
-</value>
+Now you can press start and the program will run through letting you know the duration it has been running and what file it is processing. Once processing is complete, you will need to put the ymaps and ybns back into the DLC packs where you found them, and if you did everything correct it should be working next time you boot the game.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
