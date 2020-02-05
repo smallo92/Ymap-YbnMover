@@ -62,9 +62,7 @@ namespace ymapmover
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                    StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
                 }).Start();
             }
         }
@@ -87,9 +85,7 @@ namespace ymapmover
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                    StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
                 }).Start();
             }
         }
@@ -140,9 +136,7 @@ namespace ymapmover
                             MessageBox.Show("Error can't read " + file + ".\nThis file has been skipped.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                    StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
                 }).Start();
             }
         }
@@ -182,9 +176,7 @@ namespace ymapmover
                         var elapsedMss = watch.ElapsedMilliseconds;
                         TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                    StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
                 }).Start();
             }
         }
@@ -236,9 +228,7 @@ namespace ymapmover
                         }
                     }
                 }
-                var elapsedMss = watch.ElapsedMilliseconds;
-                TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
-                StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+                StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
             }).Start();
         }
 
@@ -594,9 +584,7 @@ namespace ymapmover
                             MessageBox.Show("Error can't read " + file + ".\nThis file has been skipped.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                    StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
                 }).Start();
             }
         }
