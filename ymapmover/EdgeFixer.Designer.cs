@@ -285,6 +285,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "EdgeFixer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Poly Edge Fixer";
             this.Load += new System.EventHandler(this.EdgeFixer_Load);
             this.menuStrip1.ResumeLayout(false);

@@ -1,5 +1,5 @@
-﻿- Fixed culture to use the correct format\line
-- Removed unused items in CalculateVectorDifference form\line
-- Removed unused usings\line
-- Added the ability to drag and drop files into the listbox on both forms\line
-- Moved some more repeated functions into the YmapYbnMover class
+﻿- Moved more repeated functions into YmapYbnMover class\line
+- Fixed positioning of new forms opening to be centred to the parent\line
+- Added an 'Invert Inputs' button to the Calculate Vector Difference form\line
+- Added error checking for the Calculate Vector Difference form\line
+- Automatically resize the updater form and controls depending on the amount of lines in the changelog

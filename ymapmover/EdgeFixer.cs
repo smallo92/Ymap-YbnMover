@@ -367,47 +367,27 @@ namespace ymapmover
 
         private void clearAllYDRsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
-            {
-                if (CurrentList.Items[i].ToString().Contains(".ydr")) { CurrentList.Items.RemoveAt(i); }
-            }
-            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            StringFunctions.ClearItemsFromListBox(".ydr", CurrentList, FilesAddedLabel, startButton);
         }
 
         private void clearAllYBNsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
-            {
-                if (CurrentList.Items[i].ToString().Contains(".ybn")) { CurrentList.Items.RemoveAt(i); }
-            }
-            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            StringFunctions.ClearItemsFromListBox(".ybn", CurrentList, FilesAddedLabel, startButton);
         }
 
         private void clearAllYFTsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
-            {
-                if (CurrentList.Items[i].ToString().Contains(".yft")) { CurrentList.Items.RemoveAt(i); }
-            }
-            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            StringFunctions.ClearItemsFromListBox(".yft", CurrentList, FilesAddedLabel, startButton);
         }
 
         private void clearAllYDDsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
-            {
-                if (CurrentList.Items[i].ToString().Contains(".ydd")) { CurrentList.Items.RemoveAt(i); }
-            }
-            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            StringFunctions.ClearItemsFromListBox(".ydd", CurrentList, FilesAddedLabel, startButton);
         }
 
         private void clearAllRPFsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
-            {
-                if (CurrentList.Items[i].ToString().Contains(".rpf")) { CurrentList.Items.RemoveAt(i); }
-            }
-            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            StringFunctions.ClearItemsFromListBox(".rpf", CurrentList, FilesAddedLabel, startButton);
         }
 
         private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)

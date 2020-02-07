@@ -38,11 +38,12 @@
             this.CalculatedLabel = new System.Windows.Forms.Label();
             this.InputButton = new System.Windows.Forms.Button();
             this.InstructionsLabel = new System.Windows.Forms.Label();
+            this.InvertButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // calculateButton
             // 
-            this.calculateButton.Location = new System.Drawing.Point(83, 100);
+            this.calculateButton.Location = new System.Drawing.Point(50, 100);
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.Size = new System.Drawing.Size(75, 23);
             this.calculateButton.TabIndex = 0;
@@ -56,6 +57,7 @@
             this.vector1.Name = "vector1";
             this.vector1.Size = new System.Drawing.Size(208, 20);
             this.vector1.TabIndex = 1;
+            this.vector1.Text = "0.0, 0.0, 0.0";
             // 
             // vector2
             // 
@@ -63,6 +65,7 @@
             this.vector2.Name = "vector2";
             this.vector2.Size = new System.Drawing.Size(208, 20);
             this.vector2.TabIndex = 2;
+            this.vector2.Text = "0.0, 0.0, 0.0";
             // 
             // newOffset
             // 
@@ -101,7 +104,7 @@
             // 
             // InputButton
             // 
-            this.InputButton.Location = new System.Drawing.Point(164, 100);
+            this.InputButton.Location = new System.Drawing.Point(131, 100);
             this.InputButton.Name = "InputButton";
             this.InputButton.Size = new System.Drawing.Size(75, 23);
             this.InputButton.TabIndex = 7;
@@ -118,11 +121,22 @@
             this.InstructionsLabel.TabIndex = 8;
             this.InstructionsLabel.Text = "Input as X, Y, Z";
             // 
+            // InvertButton
+            // 
+            this.InvertButton.Location = new System.Drawing.Point(212, 100);
+            this.InvertButton.Name = "InvertButton";
+            this.InvertButton.Size = new System.Drawing.Size(75, 23);
+            this.InvertButton.TabIndex = 9;
+            this.InvertButton.Text = "Invert Inputs";
+            this.InvertButton.UseVisualStyleBackColor = true;
+            this.InvertButton.Click += new System.EventHandler(this.InvertButton_Click);
+            // 
             // CalculateVectorDifference
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 130);
+            this.Controls.Add(this.InvertButton);
             this.Controls.Add(this.InstructionsLabel);
             this.Controls.Add(this.InputButton);
             this.Controls.Add(this.CalculatedLabel);
@@ -156,5 +170,6 @@
         private System.Windows.Forms.Label CalculatedLabel;
         private System.Windows.Forms.Button InputButton;
         private System.Windows.Forms.Label InstructionsLabel;
+        private System.Windows.Forms.Button InvertButton;
     }
 }

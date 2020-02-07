@@ -258,29 +258,17 @@ namespace ymapmover
 
         private void ClearAllYBNsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
-            {
-                if (CurrentList.Items[i].ToString().Contains(".ybn")) { CurrentList.Items.RemoveAt(i); }
-            }
-            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            StringFunctions.ClearItemsFromListBox(".ybn", CurrentList, FilesAddedLabel, startButton);
         }
 
         private void ClearAllYMAPsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
-            {
-                if (CurrentList.Items[i].ToString().Contains(".ymap")) { CurrentList.Items.RemoveAt(i); }
-            }
-            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            StringFunctions.ClearItemsFromListBox(".ymap", CurrentList, FilesAddedLabel, startButton);
         }
 
         private void clearAllRPFsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
-            {
-                if (CurrentList.Items[i].ToString().Contains(".rpf")) { CurrentList.Items.RemoveAt(i); }
-            }
-            StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
+            StringFunctions.ClearItemsFromListBox(".rpf", CurrentList, FilesAddedLabel, startButton);
         }
 
         private void startButton_Click(object sender, EventArgs e)

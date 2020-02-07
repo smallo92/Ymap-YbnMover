@@ -9,6 +9,11 @@ namespace ymapmover
         private MainForm mainForm;
         private Vector3 offsetVec = new Vector3();
 
+        private void CalculateVectorDifference_Load(object sender, EventArgs e)
+        {
+            // Nothing
+        }
+
         public CalculateVectorDifference(MainForm ParentForm)
         {
             InitializeComponent();
@@ -19,11 +24,18 @@ namespace ymapmover
         {
             if (vector1.Text != "" || vector2.Text != "")
             {
-                string[] oldLocSplit = vector1.Text.Split(',');
-                string[] NewLocSplit = vector2.Text.Split(',');
+                try
+                {
+                    string[] oldLocSplit = vector1.Text.Split(',');
+                    string[] NewLocSplit = vector2.Text.Split(',');
 
-                offsetVec = new Vector3(VecDiff(float.Parse(NewLocSplit[0]), float.Parse(oldLocSplit[0])), VecDiff(float.Parse(NewLocSplit[1]), float.Parse(oldLocSplit[1])), VecDiff(float.Parse(NewLocSplit[2]), float.Parse(oldLocSplit[2])));
-                newOffset.Text = offsetVec.X.ToString() + ", " + offsetVec.Y.ToString() + ", " + offsetVec.Z.ToString();
+                    offsetVec = new Vector3(VecDiff(float.Parse(NewLocSplit[0]), float.Parse(oldLocSplit[0])), VecDiff(float.Parse(NewLocSplit[1]), float.Parse(oldLocSplit[1])), VecDiff(float.Parse(NewLocSplit[2]), float.Parse(oldLocSplit[2])));
+                    newOffset.Text = offsetVec.X.ToString() + ", " + offsetVec.Y.ToString() + ", " + offsetVec.Z.ToString();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("These values don't appear to be in the correct format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -46,9 +58,11 @@ namespace ymapmover
             }
         }
 
-        private void CalculateVectorDifference_Load(object sender, EventArgs e)
+        private void InvertButton_Click(object sender, EventArgs e)
         {
-
+            string oldText = vector1.Text;
+            vector1.Text = vector2.Text;
+            vector2.Text = oldText;
         }
     }
 }

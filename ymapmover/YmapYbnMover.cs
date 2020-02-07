@@ -15,6 +15,18 @@ namespace YmapYbnMover
             CountItems(CurrentList, FilesAddedLabel, startButton);
         }
 
+        public static void ClearItemsFromListBox(string fileType, ListBox CurrentList, ToolStripStatusLabel FilesAddedLabel, Button startButton)
+        {
+            for (int i = CurrentList.Items.Count - 1; i >= 0; --i)
+            {
+                if (CurrentList.Items[i].ToString().Contains(fileType))
+                { 
+                    CurrentList.Items.RemoveAt(i); 
+                }
+            }
+            CountItems(CurrentList, FilesAddedLabel, startButton);
+        }
+
         public static bool DoesItemExist(ListBox CurrentList, string file)
         {
             for (var j = 0; j < CurrentList.Items.Count; j++)

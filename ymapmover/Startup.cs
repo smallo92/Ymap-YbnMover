@@ -1,6 +1,9 @@
-﻿using System;
+﻿using SharpDX;
+using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
@@ -53,17 +56,27 @@ namespace ymapmover
                     fourthLine,
                     ChangeLogText);
                 mainTextbox.Rtf = rtf;
+
+                Size rtbSize = TextRenderer.MeasureText(mainTextbox.Text, mainTextbox.Font, mainTextbox.Size, TextFormatFlags.WordBreak);
+                int currentHeight = mainTextbox.Height;
+                mainTextbox.Height = rtbSize.Height + (rtbSize.Height / mainTextbox.Lines.Count());
+                int differenceHeight = (rtbSize.Height - currentHeight) + (rtbSize.Height / mainTextbox.Lines.Count());
+
+                mainGroupBox.Height += differenceHeight;
+                Height += differenceHeight;
+                yesButton.Location = (System.Drawing.Point)new Size(yesButton.Location.X, yesButton.Location.Y + differenceHeight);
+                noButton.Location = (System.Drawing.Point)new Size(noButton.Location.X, noButton.Location.Y + differenceHeight);
             } else
             {
                 Program.OpenDetailFormOnClose = true;
-                this.Close();
+                Close();
             }
         }
 
         private void yesButton_Click(object sender, EventArgs e)
         {
             Process.Start("http://fivem.xpl.wtf/ymapybnmover/update.zip");
-            this.Close();
+            Close();
             Application.Exit();
             Application.ExitThread();
         }
@@ -71,7 +84,7 @@ namespace ymapmover
         private void noButton_Click(object sender, EventArgs e)
         {
             Program.OpenDetailFormOnClose = true;
-            this.Close();
+            Close();
         }
     }
 }
