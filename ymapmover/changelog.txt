@@ -1,3 +1,1 @@
-﻿- Added tooltips to the Calculate Vector Difference form\line
-- Added a 'Get Centre' button on the Calculate Vector Difference to get the centrepoint of the map (This is based on extents, so if they are wrong this'll calculate wrong)\line
-- Added a 'Source Code' button to the 'About' dropdown
+﻿- Fixed some math in the 'Calculate Vector Difference' form

@@ -51,13 +51,7 @@ namespace ymapmover
 
         private float VecDiff(float val1, float val2)
         {
-            if (val1 < 0.0f && val2 < 0.0f)
-            {
-                return (val1 * -1) - (val2 * -1);
-            } else
-            {
-                return val1 - val2;
-            }
+            return (float)Math.Sqrt(Math.Pow(val1 - val2, 2));
         }
 
         private void InvertButton_Click(object sender, EventArgs e)
