@@ -1,6 +1,8 @@
 ﻿using SharpDX;
 using System;
 using System.Windows.Forms;
+using CodeWalker.GameFiles;
+using System.IO;
 
 namespace ymapmover
 {
@@ -20,9 +22,9 @@ namespace ymapmover
             mainForm = ParentForm;
         }
 
-        private void calculateButton_Click(object sender, EventArgs e)
+        private void CalculateButton_Click(object sender, EventArgs e)
         {
-            if (vector1.Text != "" || vector2.Text != "")
+            if (!string.IsNullOrEmpty(vector1.Text) || !string.IsNullOrEmpty(vector2.Text))
             {
                 try
                 {
@@ -61,8 +63,29 @@ namespace ymapmover
         private void InvertButton_Click(object sender, EventArgs e)
         {
             string oldText = vector1.Text;
+
             vector1.Text = vector2.Text;
             vector2.Text = oldText;
+        }
+
+        private void CentreButton_Click(object sender, EventArgs e)
+        {
+            string filename = mainForm.CurrentListBox;
+
+            if (!string.IsNullOrEmpty(filename)) {
+                YmapFile ymap = new YmapFile();
+                ymap.Load(File.ReadAllBytes(filename));
+
+                Vector3 extentMin = ymap.CMapData.entitiesExtentsMin;
+                Vector3 extentMax = ymap.CMapData.entitiesExtentsMax;
+
+                Vector3 centrepoint = new Vector3((extentMin.X + extentMax.X) / 2, (extentMin.Y + extentMax.Y) / 2, (extentMin.Z + extentMax.Z) / 2);
+                vector1.Text = centrepoint.X + ", " + centrepoint.Y + ", " + centrepoint.Z;
+            }
+            else
+            {
+                MessageBox.Show("You don't seem to have a ymap selected on the Main Form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

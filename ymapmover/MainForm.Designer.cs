@@ -57,8 +57,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.polyEdgeFixerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.legacyToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.jSONToYMAPAndYTYPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.audioOcclusionHashGenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CurrentList = new System.Windows.Forms.ListBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -73,6 +72,8 @@
             this.startButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.outdatedLabel = new System.Windows.Forms.Label();
+            this.sourcecodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -83,8 +84,7 @@
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.aboutToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.legacyToolsToolStripMenuItem});
+            this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -247,7 +247,9 @@
             this.howToToolStripMenuItem,
             this.toolStripSeparator3,
             this.changelogToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.toolStripSeparator6,
+            this.sourcecodeToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
@@ -255,33 +257,34 @@
             // howToToolStripMenuItem
             // 
             this.howToToolStripMenuItem.Name = "howToToolStripMenuItem";
-            this.howToToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.howToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.howToToolStripMenuItem.Text = "How to use";
             this.howToToolStripMenuItem.Click += new System.EventHandler(this.howToToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(131, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // changelogToolStripMenuItem
             // 
             this.changelogToolStripMenuItem.Name = "changelogToolStripMenuItem";
-            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.changelogToolStripMenuItem.Text = "Changelog";
             this.changelogToolStripMenuItem.Click += new System.EventHandler(this.changelogToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.polyEdgeFixerToolStripMenuItem});
+            this.polyEdgeFixerToolStripMenuItem,
+            this.audioOcclusionHashGenToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -289,25 +292,16 @@
             // polyEdgeFixerToolStripMenuItem
             // 
             this.polyEdgeFixerToolStripMenuItem.Name = "polyEdgeFixerToolStripMenuItem";
-            this.polyEdgeFixerToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.polyEdgeFixerToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.polyEdgeFixerToolStripMenuItem.Text = "Poly Edge Fixer";
             this.polyEdgeFixerToolStripMenuItem.Click += new System.EventHandler(this.polyEdgeFixerToolStripMenuItem_Click);
             // 
-            // legacyToolsToolStripMenuItem
+            // audioOcclusionHashGenToolStripMenuItem
             // 
-            this.legacyToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.jSONToYMAPAndYTYPToolStripMenuItem});
-            this.legacyToolsToolStripMenuItem.Name = "legacyToolsToolStripMenuItem";
-            this.legacyToolsToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
-            this.legacyToolsToolStripMenuItem.Text = "Legacy Tools";
-            this.legacyToolsToolStripMenuItem.Visible = false;
-            // 
-            // jSONToYMAPAndYTYPToolStripMenuItem
-            // 
-            this.jSONToYMAPAndYTYPToolStripMenuItem.Name = "jSONToYMAPAndYTYPToolStripMenuItem";
-            this.jSONToYMAPAndYTYPToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.jSONToYMAPAndYTYPToolStripMenuItem.Text = "JSON to YMAP and YTYP";
-            this.jSONToYMAPAndYTYPToolStripMenuItem.Click += new System.EventHandler(this.jSONToYMAPAndYTYPToolStripMenuItem_Click);
+            this.audioOcclusionHashGenToolStripMenuItem.Name = "audioOcclusionHashGenToolStripMenuItem";
+            this.audioOcclusionHashGenToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.audioOcclusionHashGenToolStripMenuItem.Text = "Audio Occlusion Hash Gen";
+            this.audioOcclusionHashGenToolStripMenuItem.Click += new System.EventHandler(this.audioOcclusionHashGenToolStripMenuItem_Click);
             // 
             // CurrentList
             // 
@@ -428,6 +422,18 @@
             this.outdatedLabel.Size = new System.Drawing.Size(0, 20);
             this.outdatedLabel.TabIndex = 9;
             // 
+            // sourcecodeToolStripMenuItem
+            // 
+            this.sourcecodeToolStripMenuItem.Name = "sourcecodeToolStripMenuItem";
+            this.sourcecodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sourcecodeToolStripMenuItem.Text = "Source Code";
+            this.sourcecodeToolStripMenuItem.Click += new System.EventHandler(this.SourcecodeToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(177, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -492,8 +498,6 @@
         private System.Windows.Forms.ToolStripMenuItem yBNsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yFilesToolStripMenuItem;
         private System.Windows.Forms.Label outdatedLabel;
-        private System.Windows.Forms.ToolStripMenuItem legacyToolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem jSONToYMAPAndYTYPToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem howToToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
@@ -506,6 +510,9 @@
         private System.Windows.Forms.ListBox CurrentList;
         private System.Windows.Forms.ToolStripMenuItem clearAllRPFsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changelogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem audioOcclusionHashGenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem sourcecodeToolStripMenuItem;
     }
 }
 

@@ -1,5 +1,3 @@
-﻿- Moved more repeated functions into YmapYbnMover class\line
-- Fixed positioning of new forms opening to be centred to the parent\line
-- Added an 'Invert Inputs' button to the Calculate Vector Difference form\line
-- Added error checking for the Calculate Vector Difference form\line
-- Automatically resize the updater form and controls depending on the amount of lines in the changelog
+﻿- Added tooltips to the Calculate Vector Difference form\line
+- Added a 'Get Centre' button on the Calculate Vector Difference to get the centrepoint of the map (This is based on extents, so if they are wrong this'll calculate wrong)\line
+- Added a 'Source Code' button to the 'About' dropdown

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CodeWalker.GameFiles;
+using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using CodeWalker.GameFiles;
-using SharpDX;
 using YmapYbnMover;
 
 namespace ymapmover
@@ -42,6 +42,10 @@ namespace ymapmover
         {
             get { return zMove.Text; }
             set { zMove.Text = value; }
+        }
+        public string CurrentListBox
+        {
+            get { return CurrentList.SelectedIndex != -1 ? CurrentList.SelectedItem.ToString() : ""; }
         }
 
         private void yBNsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -300,9 +304,16 @@ namespace ymapmover
                         if (filename.Contains(".rpf"))
                         {
                             string fileDirectory = StringFunctions.TopMostRPF(filename);
-                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
-                            TopRPF.ScanStructure(null, null);
-                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            if (File.Exists(filename))
+                            {
+                                RPFFilesDirectory = null;
+                                oldData = File.ReadAllBytes(filename);
+                            } else
+                            {
+                                RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                                TopRPF.ScanStructure(null, null);
+                                (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            }
                         }
                         else
                         {
@@ -373,7 +384,15 @@ namespace ymapmover
                             byte[] newData = ybn.Save();
                             if (filename.Contains(".rpf"))
                             {
-                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                if (File.Exists(filename))
+                                {
+                                    RPFFilesDirectory = null;
+                                    oldData = File.ReadAllBytes(filename);
+                                }
+                                else
+                                {
+                                    RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                }
                             }
                             else
                             {
@@ -395,9 +414,17 @@ namespace ymapmover
                         if (filename.Contains(".rpf"))
                         {
                             string fileDirectory = StringFunctions.TopMostRPF(filename);
-                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
-                            TopRPF.ScanStructure(null, null);
-                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            if (File.Exists(filename))
+                            {
+                                RPFFilesDirectory = null;
+                                oldData = File.ReadAllBytes(filename);
+                            }
+                            else
+                            {
+                                RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                                TopRPF.ScanStructure(null, null);
+                                (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            }
                         }
                         else
                         {
@@ -441,6 +468,17 @@ namespace ymapmover
                                 foreach (YmapEntityDef yEnts in ymap.AllEntities) { yEnts.SetPosition(yEnts.Position + moveVec); }
                             }
 
+                            if (ymap.DistantLODLights != null)
+                            {
+                                int lightCount = ymap._CMapData.DistantLODLightsSOA.position.Count1;
+                                for (int i = 0; i < lightCount; i++)
+                                {
+                                    Vector3 vector3 = ymap.DistantLODLights.positions[i].ToVector3() + moveVec;
+                                    MetaVECTOR3 metaVec = new MetaVECTOR3{x = vector3.X, y = vector3.Y, z = vector3.Z};
+                                    ymap.DistantLODLights.positions[i] = metaVec;
+                                }
+                            }
+
                             ymap._CMapData.streamingExtentsMax = ymap.CMapData.streamingExtentsMax + moveVec;
                             ymap._CMapData.streamingExtentsMin = ymap.CMapData.streamingExtentsMin + moveVec;
                             ymap._CMapData.entitiesExtentsMax = ymap.CMapData.entitiesExtentsMax + moveVec;
@@ -449,7 +487,15 @@ namespace ymapmover
                             byte[] newData = ymap.Save();
                             if (filename.Contains(".rpf"))
                             {
-                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                if (File.Exists(filename))
+                                {
+                                    RPFFilesDirectory = null;
+                                    oldData = File.ReadAllBytes(filename);
+                                }
+                                else
+                                {
+                                    RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                }
                             }
                             else
                             {
@@ -577,5 +623,15 @@ namespace ymapmover
             }
         }
 
+        private void audioOcclusionHashGenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AudioOcclusionForm AudioOcclusionForm = new AudioOcclusionForm();
+            AudioOcclusionForm.ShowDialog();
+        }
+
+        private void SourcecodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/smallo92/Ymap-YbnMover");
+        }
     }
 }

@@ -140,9 +140,17 @@ namespace ymapmover
                         if (filename.Contains(".rpf"))
                         {
                             string fileDirectory = StringFunctions.TopMostRPF(filename);
-                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
-                            TopRPF.ScanStructure(null, null);
-                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            if (File.Exists(filename))
+                            {
+                                RPFFilesDirectory = null;
+                                oldData = File.ReadAllBytes(filename);
+                            }
+                            else
+                            {
+                                RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                                TopRPF.ScanStructure(null, null);
+                                (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            }
                         }
                         else
                         {
@@ -155,7 +163,15 @@ namespace ymapmover
                             byte[] newData = ybn.Save();
                             if (filename.Contains(".rpf"))
                             {
-                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                if (File.Exists(filename))
+                                {
+                                    RPFFilesDirectory = null;
+                                    oldData = File.ReadAllBytes(filename);
+                                }
+                                else
+                                {
+                                    RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                }
                             }
                             else
                             {
@@ -177,9 +193,17 @@ namespace ymapmover
                         if (filename.Contains(".rpf"))
                         {
                             string fileDirectory = StringFunctions.TopMostRPF(filename);
-                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
-                            TopRPF.ScanStructure(null, null);
-                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            if (File.Exists(filename))
+                            {
+                                RPFFilesDirectory = null;
+                                oldData = File.ReadAllBytes(filename);
+                            }
+                            else
+                            {
+                                RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                                TopRPF.ScanStructure(null, null);
+                                (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            }
                         }
                         else
                         {
@@ -189,24 +213,18 @@ namespace ymapmover
                         try
                         {
                             RpfFile.LoadResourceFile(ydr, oldData, 165);
-                            foreach (DrawableModel item in ydr.Drawable.AllModels)
-                            {
-                                foreach (DrawableGeometry geometry in item.Geometries.data_items)
-                                {
-                                    if (geometry == null) continue;
-                                    if (geometry.VertexBuffer != null)
-                                    {
-                                        if (geometry.VertexBuffer.Data1 == null)
-                                        {
-                                            geometry.VertexBuffer.Data1 = geometry.VertexBuffer.Data2;
-                                        }
-                                    }
-                                }
-                            }
                             byte[] newData = ydr.Save();
                             if (filename.Contains(".rpf"))
                             {
-                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                if (File.Exists(filename))
+                                {
+                                    RPFFilesDirectory = null;
+                                    oldData = File.ReadAllBytes(filename);
+                                }
+                                else
+                                {
+                                    RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                }
                             }
                             else
                             {
@@ -228,9 +246,17 @@ namespace ymapmover
                         if (filename.Contains(".rpf"))
                         {
                             string fileDirectory = StringFunctions.TopMostRPF(filename);
-                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
-                            TopRPF.ScanStructure(null, null);
-                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            if (File.Exists(filename))
+                            {
+                                RPFFilesDirectory = null;
+                                oldData = File.ReadAllBytes(filename);
+                            }
+                            else
+                            {
+                                RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                                TopRPF.ScanStructure(null, null);
+                                (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            }
                         }
                         else
                         {
@@ -240,27 +266,18 @@ namespace ymapmover
                         try
                         {
                             RpfFile.LoadResourceFile(ydd, oldData, 165);
-                            foreach (Drawable item in ydd.Drawables)
-                            {
-                                foreach (DrawableModel model in item.AllModels)
-                                {
-                                    foreach (DrawableGeometry geometry in model.Geometries.data_items)
-                                    {
-                                        if (geometry == null) continue;
-                                        if (geometry.VertexBuffer != null)
-                                        {
-                                            if (geometry.VertexBuffer.Data1 == null)
-                                            {
-                                                geometry.VertexBuffer.Data1 = geometry.VertexBuffer.Data2;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                             byte[] newData = ydd.Save();
                             if (filename.Contains(".rpf"))
                             {
-                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                if (File.Exists(filename))
+                                {
+                                    RPFFilesDirectory = null;
+                                    oldData = File.ReadAllBytes(filename);
+                                }
+                                else
+                                {
+                                    RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                }
                             }
                             else
                             {
@@ -282,9 +299,17 @@ namespace ymapmover
                         if (filename.Contains(".rpf"))
                         {
                             string fileDirectory = StringFunctions.TopMostRPF(filename);
-                            RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
-                            TopRPF.ScanStructure(null, null);
-                            (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            if (File.Exists(filename))
+                            {
+                                RPFFilesDirectory = null;
+                                oldData = File.ReadAllBytes(filename);
+                            }
+                            else
+                            {
+                                RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                                TopRPF.ScanStructure(null, null);
+                                (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                            }
                         }
                         else
                         {
@@ -294,24 +319,18 @@ namespace ymapmover
                         try
                         {
                             RpfFile.LoadResourceFile(yft, oldData, 162);
-                            foreach (DrawableModel item in yft.Fragment.Drawable.AllModels)
-                            {
-                                foreach (DrawableGeometry geometry in item.Geometries.data_items)
-                                {
-                                    if (geometry == null) continue;
-                                    if (geometry.VertexBuffer != null)
-                                    {
-                                        if (geometry.VertexBuffer.Data1 == null)
-                                        {
-                                            geometry.VertexBuffer.Data1 = geometry.VertexBuffer.Data2;
-                                        }
-                                    }
-                                }
-                            }
                             byte[] newData = yft.Save();
                             if (filename.Contains(".rpf"))
                             {
-                                RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                if (File.Exists(filename))
+                                {
+                                    RPFFilesDirectory = null;
+                                    oldData = File.ReadAllBytes(filename);
+                                }
+                                else
+                                {
+                                    RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                }
                             }
                             else
                             {

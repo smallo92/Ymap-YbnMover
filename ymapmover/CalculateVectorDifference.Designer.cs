@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalculateVectorDifference));
-            this.calculateButton = new System.Windows.Forms.Button();
+            this.CalculateButton = new System.Windows.Forms.Button();
             this.vector1 = new System.Windows.Forms.TextBox();
             this.vector2 = new System.Windows.Forms.TextBox();
             this.newOffset = new System.Windows.Forms.TextBox();
@@ -39,23 +40,26 @@
             this.InputButton = new System.Windows.Forms.Button();
             this.InstructionsLabel = new System.Windows.Forms.Label();
             this.InvertButton = new System.Windows.Forms.Button();
+            this.CentreButton = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
-            // calculateButton
+            // CalculateButton
             // 
-            this.calculateButton.Location = new System.Drawing.Point(50, 100);
-            this.calculateButton.Name = "calculateButton";
-            this.calculateButton.Size = new System.Drawing.Size(75, 23);
-            this.calculateButton.TabIndex = 0;
-            this.calculateButton.Text = "Calculate";
-            this.calculateButton.UseVisualStyleBackColor = true;
-            this.calculateButton.Click += new System.EventHandler(this.calculateButton_Click);
+            this.CalculateButton.Location = new System.Drawing.Point(10, 100);
+            this.CalculateButton.Name = "CalculateButton";
+            this.CalculateButton.Size = new System.Drawing.Size(75, 23);
+            this.CalculateButton.TabIndex = 0;
+            this.CalculateButton.Text = "Calculate";
+            this.toolTip1.SetToolTip(this.CalculateButton, "Calculate the offset");
+            this.CalculateButton.UseVisualStyleBackColor = true;
+            this.CalculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
             // 
             // vector1
             // 
             this.vector1.Location = new System.Drawing.Point(104, 22);
             this.vector1.Name = "vector1";
-            this.vector1.Size = new System.Drawing.Size(208, 20);
+            this.vector1.Size = new System.Drawing.Size(225, 20);
             this.vector1.TabIndex = 1;
             this.vector1.Text = "0.0, 0.0, 0.0";
             // 
@@ -63,7 +67,7 @@
             // 
             this.vector2.Location = new System.Drawing.Point(104, 48);
             this.vector2.Name = "vector2";
-            this.vector2.Size = new System.Drawing.Size(208, 20);
+            this.vector2.Size = new System.Drawing.Size(225, 20);
             this.vector2.TabIndex = 2;
             this.vector2.Text = "0.0, 0.0, 0.0";
             // 
@@ -72,7 +76,7 @@
             this.newOffset.Location = new System.Drawing.Point(104, 74);
             this.newOffset.Name = "newOffset";
             this.newOffset.ReadOnly = true;
-            this.newOffset.Size = new System.Drawing.Size(208, 20);
+            this.newOffset.Size = new System.Drawing.Size(225, 20);
             this.newOffset.TabIndex = 3;
             // 
             // OGLocLabel
@@ -104,18 +108,19 @@
             // 
             // InputButton
             // 
-            this.InputButton.Location = new System.Drawing.Point(131, 100);
+            this.InputButton.Location = new System.Drawing.Point(173, 100);
             this.InputButton.Name = "InputButton";
             this.InputButton.Size = new System.Drawing.Size(75, 23);
             this.InputButton.TabIndex = 7;
             this.InputButton.Text = "Input Offset";
+            this.toolTip1.SetToolTip(this.InputButton, "Places the calculated offset in the main form");
             this.InputButton.UseVisualStyleBackColor = true;
             this.InputButton.Click += new System.EventHandler(this.InputButton_Click);
             // 
             // InstructionsLabel
             // 
             this.InstructionsLabel.AutoSize = true;
-            this.InstructionsLabel.Location = new System.Drawing.Point(231, 6);
+            this.InstructionsLabel.Location = new System.Drawing.Point(248, 6);
             this.InstructionsLabel.Name = "InstructionsLabel";
             this.InstructionsLabel.Size = new System.Drawing.Size(81, 13);
             this.InstructionsLabel.TabIndex = 8;
@@ -123,19 +128,32 @@
             // 
             // InvertButton
             // 
-            this.InvertButton.Location = new System.Drawing.Point(212, 100);
+            this.InvertButton.Location = new System.Drawing.Point(254, 100);
             this.InvertButton.Name = "InvertButton";
             this.InvertButton.Size = new System.Drawing.Size(75, 23);
             this.InvertButton.TabIndex = 9;
             this.InvertButton.Text = "Invert Inputs";
+            this.toolTip1.SetToolTip(this.InvertButton, "Swap the original and new location values");
             this.InvertButton.UseVisualStyleBackColor = true;
             this.InvertButton.Click += new System.EventHandler(this.InvertButton_Click);
+            // 
+            // CentreButton
+            // 
+            this.CentreButton.Location = new System.Drawing.Point(91, 100);
+            this.CentreButton.Name = "CentreButton";
+            this.CentreButton.Size = new System.Drawing.Size(75, 23);
+            this.CentreButton.TabIndex = 10;
+            this.CentreButton.Text = "Get Centre";
+            this.toolTip1.SetToolTip(this.CentreButton, "Get centrepoint of selected ymap");
+            this.CentreButton.UseVisualStyleBackColor = true;
+            this.CentreButton.Click += new System.EventHandler(this.CentreButton_Click);
             // 
             // CalculateVectorDifference
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 130);
+            this.ClientSize = new System.Drawing.Size(341, 130);
+            this.Controls.Add(this.CentreButton);
             this.Controls.Add(this.InvertButton);
             this.Controls.Add(this.InstructionsLabel);
             this.Controls.Add(this.InputButton);
@@ -145,7 +163,7 @@
             this.Controls.Add(this.newOffset);
             this.Controls.Add(this.vector2);
             this.Controls.Add(this.vector1);
-            this.Controls.Add(this.calculateButton);
+            this.Controls.Add(this.CalculateButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -161,7 +179,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button calculateButton;
+        private System.Windows.Forms.Button CalculateButton;
         private System.Windows.Forms.TextBox vector1;
         private System.Windows.Forms.TextBox vector2;
         private System.Windows.Forms.TextBox newOffset;
@@ -171,5 +189,7 @@
         private System.Windows.Forms.Button InputButton;
         private System.Windows.Forms.Label InstructionsLabel;
         private System.Windows.Forms.Button InvertButton;
+        private System.Windows.Forms.Button CentreButton;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
