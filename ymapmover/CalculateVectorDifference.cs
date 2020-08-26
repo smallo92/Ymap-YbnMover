@@ -28,10 +28,10 @@ namespace ymapmover
             {
                 try
                 {
-                    string[] oldLocSplit = vector1.Text.Split(',');
+                    string[] OldLocSplit = vector1.Text.Split(',');
                     string[] NewLocSplit = vector2.Text.Split(',');
 
-                    offsetVec = new Vector3(VecDiff(float.Parse(NewLocSplit[0]), float.Parse(oldLocSplit[0])), VecDiff(float.Parse(NewLocSplit[1]), float.Parse(oldLocSplit[1])), VecDiff(float.Parse(NewLocSplit[2]), float.Parse(oldLocSplit[2])));
+                    offsetVec = new Vector3(float.Parse(NewLocSplit[0]), float.Parse(NewLocSplit[1]), float.Parse(NewLocSplit[2])) - new Vector3(float.Parse(OldLocSplit[0]), float.Parse(OldLocSplit[1]), float.Parse(OldLocSplit[2]));
                     newOffset.Text = offsetVec.X.ToString() + ", " + offsetVec.Y.ToString() + ", " + offsetVec.Z.ToString();
                 }
                 catch (Exception)
@@ -47,11 +47,6 @@ namespace ymapmover
             mainForm.yMoveBox = offsetVec.Y.ToString();
             mainForm.zMoveBox = offsetVec.Z.ToString();
             Close();
-        }
-
-        private float VecDiff(float val1, float val2)
-        {
-            return (float)Math.Sqrt(Math.Pow(val1 - val2, 2));
         }
 
         private void InvertButton_Click(object sender, EventArgs e)
