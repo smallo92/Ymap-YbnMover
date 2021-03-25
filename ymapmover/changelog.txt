@@ -1,1 +1,1 @@
-﻿- Fixed some math in the 'Calculate Vector Difference' form
+﻿- Updated automatic update URL

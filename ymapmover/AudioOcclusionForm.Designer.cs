@@ -37,6 +37,7 @@
             this.startButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -110,11 +111,16 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Import the interior placement ymap";
             // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.DefaultExt = "*";
+            this.openFileDialog2.Filter = "YNV Files|*.ynv";
+            // 
             // AudioOcclusionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 76);
+            this.ClientSize = new System.Drawing.Size(600, 77);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.startButton);
@@ -142,5 +148,6 @@
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
     }
 }

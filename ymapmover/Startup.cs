@@ -29,7 +29,7 @@ namespace ymapmover
             StreamReader reader;
             try
             {
-                stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/version.txt");
+                stream = client.OpenRead("http://fivem.fail/ymapybnmover/version.txt");
                 reader = new StreamReader(stream);
                 VersionCheck = reader.ReadToEnd().Trim();
             }
@@ -38,7 +38,7 @@ namespace ymapmover
             {
                 try
                 {
-                    stream = client.OpenRead("http://fivem.xpl.wtf/ymapybnmover/changelog.txt");
+                    stream = client.OpenRead("http://fivem.fail/ymapybnmover/changelog.txt");
                     reader = new StreamReader(stream);
                     ChangeLogText = reader.ReadToEnd().Trim();
                 }
