@@ -10,9 +10,8 @@ namespace YmapYbnMover
 {
     public class StringFunctions
     {
-        public static void SetCountAndTime(long elapsedMss, ToolStripStatusLabel TimeLabel, ListBox CurrentList, ToolStripStatusLabel FilesAddedLabel, Button startButton)
+        public static void SetCount(ListBox CurrentList, ToolStripStatusLabel FilesAddedLabel, Button startButton)
         {
-            TimeLabel.Text = "Time Elapsed: " + ConvertMillisecondsToSeconds(elapsedMss).ToString();
             CountItems(CurrentList, FilesAddedLabel, startButton);
         }
 
@@ -46,28 +45,18 @@ namespace YmapYbnMover
             string fileDirectory = null;
             foreach (string word in words)
             {
-                if (fileDirectory == null)
-                {
-                    fileDirectory = word;
-                }
-                else
-                {
-                    fileDirectory = Path.Combine(fileDirectory, word);
-                }
-                if (word.Contains(".rpf"))
-                {
-                    return fileDirectory;
-                }
+                if (fileDirectory == null) fileDirectory = word + @"\";
+                else fileDirectory = Path.Combine(fileDirectory, word);
+
+                if (word.Contains(".rpf")) return fileDirectory;
             }
             return null;
         }
 
         public static string ConvertMillisecondsToSeconds(double milliseconds)
         {
-            if (TimeSpan.FromMilliseconds(milliseconds).TotalSeconds > 60)
-            {
-                return TimeSpan.FromMilliseconds(milliseconds).TotalMinutes.ToString("0.00") + "m";
-            }
+            if (TimeSpan.FromMilliseconds(milliseconds).TotalSeconds > 60) return TimeSpan.FromMilliseconds(milliseconds).TotalMinutes.ToString("0.00") + "m";
+
             return TimeSpan.FromMilliseconds(milliseconds).TotalSeconds.ToString("0.00") + "s";
         }
 
@@ -75,14 +64,22 @@ namespace YmapYbnMover
         {
             int listCount = CurrentList.Items.Count;
             FilesAddedLabel.Text = listCount + " Item(s) Added";
-            if (listCount == 0)
-            {
-                startButton.Enabled = false;
-            }
-            else
-            {
-                startButton.Enabled = true;
-            }
+
+            if (listCount == 0) startButton.Enabled = false;
+            else startButton.Enabled = true;
+        }
+    }
+
+    public class MathFunctions
+    {
+        public static void FloatOnly(TextBox textBox)
+        {
+            if (!float.TryParse(textBox.Text, out _)) textBox.Text = Regex.Replace(textBox.Text, "[^0-9.+-]", "");
+        }
+
+        public static Vector3 ConvertToVec3(Vector4 vec4)
+        {
+            return new Vector3(vec4.X, vec4.Y, vec4.Z);
         }
     }
 
@@ -95,10 +92,7 @@ namespace YmapYbnMover
                 if (RPFFile.Name == file)
                 {
                     byte[] oldData = SaveResourceAsBytes(RPFFile);
-                    if (oldData != null)
-                    {
-                        return (RPFFile.Parent, oldData);
-                    }
+                    if (oldData != null) return (RPFFile.Parent, oldData);
                 }
             }
             foreach (RpfFile RPFs in CurrentRPF.Children)
@@ -106,10 +100,7 @@ namespace YmapYbnMover
                 RpfDirectoryEntry ChildRpfParent;
                 byte[] finalFile;
                 (ChildRpfParent, finalFile) = GetFileData(RPFs, file);
-                if (finalFile != null)
-                {
-                    return (ChildRpfParent, finalFile);
-                }
+                if (finalFile != null) return (ChildRpfParent, finalFile);
             }
             return (null, null);
         }
@@ -156,10 +147,7 @@ namespace YmapYbnMover
                 {
                     if (RPFFile.Name.EndsWith(item))
                     {
-                        if (!StringFunctions.DoesItemExist(CurrentList, Path.Combine(file, RPFFile.Name)))
-                        {
-                            CurrentList.Items.Add(Path.Combine(file, RPFFile.Name));
-                        }
+                        if (!StringFunctions.DoesItemExist(CurrentList, Path.Combine(file, RPFFile.Name))) CurrentList.Items.Add(Path.Combine(file, RPFFile.Name));
                     }
                 }
             }

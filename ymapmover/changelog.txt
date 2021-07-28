@@ -1,1 +1,1 @@
-﻿- Updated automatic update URL
+﻿- Fixed a bug which sometimes fucked with paths

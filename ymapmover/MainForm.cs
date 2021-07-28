@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using YmapYbnMover;
@@ -13,11 +12,12 @@ namespace ymapmover
 {
     public partial class MainForm : Form
     {
-        public bool CancelLoop = false;
-        public MainForm()
-        {
-            InitializeComponent();
-        }
+        public bool cancelLoop = false;
+        public System.Threading.Timer watch = null;
+        public DateTime timerTime;
+        public long timerStartTime = 0;
+
+        public MainForm() => InitializeComponent();
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -50,79 +50,55 @@ namespace ymapmover
 
         private void yBNsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var watch = Stopwatch.StartNew();
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
+                timerTime = DateTime.Now;
+                watch = new System.Threading.Timer(Tick, null, 0, 10);
                 new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
                     string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
-                    foreach (string file in ybnFiles)
-                    {
-                        if (!StringFunctions.DoesItemExist(CurrentList, file))
-                        {
-                            CurrentList.Items.Add(file);
-                        }
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
-                    }
-                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
+                    foreach (string file in ybnFiles) if (!StringFunctions.DoesItemExist(CurrentList, file)) CurrentList.Items.Add(file);
+
+                    StringFunctions.SetCount(CurrentList, FilesAddedLabel, startButton);
+                    watch.Dispose();
                 }).Start();
             }
         }
 
         private void yMAPsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var watch = Stopwatch.StartNew();
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
+                timerTime = DateTime.Now;
+                watch = new System.Threading.Timer(Tick, null, 0, 10);
                 new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
                     string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
-                    foreach (string file in ymapFiles)
-                    {
-                        if (!StringFunctions.DoesItemExist(CurrentList, file))
-                        {
-                            CurrentList.Items.Add(file);
-                        }
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
-                    }
-                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
+                    foreach (string file in ymapFiles) if (!StringFunctions.DoesItemExist(CurrentList, file)) CurrentList.Items.Add(file);
+
+                    StringFunctions.SetCount(CurrentList, FilesAddedLabel, startButton);
+                    watch.Dispose();
                 }).Start();
             }
         }
 
         private void yFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var watch = Stopwatch.StartNew();
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
+                timerTime = DateTime.Now;
+                watch = new System.Threading.Timer(Tick, null, 0, 10);
                 new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
                     string[] ymapFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ymap", SearchOption.AllDirectories);
                     string[] ybnFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.ybn", SearchOption.AllDirectories);
                     string[] rpfFiles = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.rpf", SearchOption.AllDirectories);
-                    foreach (string file in ymapFiles)
-                    {
-                        if (!StringFunctions.DoesItemExist(CurrentList, file))
-                        {
-                            CurrentList.Items.Add(file);
-                        }
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
-                    }
-                    foreach (string file in ybnFiles)
-                    {
-                        if (!StringFunctions.DoesItemExist(CurrentList, file))
-                        {
-                            CurrentList.Items.Add(file);
-                        }
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
-                    }
+
+                    foreach (string file in ymapFiles) if (!StringFunctions.DoesItemExist(CurrentList, file)) CurrentList.Items.Add(file);
+                    foreach (string file in ybnFiles) if (!StringFunctions.DoesItemExist(CurrentList, file)) CurrentList.Items.Add(file);
                     foreach (string file in rpfFiles)
                     {
                         TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
@@ -132,24 +108,24 @@ namespace ymapmover
                             rpf.ScanStructure(null, null);
                             var fileTypes = new List<string>() { ".ybn", ".ymap" };
                             RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
-                            var elapsedMss = watch.ElapsedMilliseconds;
-                            TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                         }
                         catch (Exception)
                         {
                             MessageBox.Show("Error can't read " + file + ".\nThis file has been skipped.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCount(CurrentList, FilesAddedLabel, startButton);
+                    watch.Dispose();
                 }).Start();
             }
         }
 
         private void addItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var watch = Stopwatch.StartNew();
             if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
+                timerTime = DateTime.Now;
+                watch = new System.Threading.Timer(Tick, null, 0, 10);
                 new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
@@ -172,15 +148,11 @@ namespace ymapmover
                         }
                         else
                         {
-                            if (!StringFunctions.DoesItemExist(CurrentList, file))
-                            {
-                                CurrentList.Items.Add(file);
-                            }
+                            if (!StringFunctions.DoesItemExist(CurrentList, file)) CurrentList.Items.Add(file);
                         }
-                        var elapsedMss = watch.ElapsedMilliseconds;
-                        TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                     }
-                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCount(CurrentList, FilesAddedLabel, startButton);
+                    watch.Dispose();
                 }).Start();
             }
         }
@@ -202,20 +174,15 @@ namespace ymapmover
 
         private void CurrentList_DragDrop(object sender, DragEventArgs e)
         {
-            var watch = Stopwatch.StartNew();
             new Thread(() =>
             {
+                timerTime = DateTime.Now;
+                watch = new System.Threading.Timer(Tick, null, 0, 10);
                 Thread.CurrentThread.IsBackground = true;
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (string file in files)
                 {
-                    if (file.EndsWith("ybn") || file.EndsWith("ymap"))
-                    {
-                        if (!StringFunctions.DoesItemExist(CurrentList, file))
-                        {
-                            CurrentList.Items.Add(file);
-                        }
-                    }
+                    if (file.EndsWith("ybn") || file.EndsWith("ymap")) if (!StringFunctions.DoesItemExist(CurrentList, file)) CurrentList.Items.Add(file);
                     else if (file.EndsWith("rpf"))
                     {
                         TimeLabel.Text = "Scanning RPFs and Extracting Files ...";
@@ -232,7 +199,8 @@ namespace ymapmover
                         }
                     }
                 }
-                StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
+                StringFunctions.SetCount(CurrentList, FilesAddedLabel, startButton);
+                watch.Dispose();
             }).Start();
         }
 
@@ -246,7 +214,6 @@ namespace ymapmover
         {
             CurrentList.Items.Clear();
             StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
-            TimeLabel.Text = "Time Elapsed: 0ms";
         }
 
         private void ClearSelectedItemsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -256,134 +223,148 @@ namespace ymapmover
                 int idx = CurrentList.SelectedIndices[x];
                 CurrentList.Items.RemoveAt(idx);
             }
+
             StringFunctions.CountItems(CurrentList, FilesAddedLabel, startButton);
-            TimeLabel.Text = "Time Elapsed: 0ms";
         }
 
-        private void ClearAllYBNsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StringFunctions.ClearItemsFromListBox(".ybn", CurrentList, FilesAddedLabel, startButton);
-        }
+        private void ClearAllYBNsToolStripMenuItem_Click(object sender, EventArgs e) => StringFunctions.ClearItemsFromListBox(".ybn", CurrentList, FilesAddedLabel, startButton);
+        private void ClearAllYMAPsToolStripMenuItem_Click(object sender, EventArgs e) => StringFunctions.ClearItemsFromListBox(".ymap", CurrentList, FilesAddedLabel, startButton);
+        private void clearAllRPFsToolStripMenuItem_Click(object sender, EventArgs e) => StringFunctions.ClearItemsFromListBox(".rpf", CurrentList, FilesAddedLabel, startButton);
 
-        private void ClearAllYMAPsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void Tick(object info)
         {
-            StringFunctions.ClearItemsFromListBox(".ymap", CurrentList, FilesAddedLabel, startButton);
-        }
-
-        private void clearAllRPFsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StringFunctions.ClearItemsFromListBox(".rpf", CurrentList, FilesAddedLabel, startButton);
+            DateTime currentTime = DateTime.Now;
+            TimeLabel.Text = $"Time Elapsed: {StringFunctions.ConvertMillisecondsToSeconds((currentTime - timerTime).TotalMilliseconds)}";
         }
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            var watch = Stopwatch.StartNew();
-            TimeLabel.Text = "Time Elapsed: 0ms";
+            timerTime = DateTime.Now;
+            watch = new System.Threading.Timer(Tick, null, 0, 10);
             cancelButton.Enabled = true;
             var errorFiles = new List<string>(){};
+
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                for (var j = 0; j < CurrentList.Items.Count; j++)
-                {
-                    if (CancelLoop)
+                //while (cancelLoop)
+                //{
+                    for (var j = 0; j < CurrentList.Items.Count; j++)
                     {
-                        FilesAddedLabel.Text = "Cancelled";
-                        CancelLoop = false;
-                        return;
-                    }
-                    string filename = CurrentList.Items[j].ToString();
-                    FilesAddedLabel.Text = "Processing " + Path.GetFileName(filename) + " (" + (j + 1) + " of " + CurrentList.Items.Count + ")";
-                    Vector3 moveVec = new Vector3(float.Parse(xMove.Text), float.Parse(yMove.Text), float.Parse(zMove.Text));
+                        string filename = CurrentList.Items[j].ToString();
+                        FilesAddedLabel.Text = "Processing " + Path.GetFileName(filename) + " (" + (j + 1) + " of " + CurrentList.Items.Count + ")";
 
-                    if (filename.EndsWith(".ybn"))
-                    {
-                        YbnFile ybn = new YbnFile();
-                        RpfDirectoryEntry RPFFilesDirectory;
-                        byte[] oldData;
-                        if (filename.Contains(".rpf"))
+                        Vector3 moveVec = new Vector3(float.Parse(xMove.Text), float.Parse(yMove.Text), float.Parse(zMove.Text));
+                        //Quaternion rotVec = Quaternion.RotationYawPitchRoll(float.Parse(xRotate.Text), float.Parse(yRotate.Text), float.Parse(zRotate.Text));
+
+                        if (backupFilesToolStripMenuItem.Checked)
                         {
-                            string fileDirectory = StringFunctions.TopMostRPF(filename);
-                            if (File.Exists(filename))
+                            if (!filename.Contains(".rpf")) File.Copy(filename, $"{filename}.old", true);
+                            else
                             {
-                                RPFFilesDirectory = null;
-                                oldData = File.ReadAllBytes(filename);
-                            } else
-                            {
-                                RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
-                                TopRPF.ScanStructure(null, null);
-                                (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
+                                string fileDirectory = StringFunctions.TopMostRPF(filename);
+                                File.Copy(fileDirectory, Path.Combine(fileDirectory, ".old"));
                             }
                         }
-                        else
-                        {
-                            RPFFilesDirectory = null;
-                            oldData = File.ReadAllBytes(filename);
-                        }
 
-                        try { 
-                            ybn.Load(oldData);
-                            if (backupFilesToolStripMenuItem.Checked)
+                        if (filename.EndsWith(".ybn"))
+                        {
+                            YbnFile ybn = new YbnFile();
+                            RpfDirectoryEntry RPFFilesDirectory;
+                            byte[] oldData;
+                            if (filename.Contains(".rpf"))
                             {
-                                if (!filename.Contains(".rpf"))
+                                string fileDirectory = StringFunctions.TopMostRPF(filename);
+                                if (File.Exists(filename))
                                 {
-                                    string backupFilename = Path.Combine(CurrentList.Items[j].ToString(), ".old");
-                                    byte[] newDataBackup = ybn.Save();
-                                    File.WriteAllBytes(backupFilename, newDataBackup);
+                                    RPFFilesDirectory = null;
+                                    oldData = File.ReadAllBytes(filename);
                                 }
                                 else
                                 {
-                                    string fileDirectory = StringFunctions.TopMostRPF(filename);
-                                    File.Copy(fileDirectory, Path.Combine(fileDirectory, ".old"));
+                                    RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                                    TopRPF.ScanStructure(null, null);
+                                    (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
                                 }
                             }
-
-                            if (ybn.Bounds != null)
+                            else
                             {
-                                ybn.Bounds.BoxCenter += moveVec;
-                                ybn.Bounds.BoxMax += moveVec;
-                                ybn.Bounds.BoxMin += moveVec;
-                                ybn.Bounds.SphereCenter += moveVec;
+                                RPFFilesDirectory = null;
+                                oldData = File.ReadAllBytes(filename);
+                            }
 
-                                BoundComposite boundcomp = ybn.Bounds as BoundComposite;
-                                var compchilds = boundcomp?.Children?.data_items;
-                                if (boundcomp.BVH != null)
+                            try
+                            {
+                                ybn.Load(oldData);
+
+                                if (ybn.Bounds != null)
                                 {
-                                    Vector3 boundcompBBC = ConvertToVec3(boundcomp.BVH.BoundingBoxCenter);
-                                    Vector3 boundcompBBMax = ConvertToVec3(boundcomp.BVH.BoundingBoxMax);
-                                    Vector3 boundcompBBMin = ConvertToVec3(boundcomp.BVH.BoundingBoxMin);
-                                    boundcomp.BVH.BoundingBoxCenter = new Vector4(boundcompBBC + moveVec, boundcomp.BVH.BoundingBoxCenter.W);
-                                    boundcomp.BVH.BoundingBoxMax = new Vector4(boundcompBBMax + moveVec, boundcomp.BVH.BoundingBoxMax.W);
-                                    boundcomp.BVH.BoundingBoxMin = new Vector4(boundcompBBMin + moveVec, boundcomp.BVH.BoundingBoxMin.W);
-                                }
-                                if (compchilds != null)
-                                {
-                                    for (int i = 0; i < compchilds.Length; i++)
+                                    ybn.Bounds.BoxCenter += moveVec;
+                                    ybn.Bounds.BoxMax += moveVec;
+                                    ybn.Bounds.BoxMin += moveVec;
+                                    ybn.Bounds.SphereCenter += moveVec;
+
+                                    BoundComposite boundcomp = ybn.Bounds as BoundComposite;
+                                    var compchilds = boundcomp?.Children?.data_items;
+                                    if (boundcomp.BVH != null)
                                     {
-                                        compchilds[i].BoxCenter += moveVec;
-                                        compchilds[i].BoxMax += moveVec;
-                                        compchilds[i].BoxMin += moveVec;
-                                        compchilds[i].SphereCenter += moveVec;
-                                        BoundBVH bgeom = compchilds[i] as BoundBVH;
-                                        if (bgeom != null)
+                                        Vector3 boundcompBBC = MathFunctions.ConvertToVec3(boundcomp.BVH.BoundingBoxCenter);
+                                        Vector3 boundcompBBMax = MathFunctions.ConvertToVec3(boundcomp.BVH.BoundingBoxMax);
+                                        Vector3 boundcompBBMin = MathFunctions.ConvertToVec3(boundcomp.BVH.BoundingBoxMin);
+                                        boundcomp.BVH.BoundingBoxCenter = new Vector4(boundcompBBC + moveVec, boundcomp.BVH.BoundingBoxCenter.W);
+                                        boundcomp.BVH.BoundingBoxMax = new Vector4(boundcompBBMax + moveVec, boundcomp.BVH.BoundingBoxMax.W);
+                                        boundcomp.BVH.BoundingBoxMin = new Vector4(boundcompBBMin + moveVec, boundcomp.BVH.BoundingBoxMin.W);
+                                    }
+                                    if (compchilds != null)
+                                    {
+                                        for (int i = 0; i < compchilds.Length; i++)
                                         {
-                                            if (bgeom.BVH != null)
+                                            compchilds[i].BoxCenter += moveVec;
+                                            compchilds[i].BoxMax += moveVec;
+                                            compchilds[i].BoxMin += moveVec;
+                                            compchilds[i].SphereCenter += moveVec;
+                                            BoundBVH bgeom = compchilds[i] as BoundBVH;
+                                            if (bgeom != null)
                                             {
-                                                Vector3 bgeomBBC = ConvertToVec3(bgeom.BVH.BoundingBoxCenter);
-                                                Vector3 bgeomBBMax = ConvertToVec3(bgeom.BVH.BoundingBoxMax);
-                                                Vector3 bgeomBBMin = ConvertToVec3(bgeom.BVH.BoundingBoxMin);
-                                                bgeom.BVH.BoundingBoxCenter = new Vector4(bgeomBBC + moveVec, bgeom.BVH.BoundingBoxCenter.W);
-                                                bgeom.BVH.BoundingBoxMax = new Vector4(bgeomBBMax + moveVec, bgeom.BVH.BoundingBoxMax.W);
-                                                bgeom.BVH.BoundingBoxMin = new Vector4(bgeomBBMin + moveVec, bgeom.BVH.BoundingBoxMin.W);
+                                                if (bgeom.BVH != null)
+                                                {
+                                                    Vector3 bgeomBBC = MathFunctions.ConvertToVec3(bgeom.BVH.BoundingBoxCenter);
+                                                    Vector3 bgeomBBMax = MathFunctions.ConvertToVec3(bgeom.BVH.BoundingBoxMax);
+                                                    Vector3 bgeomBBMin = MathFunctions.ConvertToVec3(bgeom.BVH.BoundingBoxMin);
+                                                    bgeom.BVH.BoundingBoxCenter = new Vector4(bgeomBBC + moveVec, bgeom.BVH.BoundingBoxCenter.W);
+                                                    bgeom.BVH.BoundingBoxMax = new Vector4(bgeomBBMax + moveVec, bgeom.BVH.BoundingBoxMax.W);
+                                                    bgeom.BVH.BoundingBoxMin = new Vector4(bgeomBBMin + moveVec, bgeom.BVH.BoundingBoxMin.W);
+                                                }
+                                                bgeom.CenterGeom = bgeom.CenterGeom + moveVec;
                                             }
-                                            bgeom.CenterGeom = bgeom.CenterGeom + moveVec;
                                         }
                                     }
                                 }
+                                byte[] newData = ybn.Save();
+                                if (filename.Contains(".rpf"))
+                                {
+                                    if (File.Exists(filename))
+                                    {
+                                        RPFFilesDirectory = null;
+                                        oldData = File.ReadAllBytes(filename);
+                                    }
+                                    else RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                }
+                                else File.WriteAllBytes(filename, newData);
                             }
-                            byte[] newData = ybn.Save();
+                            catch (Exception)
+                            {
+                                errorFiles.Add(filename);
+                            }
+                        }
+                        else if (filename.EndsWith(".ymap"))
+                        {
+                            YmapFile ymap = new YmapFile();
+                            RpfDirectoryEntry RPFFilesDirectory;
+                            byte[] oldData;
                             if (filename.Contains(".rpf"))
                             {
+                                string fileDirectory = StringFunctions.TopMostRPF(filename);
                                 if (File.Exists(filename))
                                 {
                                     RPFFilesDirectory = null;
@@ -391,172 +372,104 @@ namespace ymapmover
                                 }
                                 else
                                 {
-                                    RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
+                                    RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
+                                    TopRPF.ScanStructure(null, null);
+                                    (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
                                 }
                             }
                             else
-                            {
-                                File.WriteAllBytes(filename, newData);
-                            }
-
-                            var elapsedMss = watch.ElapsedMilliseconds;
-                            TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
-                        }
-                        catch (Exception) { 
-                            errorFiles.Add(filename); 
-                        }
-                    }
-                    else if (filename.EndsWith(".ymap"))
-                    {
-                        YmapFile ymap = new YmapFile();
-                        RpfDirectoryEntry RPFFilesDirectory;
-                        byte[] oldData;
-                        if (filename.Contains(".rpf"))
-                        {
-                            string fileDirectory = StringFunctions.TopMostRPF(filename);
-                            if (File.Exists(filename))
                             {
                                 RPFFilesDirectory = null;
                                 oldData = File.ReadAllBytes(filename);
                             }
-                            else
-                            {
-                                RpfFile TopRPF = new RpfFile(fileDirectory, fileDirectory);
-                                TopRPF.ScanStructure(null, null);
-                                (RPFFilesDirectory, oldData) = RPFFunctions.GetFileData(TopRPF, Path.GetFileName(filename));
-                            }
-                        }
-                        else
-                        {
-                            RPFFilesDirectory = null;
-                            oldData = File.ReadAllBytes(filename);
-                        }
 
-                        try { 
-                            ymap.Load(oldData);
-                            if (backupFilesToolStripMenuItem.Checked)
+                            try
                             {
-                                if (!filename.Contains(".rpf"))
+                                ymap.Load(oldData);
+                                if (ymap.CarGenerators != null)
                                 {
-                                    string backupFilename = Path.Combine(CurrentList.Items[j].ToString(), ".old");
-                                    byte[] newDataBackup = ymap.Save();
-                                    File.WriteAllBytes(backupFilename, newDataBackup);
+                                    foreach (YmapCarGen yEnts in ymap.CarGenerators)
+                                    {
+                                        yEnts.SetPosition(yEnts.Position + moveVec);
+                                        //yEnts.Orientation = Quaternion.Add(yEnts.Orientation, rotVec);
+                                    }
                                 }
-                                else
+                                if (ymap.AllEntities != null)
                                 {
-                                    string fileDirectory = StringFunctions.TopMostRPF(filename);
-                                    File.Copy(fileDirectory, Path.Combine(fileDirectory, ".old"));
+                                    foreach (YmapEntityDef yEnts in ymap.AllEntities)
+                                    {
+                                        yEnts.SetPosition(yEnts.Position + moveVec);
+                                        //yEnts.Orientation = Quaternion.Add(yEnts.Orientation, rotVec);
+                                    }
                                 }
-                            }
-
-                            if (ymap.GrassInstanceBatches != null)
-                            {
-                                foreach (YmapGrassInstanceBatch yEnts in ymap.GrassInstanceBatches)
+                                if (ymap.DistantLODLights != null)
                                 {
-                                    yEnts.Position += moveVec;
-                                    yEnts.AABBMin += moveVec;
-                                    yEnts.AABBMax += moveVec;
+                                    int lightCount = ymap._CMapData.DistantLODLightsSOA.position.Count1;
+                                    for (int i = 0; i < lightCount; i++)
+                                    {
+                                        Vector3 vector3 = ymap.DistantLODLights.positions[i].ToVector3() + moveVec;
+                                        MetaVECTOR3 metaVec = new MetaVECTOR3 { x = vector3.X, y = vector3.Y, z = vector3.Z };
+                                        ymap.DistantLODLights.positions[i] = metaVec;
+                                    }
                                 }
-                            }
-                            if (ymap.CarGenerators != null)
-                            {
-                                foreach (YmapCarGen yEnts in ymap.CarGenerators) { yEnts.SetPosition(yEnts.Position + moveVec); }
-                            }
-
-                            if (ymap.AllEntities != null)
-                            {
-                                foreach (YmapEntityDef yEnts in ymap.AllEntities) { yEnts.SetPosition(yEnts.Position + moveVec); }
-                            }
-
-                            if (ymap.DistantLODLights != null)
-                            {
-                                int lightCount = ymap._CMapData.DistantLODLightsSOA.position.Count1;
-                                for (int i = 0; i < lightCount; i++)
+                                if (ymap.GrassInstanceBatches != null)
                                 {
-                                    Vector3 vector3 = ymap.DistantLODLights.positions[i].ToVector3() + moveVec;
-                                    MetaVECTOR3 metaVec = new MetaVECTOR3{x = vector3.X, y = vector3.Y, z = vector3.Z};
-                                    ymap.DistantLODLights.positions[i] = metaVec;
+                                    foreach (YmapGrassInstanceBatch yEnts in ymap.GrassInstanceBatches)
+                                    {
+                                        yEnts.Position += moveVec;
+                                        yEnts.AABBMin += moveVec;
+                                        yEnts.AABBMax += moveVec;
+                                    }
                                 }
-                            }
 
-                            ymap._CMapData.streamingExtentsMax = ymap.CMapData.streamingExtentsMax + moveVec;
-                            ymap._CMapData.streamingExtentsMin = ymap.CMapData.streamingExtentsMin + moveVec;
-                            ymap._CMapData.entitiesExtentsMax = ymap.CMapData.entitiesExtentsMax + moveVec;
-                            ymap._CMapData.entitiesExtentsMin = ymap.CMapData.entitiesExtentsMin + moveVec;
+                                ymap._CMapData.streamingExtentsMax = ymap.CMapData.streamingExtentsMax + moveVec;
+                                ymap._CMapData.streamingExtentsMin = ymap.CMapData.streamingExtentsMin + moveVec;
+                                ymap._CMapData.entitiesExtentsMax = ymap.CMapData.entitiesExtentsMax + moveVec;
+                                ymap._CMapData.entitiesExtentsMin = ymap.CMapData.entitiesExtentsMin + moveVec;
 
-                            byte[] newData = ymap.Save();
-                            if (filename.Contains(".rpf"))
-                            {
-                                if (File.Exists(filename))
+                                byte[] newData = ymap.Save();
+                                if (filename.Contains(".rpf"))
                                 {
-                                    RPFFilesDirectory = null;
-                                    oldData = File.ReadAllBytes(filename);
+                                    if (File.Exists(filename))
+                                    {
+                                        RPFFilesDirectory = null;
+                                        oldData = File.ReadAllBytes(filename);
+                                    }
+                                    else RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
                                 }
-                                else
-                                {
-                                    RPFFunctions.AddFileBackToRPF(RPFFilesDirectory, filename, newData);
-                                }
+                                else File.WriteAllBytes(filename, newData);
                             }
-                            else
+                            catch (Exception)
                             {
-                                File.WriteAllBytes(filename, newData);
+                                errorFiles.Add(filename);
                             }
-
-                            var elapsedMss = watch.ElapsedMilliseconds;
-                            TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
-                        }
-                        catch (Exception) { 
-                            errorFiles.Add(filename); 
                         }
                     }
-                }
-                if (errorFiles.Count != 0)
-                {
-                    string message = "The following file(s) were corrupted and were not edited.\n\n";
-                    foreach (string item in errorFiles)
+                    if (errorFiles.Count != 0)
                     {
-                        message = message + item + "\n";
+                        string message = "The following file(s) were corrupted and were not edited.\n\n";
+                        foreach (string item in errorFiles) message = message + item + "\n";
+
+                        MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                FilesAddedLabel.Text = "Complete";
-                var elapsedMs = watch.ElapsedMilliseconds;
-                TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMs).ToString();
-                cancelButton.Enabled = false;
+                    FilesAddedLabel.Text = "Complete";
+                    cancelButton.Enabled = false;
+                    watch.Dispose();
+                //}
             }).Start();
         }
 
-        private void xMove_TextChanged(object sender, EventArgs e)
-        {
-            FloatOnly(xMove);
-        }
-
-        private void yMove_TextChanged(object sender, EventArgs e)
-        {
-            FloatOnly(yMove);
-        }
-
-        private void zMove_TextChanged(object sender, EventArgs e)
-        {
-            FloatOnly(zMove);
-        }
-
-        private void FloatOnly(TextBox textBox)
-        {
-            if (!float.TryParse(textBox.Text, out _))
-            {
-                textBox.Text = Regex.Replace(textBox.Text, "[^0-9.+-]", "");
-            }
-        }
-
-        private Vector3 ConvertToVec3(Vector4 vec4)
-        {
-            return new Vector3(vec4.X, vec4.Y, vec4.Z);
-        }
+        private void xMove_TextChanged(object sender, EventArgs e) => MathFunctions.FloatOnly(xMove);
+        private void yMove_TextChanged(object sender, EventArgs e) => MathFunctions.FloatOnly(yMove);
+        private void zMove_TextChanged(object sender, EventArgs e) => MathFunctions.FloatOnly(zMove);
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            CancelLoop = true;
+            cancelLoop = true;
+            watch.Dispose();
+            FilesAddedLabel.Text = "Cancelled";
+            cancelLoop = false;
+            cancelButton.Enabled = false;
         }
 
         private void calculateVectorDifferencesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -594,7 +507,8 @@ namespace ymapmover
 
         private void rPFFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var watch = Stopwatch.StartNew();
+            timerTime = DateTime.Now;
+            watch = new System.Threading.Timer(Tick, null, 0, 10);
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 new Thread(() =>
@@ -610,15 +524,14 @@ namespace ymapmover
                             rpf.ScanStructure(null, null);
                             var fileTypes = new List<string>() { ".ybn", ".ymap" };
                             RPFFunctions.SearchRPF(rpf, file, CurrentList, fileTypes);
-                            var elapsedMss = watch.ElapsedMilliseconds;
-                            TimeLabel.Text = "Time Elapsed: " + StringFunctions.ConvertMillisecondsToSeconds(elapsedMss).ToString();
                         }
                         catch (Exception)
                         {
                             MessageBox.Show("Error can't read " + file + ".\nThis file has been skipped.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    StringFunctions.SetCountAndTime(watch.ElapsedMilliseconds, TimeLabel, CurrentList, FilesAddedLabel, startButton);
+                    StringFunctions.SetCount(CurrentList, FilesAddedLabel, startButton);
+                    watch.Dispose();
                 }).Start();
             }
         }
@@ -629,9 +542,6 @@ namespace ymapmover
             AudioOcclusionForm.ShowDialog();
         }
 
-        private void SourcecodeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://github.com/smallo92/Ymap-YbnMover");
-        }
+        private void SourcecodeToolStripMenuItem_Click(object sender, EventArgs e) => Process.Start("https://github.com/smallo92/Ymap-YbnMover");
     }
 }

@@ -12,6 +12,8 @@ namespace ymapmover
 {
     public partial class Startup : Form
     {
+        private string website = "http://fivem.fail/ymapybnmover/";
+
         public Startup()
         {
             InitializeComponent();
@@ -29,7 +31,7 @@ namespace ymapmover
             StreamReader reader;
             try
             {
-                stream = client.OpenRead("http://fivem.fail/ymapybnmover/version.txt");
+                stream = client.OpenRead($"{website}version.txt");
                 reader = new StreamReader(stream);
                 VersionCheck = reader.ReadToEnd().Trim();
             }
@@ -38,7 +40,7 @@ namespace ymapmover
             {
                 try
                 {
-                    stream = client.OpenRead("http://fivem.fail/ymapybnmover/changelog.txt");
+                    stream = client.OpenRead($"{website}changelog.txt");
                     reader = new StreamReader(stream);
                     ChangeLogText = reader.ReadToEnd().Trim();
                 }
@@ -75,7 +77,7 @@ namespace ymapmover
 
         private void yesButton_Click(object sender, EventArgs e)
         {
-            Process.Start("http://fivem.xpl.wtf/ymapybnmover/update.zip");
+            Process.Start($"{website}update.zip");
             Close();
             Application.Exit();
             Application.ExitThread();
