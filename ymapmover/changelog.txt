@@ -1,1 +1,1 @@
-﻿- Fixed a bug which sometimes fucked with paths
+﻿- Using Path.DirectorySeparatorChar instead of a string

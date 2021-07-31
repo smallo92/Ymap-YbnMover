@@ -45,7 +45,7 @@ namespace YmapYbnMover
             string fileDirectory = null;
             foreach (string word in words)
             {
-                if (fileDirectory == null) fileDirectory = word + @"\";
+                if (fileDirectory == null) fileDirectory = word + Path.DirectorySeparatorChar;
                 else fileDirectory = Path.Combine(fileDirectory, word);
 
                 if (word.Contains(".rpf")) return fileDirectory;
