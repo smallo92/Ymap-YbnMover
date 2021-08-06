@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -43,6 +42,7 @@ namespace ymapmover
 
         private void CurrentList_DragDrop(object sender, DragEventArgs e)
         {
+            watch = new System.Threading.Timer(Tick, null, 0, 10);
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -78,6 +78,7 @@ namespace ymapmover
         {
             if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
+                watch = new System.Threading.Timer(Tick, null, 0, 10);
                 new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
@@ -365,6 +366,7 @@ namespace ymapmover
         {
             if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
             {
+                watch = new System.Threading.Timer(Tick, null, 0, 10);
                 new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
